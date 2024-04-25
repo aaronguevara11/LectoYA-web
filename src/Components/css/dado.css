@@ -1,0 +1,45 @@
+.dice {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.side {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 10px solid black;
+  background-color: white;
+}
+
+.front {
+  transform: rotateX(180deg)translateZ(-100px);
+}
+
+.back {
+  transform: rotateX(180deg) translateZ(100px);
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(100px);
+}
+
+.left {
+  transform: rotateY(-90deg) translateZ(100px);
+}
+
+.top {
+  transform: rotateX(90deg) translateZ(100px);
+}
+
+.bottom {
+  transform: rotateX(-90deg) translateZ(100px);
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 24px;
+  z-index: 50;
+}
