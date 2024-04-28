@@ -1,3 +1,12 @@
+img{
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+}
+.container {
+  perspective: 1000px;
+}
+
 .dice {
   position: relative;
   width: 200px;
