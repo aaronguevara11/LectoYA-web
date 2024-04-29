@@ -4,7 +4,8 @@ import { CambialoYa } from "./Components/Games/CambialoYa";
 import { Significado } from "./Components/Games/Significado";
 import { Interactivas } from "./Components/Games/Interactivas";
 import { Dado } from "./Components/Games/Dado";
-import {IDado } from "./Components/Elements/IDado"
+import {IDado } from "./Components/Elements/IDado";
+import {Modulos} from "../src/pages/Modulos"
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <SideBar />
       </div>
       <div className="flex flex-grow overflow-auto bg-gray-100 ">
-        <Dado />
+        <Modulos />
       </div>
     </main>
   );
