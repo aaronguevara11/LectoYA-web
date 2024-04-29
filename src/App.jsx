@@ -6,6 +6,7 @@ import { Interactivas } from "./Components/Games/Interactivas";
 import { Dado } from "./Components/Games/Dado";
 import {IDado } from "./Components/Elements/IDado";
 import {Modulos} from "../src/pages/Modulos"
+import { OrdenaloYa } from "./Components/Games/OrdenaloYa";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <SideBar />
       </div>
       <div className="flex flex-grow overflow-auto bg-gray-100 ">
-        <Modulos />
+        {/* <Modulos /> */}
+        <OrdenaloYa />
       </div>
     </main>
   );
