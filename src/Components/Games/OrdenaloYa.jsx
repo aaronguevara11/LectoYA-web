@@ -121,6 +121,23 @@ export const OrdenaloYa = () => {
 
   }
 
+  const sendOrder = () =>{
+    let elements  = 0 ;
+        sentence.map( senten => {
+            if(senten.list == 1){
+                elements +=1
+            }
+
+        })
+    if(elements==5){
+        //enviardata
+        console.log("correct")
+        
+    }else{
+        console.log("error")
+    }
+  }
+
   return (
     <>
         <div className="w-full h-full">
@@ -158,6 +175,12 @@ export const OrdenaloYa = () => {
                             ))}
                         </div>
                     </div>
+
+
+
+                    <button className="absolute bottom-10 bg-orange-400 w-40 rounded-lg p-2" onClick={sendOrder}>
+                     Enviar
+                    </button>
 
                 </div>
         </div> 
