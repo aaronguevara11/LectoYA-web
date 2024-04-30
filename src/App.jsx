@@ -8,7 +8,7 @@ import {IDado } from "./Components/Elements/IDado";
 import {Modulos} from "../src/pages/Modulos"
 import { OrdenaloYa } from "./Components/Games/OrdenaloYa";
 import { Ruleteando } from "./Components/Games/RuletaYA";
-
+import { RuletaRusaYa } from "./Components/Games/RuletaRusaYa";
 function App() {
   return (
     <main className="flex h-screen w-full">
@@ -17,7 +17,7 @@ function App() {
       </div>
       <div className="flex flex-grow overflow-auto bg-gray-100 ">
         {/* <Modulos /> */}
-        <Ruleteando />
+        <RuletaRusaYa />
       </div>
     </main>
   );

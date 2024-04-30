@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ruleta from '../img/ruleta.png'
+import arrow from '../img/arrow.png'
 export const Ruleteando = () => {
     const [rotate,setRotate] = useState(0)
     const [colorlog, setColorlog] = useState("buenasuete")
@@ -36,7 +37,7 @@ export const Ruleteando = () => {
 
     const spin= ()=>
     {
-        const newRotation= Math.floor(Math.random(20)*1500)+340;
+        const newRotation= Math.floor(Math.random(20)*240)+340;
         setRotate(rotate + newRotation)
         final
     }
@@ -46,10 +47,14 @@ export const Ruleteando = () => {
         <div className='monedas'></div>
         <div className='tiradas'></div>
         <div className='plafon relative mt-3 mx-auto mb-0 text-center w-[720px]'>
-            <div className='ruleta w-[500px] h-[500px] bg-cover mt-0 mx-auto mb-4' 
+            <div className='ruleta w-[500px] h-[500px] bg-cover mt-0 mx-auto mb-4 flex justify-center items-center' 
             style={{ backgroundImage: `url(${ruleta})`,transform:`rotate(${rotate}deg)`, transition: "transform 10s cubic-bezier(0.6, 0, 0, 1)"}} 
             onTransitionEnd={final}
             >
+            </div>
+
+            <div className='w-full h-4 flex justify-center items-center'>
+              <img src={arrow} alt="⚕️" className='  w-11 absolute z-10 h-4 top-0 rotate-180' />
             </div>
 
             <div className='premio'></div>
