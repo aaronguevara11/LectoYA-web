@@ -1,8 +1,11 @@
 import { HdDado } from "../Headers/HdDados";
 import { AiOutlineSend } from "react-icons/ai";
 import { IDado } from "../Elements/IDado";
+import { useState } from "react";
 
 export const Dado = () => {
+  const [result,setResult] = useState()
+
   return (
     <section className="w-full h-4/5 d-grid">
       <div className="body w-full h-screen">
