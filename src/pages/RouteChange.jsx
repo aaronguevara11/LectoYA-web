@@ -42,7 +42,7 @@ export const RouteChange = () => {
   
 
   return (
-    <div>
+    <div className='w-full justify-center'>
       <Homeicon BackHome={BackHome} />
       <Item page={indexPage}/>
     </div>

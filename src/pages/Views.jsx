@@ -7,7 +7,7 @@ export const Views = () => {
       <div className="flex-shrink-0 w-72 bg-blue-950 text-white">
         <SideBar />
       </div>
-      <div className="flex flex-grow overflow-auto bg-gray-100 relative">
+      <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full justify-center">
         {/* <Modulos /> */}
 
        <RouteChange /> 

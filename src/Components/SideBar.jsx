@@ -1,6 +1,15 @@
 import { List, ListItem } from "@material-tailwind/react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 export const SideBar = () => {
+  const navigate = useNavigate();
+  const closeSession=()=>{
+    localStorage.removeItem("jwtdata");
+    navigate('./LoginDocente')
+  }
+ 
   return (
     <section className="w-full h-max bg-blue-950">
       <div className="titulo h-2/12">
@@ -8,6 +17,7 @@ export const SideBar = () => {
           LectoYA
         </h1>
       </div>
+
 
       <div className="datos grid h-4/5 ml-8 mt-8">
         <List className="text-white grid py-4 text-[20px]">
@@ -20,8 +30,9 @@ export const SideBar = () => {
         </List>
       </div>
 
+
       <div className="btn flex justify-center items-end">
-        <button className="bg-blue-900 hover:bg-blue-800 text-white font-semibold w-4/5 h-14 border border-none rounded-xl shadow">
+        <button className="bg-blue-900 hover:bg-blue-800 text-white font-semibold w-4/5 h-14 border border-none rounded-xl shadow" onClick={closeSession}>
           Cerrar sesión
         </button>
       </div>

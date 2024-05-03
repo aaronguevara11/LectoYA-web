@@ -1,84 +1,94 @@
 import React from 'react'
+import { Navigate, Outlet } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
+// export const ProtectedRoute = ({ jwtdata, children, redirectTo, rutaD }) => {
+//   const navigate = useNavigate();
+//   if (jwtdata != "1" && jwtdata !=undefined) {
+//     navigateTo(rutaD)
+//   }else{
+//     navigate(redirectTo);
+//   }
+
+
+// }
+
+// Login.jsx
+import { useEffect, useState } from 'react'
 import logo from "../assets/images/qchao.png"
 import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { ProtectedRoute } from "./ProtectedRouter.jsx";
+import { Views } from "../pages/Views";
+import { Tema } from "../pages/Tema.jsx";
 
 export const Login = () => {
   const endpoint = "http://localhost:3000/app/loginDocentes"
-  const jwt = "12345679857"
+  const navigate = useNavigate();
+  const [jwtdata, setJwtData] = useState("1")
+  const [correo, setCorreo] = useState("")
+  const [contraseña, setContraseña] = useState("")
+  const [userData, setUserData] = useState(null);
+  localStorage.setItem('jwtdata', jwtdata)
 
-  const [jwtdata, setJwtData] = useState("1")  
-  const [correo, setCorreo] = useState("brunop@gmail.com")
-  const [contraseña,setContraseña] = useState("Aaron11")
-  const [redirect, setRedirect] = useState(true);
+  const loginAxios = async (correo, contraseña) => {
 
-    // const fetchList = async () => {
-    //   const response = await axios.put(endpoint,{
-    //       headers:{
-    //           Authorization : Bearer `${jwt}`
-    //       }
-    //   });
-    //   console.log(response.data);
-    // };
 
-    const loginAxios = async (correo,contraseña) =>{
-      
-      const response = await axios.put(endpoint,{
-          
-              correo : correo,
-              password : contraseña
-          
-      }).then(function (response) {
-          console.log(response);
-          setJwtData(response.data.token)
-          
-        }).catch(function (error) {
-          console.log(error);
-        });
-      console.log(response)
+    const response = await axios.put(endpoint, {
+      correo: correo,
+      password: contraseña
+    }).then(function (response) {
+      console.log(response.data.token)
+      setJwtData(response.data.token)
+      localStorage.setItem('jwtdata', response.data.token);
+
+      if (response.data.message === "Datos incorrectos") {
+        alert(response.data.message)
+      }
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+
+
+
+  useEffect(() => {
+    if (jwtdata && jwtdata != "1") {
+      console.log(jwtdata)
+      console.log(localStorage.getItem('jwtdata'))
+      navigate("/home");
+
     }
-    
-    useEffect(() => {
-       if(jwtdata != "1"){
+   }, [jwtdata]);
+
+
+
+
+
+  const handleInputChangeCorreo = ({ target }) => {
+    setCorreo(target.value)
+  }
+
+  const handleInputChangeContraseña = ({ target }) => {
+    setContraseña(target.value)
+  }
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+   
+      loginAxios(correo, contraseña);
+      if (jwtdata =="1" || jwtdata == undefined) {
         console.log(jwtdata)
-        ;
-
-       }
-
-
-    },[jwtdata]);
-
-
-
-    // cambios de estados 
-    const handleInputChangeCorreo = ({target}) => {
-      setCorreo(target.value)
-    }
-    const handleInputChangeContraseña = ({target}) => {
-        setContraseña(target.value)
-    }
-
-    const handleSubmit =(e)=>{
-        e.preventDefault()
-        loginAxios(correo,contraseña)
-        localStorage.setItem('jwtdata', jwtdata);
-        setRedirect(true);
+        setUserData(jwtdata);
         
-        // navigate('./RouteChange.jsx')
-
-    }
-
-
-
-
-
-
+      } else {
+        console.log("error");
+      }
+    } 
 
   return (
     <>
+
 
       <section className="bg-gray-50 dark:bg-gray-900 h-full w-full">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -97,8 +107,8 @@ export const Login = () => {
                             <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" value={correo} onChange={handleInputChangeCorreo}/>
                         </div>
                         <div>
-                            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" value={contraseña} onChange={handleInputChangeContraseña}>Password</label>
-                            <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""  value={contraseña} onChange={handleInputChangeContraseña}/>
                         </div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-start">
@@ -123,6 +133,7 @@ export const Login = () => {
             </div>
         </div>
       </section>
+
     </>
   )
 }

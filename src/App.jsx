@@ -1,43 +1,51 @@
-
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import { Login } from "./pages/Login";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Views } from "./pages/Views";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-
-
+import { Tema } from "./pages/Tema";
+import { ProtectedRoute } from "./pages/ProtectedRouter";
 
 function App() {
+  const [jwtDataLocal, setJwtDataLocal] = useState(localStorage.getItem('jwtdata'));
+  const handleStorageChange = () => {
+    console.log("obteniendo del localstorage")   
+    setJwtDataLocal(localStorage.getItem('jwtdata'));
+ 
+  };
+  useEffect(() => {
+    // Función para manejar el cambio en el localStorage
+
+    handleStorageChange()
+    console.log(jwtDataLocal)
+    
+    // Agregar un event listener para escuchar cambios en el localStorage
+  }, [localStorage]);
+
+  const miFuncionDeEfecto = () => {
+    // Código que se ejecuta cuando se actualiza el localStorage
+    console.log("¡localStorage actualizado!");
+    // Puedes actualizar el estado del componente aquí
+  };
+
+  useEffect(miFuncionDeEfecto, [localStorage]);
+
+
   return (
     <main className="flex h-screen w-full">
-       <Router>
-                <Routes>
-                  <Route path="/" element={<Navigate to="/LoginDocente" />} />
-                    {/* This route is for home component 
-          with exact path "/", in component props 
-          we passes the imported component*/}
-                    <Route
-                        exact
-                        path="/LoginDocente"
-                        element={<Login />}
-                    />
- 
-                    {/* This route is for about component 
-          with exact path "/about", in component 
-          props we passes the imported component*/}
-                    <Route
-                        path="/home"
-                        element={<Views />}
-                    />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/LoginDocente" />} />
+          {/* LOGIN */}
+          <Route path="/LoginDocente" element={<Login />} />
 
-                </Routes>
-            </Router>
+          {/* RUTA PROTEGIDA */}
+          <Route element={<ProtectedRoute jwtdatalocal={jwtDataLocal}/>}>
+            <Route path="/home" element={<Views/> }/>
+          </Route>
 
+          <Route path="/*" element={<Login />} />
+        </Routes>
+      </Router>
     </main>
   );
 }
