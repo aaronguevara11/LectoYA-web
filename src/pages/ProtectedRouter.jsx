@@ -5,5 +5,6 @@ export const ProtectedRoute = ({jwtdatalocal,children}) => {
     console.log(jwtdatalocal)
     return <Navigate to ="/LoginDocente"/>
   }
+  
   return children?children: <Outlet/>
 };

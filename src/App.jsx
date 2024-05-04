@@ -7,27 +7,33 @@ import { ProtectedRoute } from "./pages/ProtectedRouter";
 
 function App() {
   const [jwtDataLocal, setJwtDataLocal] = useState(localStorage.getItem('jwtdata'));
-  const handleStorageChange = () => {
-    console.log("obteniendo del localstorage")   
-    setJwtDataLocal(localStorage.getItem('jwtdata'));
+  // const handleStorageChange = () => {
+  //   console.log("obteniendo del localstorage")   
+  //   setJwtDataLocal(localStorage.getItem('jwtdata'));
  
-  };
-  useEffect(() => {
+  // };
+  // useEffect(() => {
     // Función para manejar el cambio en el localStorage
 
-    handleStorageChange()
-    console.log(jwtDataLocal)
+  //   handleStorageChange()
+  //   console.log(jwtDataLocal)
     
-    // Agregar un event listener para escuchar cambios en el localStorage
-  }, [localStorage]);
+  //   // Agregar un event listener para escuchar cambios en el localStorage
+  // }, [localStorage]);
 
-  const miFuncionDeEfecto = () => {
-    // Código que se ejecuta cuando se actualiza el localStorage
-    console.log("¡localStorage actualizado!");
-    // Puedes actualizar el estado del componente aquí
-  };
+  // const miFuncionDeEfecto = () => {
+  //   // Código que se ejecuta cuando se actualiza el localStorage
+  //   console.log("¡localStorage actualizado!");
+  //   // Puedes actualizar el estado del componente aquí
+  // };
 
-  useEffect(miFuncionDeEfecto, [localStorage]);
+  useEffect(
+    () =>{
+      console.log("actualizando data del jwt") 
+      console.log(jwtDataLocal)
+    }
+    
+    , [jwtDataLocal]);
 
 
   return (
@@ -36,11 +42,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/LoginDocente" />} />
           {/* LOGIN */}
-          <Route path="/LoginDocente" element={<Login />} />
+          <Route path="/LoginDocente" element={<Login  setJwtDataLocal={setJwtDataLocal}/>} />
 
           {/* RUTA PROTEGIDA */}
           <Route element={<ProtectedRoute jwtdatalocal={jwtDataLocal}/>}>
-            <Route path="/home" element={<Views/> }/>
+            <Route path="/home" element={<Views /> }/>
+            <Route path="/Tema" element={<Tema/> }/>
+
           </Route>
 
           <Route path="/*" element={<Login />} />

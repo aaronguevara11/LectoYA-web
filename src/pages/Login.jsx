@@ -1,16 +1,7 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
-// export const ProtectedRoute = ({ jwtdata, children, redirectTo, rutaD }) => {
-//   const navigate = useNavigate();
-//   if (jwtdata != "1" && jwtdata !=undefined) {
-//     navigateTo(rutaD)
-//   }else{
-//     navigate(redirectTo);
-//   }
 
-
-// }
 
 // Login.jsx
 import { useEffect, useState } from 'react'
@@ -22,7 +13,7 @@ import { ProtectedRoute } from "./ProtectedRouter.jsx";
 import { Views } from "../pages/Views";
 import { Tema } from "../pages/Tema.jsx";
 
-export const Login = () => {
+export const Login = ({setJwtDataLocal}) => {
   const endpoint = "http://localhost:3000/app/loginDocentes"
   const navigate = useNavigate();
   const [jwtdata, setJwtData] = useState("1")
@@ -38,10 +29,8 @@ export const Login = () => {
       correo: correo,
       password: contraseña
     }).then(function (response) {
-      console.log(response.data.token)
       setJwtData(response.data.token)
       localStorage.setItem('jwtdata', response.data.token);
-
       if (response.data.message === "Datos incorrectos") {
         alert(response.data.message)
       }
@@ -54,8 +43,8 @@ export const Login = () => {
 
   useEffect(() => {
     if (jwtdata && jwtdata != "1") {
-      console.log(jwtdata)
       console.log(localStorage.getItem('jwtdata'))
+      setJwtDataLocal(jwtdata)
       navigate("/home");
 
     }
@@ -80,6 +69,7 @@ export const Login = () => {
       if (jwtdata =="1" || jwtdata == undefined) {
         console.log(jwtdata)
         setUserData(jwtdata);
+        setJwtDataLocal(jwtdata)
         
       } else {
         console.log("error");

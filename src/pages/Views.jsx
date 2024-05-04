@@ -1,17 +1,21 @@
 import React from 'react'
 import { SideBar } from "../Components/SideBar";
 import { RouteChange } from "../pages/RouteChange";
+import { Formulario } from './Formulario';
 export const Views = () => {
+  console.log("ingreso data")
+
+  console.log(localStorage.getItem('jwtdata'))
+  const token = localStorage.getItem('jwtdata')
   return (
     <>
       <div className="flex-shrink-0 w-72 bg-blue-950 text-white">
-        <SideBar />
+        <SideBar token={token} />
       </div>
-      <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full justify-center">
-        {/* <Modulos /> */}
-
-       <RouteChange /> 
-      </div>
+      <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
+        <Formulario /> 
+       {/* <RouteChange />  */}
+    </div>
     </>
   )
 }
