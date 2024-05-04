@@ -123,8 +123,8 @@ export const Modulos = ({ChangeTopic}) => {
               
 
 
-              <div className="btn flex justify-center w-full my-4 h-[45px]  bottom-0">
-                <button className="bg-black text-white hover:bg-neutral-700 w-4/5 font-bold py-2 px-4 rounded text-[20px] absolute bottom-5" 
+              <div className="btn flex justify-center w-full my-4 h-[50px] bottom-0">
+                <button className="bg-blue-950 text-white hover:bg-neutral-700 w-[85%] h-[50px] font-bold py-2 px-4 rounded text-[20px] absolute bottom-5" 
                 onClick={()=>topicChange(item.id)}>
                   Entrar
                 </button>
@@ -138,7 +138,7 @@ export const Modulos = ({ChangeTopic}) => {
 
         <div className="h-60 bg-gray-200 rounded overflow-hidden shadow-lg flex justify-center items-center m-5">
           <div className="informacion w-full h-full flex flex-col justify-center">
-                <Button onClick={handleOpen} className="text-black w-full h-full font-bold flex items-center justify-center text-[33px] hover:bg-gray-300"> Crear curso </Button>
+                <Button onClick={handleOpen} className="text-black bg-gray-200 w-full h-full font-bold flex items-center justify-center text-[33px] hover:bg-gray-300"> Crear curso </Button>
           </div>
         </div>
 
