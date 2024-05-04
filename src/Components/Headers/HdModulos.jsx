@@ -1,9 +1,12 @@
 export const HdModulos = () => {
   return (
-    <div className="w-full h-1/6">
-      <div className="titulo mt-4 flex justify-center items-center w-full">
-        <h1 className="font-bold font-sans text-[65px]">MODULOS</h1>
+    <div className="w-full h-[15%] flex-col min-w-[560px]">
+      <div className="titulo h-full flex pl-12 items-center w-full">
+        <div className="titulo sm:w-[60%] w-[80%]">
+          <h1 className="font-bold font-sans text-[68px]">MODULOS</h1>
+        </div>
       </div>
+      <hr />
     </div>
   )
 }

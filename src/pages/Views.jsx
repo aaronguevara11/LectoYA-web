@@ -1,7 +1,9 @@
 import React from 'react'
 import { SideBar } from "../Components/SideBar";
 import { RouteChange } from "../pages/RouteChange";
+import { Modulos } from '../Components/views/Modulos';
 import { Formulario } from './Formulario';
+import { nuevoCurso } from './nuevoCurso';
 export const Views = () => {
   console.log("ingreso data")
 
@@ -13,7 +15,7 @@ export const Views = () => {
         <SideBar token={token} />
       </div>
       <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
-        <Formulario /> 
+        <Modulos /> 
        {/* <RouteChange />  */}
     </div>
     </>
