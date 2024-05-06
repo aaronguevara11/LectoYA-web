@@ -8,9 +8,7 @@ import { Interactivas } from '../Components/Games/Interactivas';
 
 
 export const Views = ({setIdTema,setNombreCurso}) => {
-  console.log("ingreso data")
 
-  console.log(localStorage.getItem('jwtdata'))
   const token = localStorage.getItem('jwtdata')
   return (
     <>
@@ -18,8 +16,8 @@ export const Views = ({setIdTema,setNombreCurso}) => {
         <SideBar token={token} />
       </div>
       <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
-      <Interactivas/>
-         {/* <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/>  */}
+      {/* <Interactivas/> */}
+        <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/>  
        {/* <RouteChange />  */}
     </div>
     </>
