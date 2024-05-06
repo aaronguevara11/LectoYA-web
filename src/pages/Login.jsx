@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./ProtectedRouter.jsx";
 import { Views } from "../pages/Views";
-import { Tema } from "../pages/Tema.jsx";
+import { Tema } from "./TemaAnterios.jsx";
 
 export const Login = ({setJwtDataLocal}) => {
   const endpoint = "http://localhost:3000/app/loginDocentes"
@@ -20,17 +20,20 @@ export const Login = ({setJwtDataLocal}) => {
   const [correo, setCorreo] = useState("")
   const [contraseña, setContraseña] = useState("")
   const [userData, setUserData] = useState(null);
+  const [isChecked, setIsChecked] = useState(false);
+
   localStorage.setItem('jwtdata', jwtdata)
 
-  const loginAxios = async (correo, contraseña) => {
+  const loginAxiosDocente = async (correo, contraseña) => {
 
-
+    //LOGIN
     const response = await axios.put(endpoint, {
       correo: correo,
       password: contraseña
     }).then(function (response) {
       setJwtData(response.data.token)
       localStorage.setItem('jwtdata', response.data.token);
+      localStorage.setItem('person', "Docente");
       if (response.data.message === "Datos incorrectos") {
         alert(response.data.message)
       }
@@ -38,6 +41,25 @@ export const Login = ({setJwtDataLocal}) => {
       console.log(error);
     });
   }
+
+  const loginAxiosAlumno = async (correo, contraseña) => {
+
+    //LOGIN
+    const response = await axios.put("http://localhost:3000/app/loginAlumnos", {
+      correo: correo,
+      password: contraseña
+    }).then(function (response) {
+      setJwtData(response.data.token)
+      localStorage.setItem('jwtdata', response.data.token);
+      localStorage.setItem('person', "alumno");
+      if (response.data.message === "Datos incorrectos") {
+        alert(response.data.message)
+      }
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+
 
 
 
@@ -61,14 +83,27 @@ export const Login = ({setJwtDataLocal}) => {
   const handleInputChangeContraseña = ({ target }) => {
     setContraseña(target.value)
   }
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked); // Cambia el estado del checkbox cuando se hace clic
+    
+  };
+
+
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
-      loginAxios(correo, contraseña);
+    if(isChecked){
+      loginAxiosAlumno(correo, contraseña);
+    }else{
+      loginAxiosDocente(correo, contraseña);
+    }
+      
+
+
+
       if (jwtdata =="1" || jwtdata == undefined) {
-        console.log(jwtdata)
-        setUserData(jwtdata);
         setJwtDataLocal(jwtdata)
         
       } else {
@@ -103,15 +138,15 @@ export const Login = ({setJwtDataLocal}) => {
                         <div className="flex items-center justify-between">
                             <div className="flex items-start">
                                 <div className="flex items-center h-5">
-                                  <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="" />
+                                  <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" checked={isChecked}   onChange={handleCheckboxChange}/>
                                 </div>
                                 <div className="ml-3 text-sm">
-                                  <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
+                                  <label htmlFor="remember" className="text-gray-500 dark:text-gray-300"> SOY ALUMNO</label>
                                 </div>
                             </div>
-                            <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">htmlForgot password?</a>
+                            <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
                         </div>
-                        <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        <button type="submit" className="w-full text-white bg-blue-500 border-solid border-black  hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                         Sign in
                         
                         </button>

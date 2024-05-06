@@ -2,56 +2,42 @@ import { useState, useEffect } from "react";
 import { Login } from "./pages/Login";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Views } from "./pages/Views";
-import { Tema } from "./pages/Tema";
+import { Temas } from "./pages/Temas";
 import { ProtectedRoute } from "./pages/ProtectedRouter";
+import { Tema } from "./pages/Tema";
 
 function App() {
   const [jwtDataLocal, setJwtDataLocal] = useState(localStorage.getItem('jwtdata'));
-  // const handleStorageChange = () => {
-  //   console.log("obteniendo del localstorage")   
-  //   setJwtDataLocal(localStorage.getItem('jwtdata'));
- 
-  // };
-  // useEffect(() => {
-    // Función para manejar el cambio en el localStorage
-
-  //   handleStorageChange()
-  //   console.log(jwtDataLocal)
-    
-  //   // Agregar un event listener para escuchar cambios en el localStorage
-  // }, [localStorage]);
-
-  // const miFuncionDeEfecto = () => {
-  //   // Código que se ejecuta cuando se actualiza el localStorage
-  //   console.log("¡localStorage actualizado!");
-  //   // Puedes actualizar el estado del componente aquí
-  // };
-
-  useEffect(
-    () =>{
-      console.log("actualizando data del jwt") 
-      console.log(jwtDataLocal)
-    }
-    
-    , [jwtDataLocal]);
+  
+  const [nombreCurso, setNombreCurso] = useState('');
+  const [idTema, setIdTema] = useState('');
+  const [idCurso, setIdCurso] = useState('');
+  
+   useEffect(
+     () =>{
+        
+     }
+  
+     , [idTema]);
 
 
   return (
     <main className="flex h-screen w-full">
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/LoginDocente" />} />
+          <Route path="/" element={<Navigate to="/Login" />} />
           {/* LOGIN */}
-          <Route path="/LoginDocente" element={<Login  setJwtDataLocal={setJwtDataLocal}/>} />
+          <Route path="/Login" element={<Login  setJwtDataLocal={setJwtDataLocal}/>} />
 
           {/* RUTA PROTEGIDA */}
           <Route element={<ProtectedRoute jwtdatalocal={jwtDataLocal}/>}>
-            <Route path="/home" element={<Views /> }/>
-            <Route path="/Tema" element={<Tema/> }/>
+            <Route path="/home" element={<Views setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/> }/>
+            <Route path="/home/Temas/:id" element={<Temas setIdTema={setIdTema} nombreCurso={nombreCurso} setIdCurso={setIdCurso}/>} />
+            <Route path="/home/Temas/info" element={<Tema idCurso={idCurso} idTema={idTema}/>} />
 
           </Route>
 
-          <Route path="/*" element={<Login />} />
+         <Route path="/*" element={<Login />} /> 
         </Routes>
       </Router>
     </main>

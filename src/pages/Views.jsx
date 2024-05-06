@@ -4,7 +4,10 @@ import { RouteChange } from "../pages/RouteChange";
 import { Modulos } from '../Components/views/Modulos';
 import { Formulario } from './Formulario';
 import { nuevoCurso } from './nuevoCurso';
-export const Views = () => {
+import { Interactivas } from '../Components/Games/Interactivas';
+
+
+export const Views = ({setIdTema,setNombreCurso}) => {
   console.log("ingreso data")
 
   console.log(localStorage.getItem('jwtdata'))
@@ -15,7 +18,8 @@ export const Views = () => {
         <SideBar token={token} />
       </div>
       <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
-        <Modulos /> 
+      <Interactivas/>
+         {/* <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/>  */}
        {/* <RouteChange />  */}
     </div>
     </>
