@@ -102,16 +102,16 @@ export const Tema = ({idCurso,idTema}) => {
               aria-describedby="modal-modal-description"
               className="w-full h-full flex justify-center items-center "
             >
-            <Box className="w-[650px] h-[85%] backdrop-blur-md flex justify-center px-8 backdrop-brightness-50 rounded-[15px] p-4 ml-72">
+            <Box className="w-[650px] h-[85%] backdrop-blur-md flex justify-center px-3 backdrop-brightness-50 rounded-[15px] p-4 ml-72">
               <form className="w-full max-w-lg h-auto flex justify-center">
                 <div className="w-full h-full relative top-0">
 
-                  <div className="titulo my-5">
+                  <div className="titulo my-5 h-[10%]">
                     <h1 className="text-gray-100 uppercase font-bold font-mono text-[55px] text-center">Elegir juego</h1>
                   </div>
 
-                  <div className="h-[70%] w-full">
-                    <div className="flex flex-wrap w-full h-[10%] mx-3 mb-6">
+                  <div className="h-[84%] w-full">
+                    <div className="flex flex-wrap w-full h-[14%] mx-3">
                       <div className="w-full h-full px-3 flex items-center justify-center">
                         <div className="w-4/5 h-full flex items-center">
                           <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
@@ -119,12 +119,12 @@ export const Tema = ({idCurso,idTema}) => {
                           </label>
                         </div>
                         <div className="w-1/5 h-full flex items-center">
-                          <button className="h-4/5 w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
+                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap w-full h-[10%] mx-3 mb-6">
+                    <div className="flex flex-wrap w-full h-[14%] mx-3">
                       <div className="w-full h-full px-3 flex items-center justify-center">
                         <div className="w-4/5 h-full flex items-center">
                           <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
@@ -132,12 +132,12 @@ export const Tema = ({idCurso,idTema}) => {
                           </label>
                         </div>
                         <div className="w-1/5 h-full flex items-center">
-                          <button className="h-4/5 w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
+                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap w-full h-[10%] mx-3 mb-6">
+                    <div className="flex flex-wrap w-full h-[14%] mx-3">
                       <div className="w-full h-full px-3 flex items-center justify-center">
                         <div className="w-4/5 h-full flex items-center">
                           <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
@@ -145,12 +145,12 @@ export const Tema = ({idCurso,idTema}) => {
                           </label>
                         </div>
                         <div className="w-1/5 h-full flex items-center">
-                          <button className="h-4/5 w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
+                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap w-full h-[10%] mx-3 mb-6">
+                    <div className="flex flex-wrap w-full h-[14%] mx-3">
                       <div className="w-full h-full px-3 flex items-center justify-center">
                         <div className="w-4/5 h-full flex items-center">
                           <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
@@ -158,12 +158,12 @@ export const Tema = ({idCurso,idTema}) => {
                           </label>
                         </div>
                         <div className="w-1/5 h-full flex items-center">
-                          <button className="h-4/5 w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
+                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap w-full h-[10%] mx-3 mb-6">
+                    <div className="flex flex-wrap w-full h-[14%] mx-3">
                       <div className="w-full h-full px-3 flex items-center justify-center">
                         <div className="w-4/5 h-full flex items-center">
                           <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
@@ -171,12 +171,12 @@ export const Tema = ({idCurso,idTema}) => {
                           </label>
                         </div>
                         <div className="w-1/5 h-full flex items-center">
-                          <button className="h-4/5 w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
+                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap w-full h-[10%] mx-3 mb-6">
+                    <div className="flex flex-wrap w-full h-[14%] mx-3">
                       <div className="w-full h-full px-3 flex items-center justify-center">
                         <div className="w-4/5 h-full flex items-center">
                           <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
@@ -184,12 +184,12 @@ export const Tema = ({idCurso,idTema}) => {
                           </label>
                         </div>
                         <div className="w-1/5 h-full flex items-center">
-                          <button className="h-4/5 w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
+                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap w-full h-[10%] mx-3 mb-6">
+                    <div className="flex flex-wrap w-full h-[14%] mx-3">
                       <div className="w-full h-full px-3 flex items-center justify-center">
                         <div className="w-4/5 h-full flex items-center">
                           <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
@@ -197,20 +197,11 @@ export const Tema = ({idCurso,idTema}) => {
                           </label>
                         </div>
                         <div className="w-1/5 h-full flex items-center">
-                          <button className="h-4/5 w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
+                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
                         </div>
                       </div>
                     </div>
-                    
-
-
-
                   </div>
-
-                  <div className="crear w-full flex justify-center items-center h-[60px] my-5">
-                    <Button className="w-3/4 h-[60px] text-[22px] text-white bg-[#7b3030] hover:bg-[#5e2525] my-5" type="submit">Agregar</Button>
-                  </div>
-
                 </div>
               </form>
             </Box>
