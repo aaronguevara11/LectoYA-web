@@ -135,7 +135,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
         {/* CONTENIDO  */}
 
 
-            <div className='w-full h-auto flex flex-col p-8'>
+            <div className='w-full h-auto flex flex-col px-8 py-2'>
 
               {loading && <div>Cargando...</div>}
               {/* Muestra los datos después de recibir la respuesta */}
@@ -143,12 +143,12 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
                 <>
 
               {/* TITULO */}
-                  <div className='w-full h-[110px] flex p-8 text-3xl justify-between space-x-0'> 
-                    <h1>
+                  <div className='w-full h-[110px] flex justify-between items-center'> 
+                    <h1 className='font-mono px-1 font-semibold uppercase text-[60px]'>
                         {curso}
                     </h1>
                     <Button 
-                    className='flex h-[60px] border-solid bg-[#a5d8fd] rounded-xl border-black border-[3px] w-[140px] p-1 text-black '
+                    className='flex h-[60px] border-solid bg-[#a5d8fd] rounded-xl border-black border-[1px] w-[140px] p-1 text-black '
                     onClick={handleOpen}
                     >
                         <section className='flex justify-center items-center h-full mr-2 text-[35px] mt-[-5px] ml-1'>+</section>
@@ -159,7 +159,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
 
                   {temas.map((item,index) => (
                     <section className='w-full h-[150px] flex  p-8 text-3xl justify-between space-x-0 border-solid rounded-xl
-                  border-black border-[3px] items-center my-2' key={index}>
+                  border-black border-[1px] items-center my-2' key={index}>
                       <h1>
                           {item.nombre}
                       </h1>
@@ -167,7 +167,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
                           {item.descripcion}  
                       </h1>
                       <Button 
-                      className='flex h-[55px] bg-[#baf5c2] border-solid rounded-xl border-black border-[3px] w-[110px] p-1 items-center justify-center' onClick={() => handleClickCurso(idCurso,index)}>
+                      className='flex h-[55px] bg-[#baf5c2] border-solid rounded-xl border-black border-[1px] w-[110px] p-1 items-center justify-center' onClick={() => handleClickCurso(idCurso,index)}>
                           <section className='text-lg text-black' >Entrar</section>
                       </Button>
                   </section>
@@ -201,9 +201,9 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
                     <div className="flex flex-wrap -mx-3 mb-6">
                       <div className="w-full px-3">
                         <label className="block uppercase tracking-wide text-white text-[17px] font-semibold mb-2" htmlFor="grid-password">
-                          Nombre del curso: 
+                          Nombre del tema: 
                         </label>
-                        <input type="text" placeholder="Nombre del curso" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white" 
+                        <input type="text" placeholder="Nombre del tema" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white" 
                           value={tituloTema} onChange={handleInputtituloTema}
                         />
                       </div>
@@ -213,9 +213,9 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
                     <div className="flex flex-wrap -mx-3 mb-6">
                       <div className="w-full px-3">
                         <label className="block uppercase tracking-wide text-white text-[17px] font-semibold mb-2" htmlFor="grid-password">
-                          Descripción del curso 
+                          Descripción del tema:
                         </label>
-                        <input type="text" placeholder="Descripcion" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white" value={descripcionTema} 
+                        <input type="text" placeholder="Descripcion del tema" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white" value={descripcionTema} 
                         onChange={handleDescripcionTema} />
                       </div>
                     </div>
@@ -224,9 +224,9 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
                     <div className="flex flex-wrap -mx-3 mb-6">
                       <div className="w-full px-3">
                         <label className="block uppercase tracking-wide text-white text-[17px] font-semibold mb-2" htmlFor="grid-password">
-                          Lectura del curso 
+                          Lectura del curso: 
                         </label>
-                        <textarea type="text" placeholder="Descripcion" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-[1px] focus:outline-none focus:border-b-[1px] focus:border-white" value={lecturaTema} 
+                        <textarea type="text" placeholder="Descripcion" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-[1px] focus:outline-none focus:border-b-[1px] focus:border-white max-h-96 " value={lecturaTema} 
                         onChange={(e) => {setLecturaTema(e.target.value)}} />
                       </div>
                     </div>
