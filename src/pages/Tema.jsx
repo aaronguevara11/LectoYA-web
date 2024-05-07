@@ -19,6 +19,7 @@ export const Tema = ({idCurso,idTema}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [juegos,setJuegos] = useState ('');
   const toggleOpen = () => setIsOpen(!isOpen);
+  const [dataResponse,setDataResponse] = useState('');
   const navigate = useNavigate();
   if(idTema== undefined || idTema == ""){
 
@@ -35,8 +36,9 @@ export const Tema = ({idCurso,idTema}) => {
           Authorization: token,
         },
       });
-      console.log(response.data.Temas.juegos);
+      console.log(response.data);
       setJuegos(response.data.Temas.juegos);
+      setDataResponse(response.data)
       setLoading(false); 
     } catch (error) {
       console.error("Error al obtener los temas:", error);
@@ -55,6 +57,9 @@ export const Tema = ({idCurso,idTema}) => {
 
   return (
     <>
+      {loading && <div>Cargando...</div>}
+      {!loading && (
+                      <>
         <div className="flex-shrink-0 w-72 bg-blue-950 text-white">
           <SideBar token={token} />
         </div>
@@ -63,14 +68,14 @@ export const Tema = ({idCurso,idTema}) => {
           <div className="w-full h-[120px] flex items-center flex-col min-w-[560px]">
             <div className="titulo h-full flex items-center w-full">
               <div className="titulo w-full">
-                <h1 className="font-bold font-sans pl-10 text-[68px]">TITULO DEL TEMA</h1>
+                <h1 className="font-bold font-sans pl-10 text-[68px]">{dataResponse.Temas.nombre}</h1>
               </div>
             </div>
             <hr />
           </div>
 
           <div className="w-full h-auto max-h-[430px] px-10">
-            <textarea name="textarea" id="" value={lectura} readOnly
+            <textarea name="textarea" id="" value={dataResponse.Temas.lectura} readOnly
             className="w-full p-3 h-auto max-h-[430px] border-solid border-2 border-gray-900 focus:outline-none rounded-lg text-[20 px]">
 
             </textarea> 
@@ -93,8 +98,7 @@ export const Tema = ({idCurso,idTema}) => {
                   <Collapse open={isOpen} >
 
                     <div className="w-full overflow-hidden shadow-lg border-2 flex flex-col items-center h-auto">
-                    {loading && <div>Cargando...</div>}
-                    {!loading && (
+
                       <>
 
                         {juegos.map((item) => (
@@ -116,7 +120,7 @@ export const Tema = ({idCurso,idTema}) => {
                           </div>
                         ))}
                       </>
-                    )}
+     
 
                     </div>
                     <div
@@ -256,8 +260,8 @@ export const Tema = ({idCurso,idTema}) => {
 
 
         </section>
-
-        
+      </>
+    )} 
     </>
   )
 }
