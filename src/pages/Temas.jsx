@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState,useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import { SideBar } from '../Components/SideBar'
@@ -6,6 +8,9 @@ import { Button } from "@material-tailwind/react";
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import "./temas.css"
+
+
 
 export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
   const token = localStorage.getItem('jwtdata')
@@ -30,7 +35,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
   const navigate = useNavigate();
   const [temas,setTemas] = useState('');  
   const [loading, setLoading] = useState(true); // Estado para controlar el estado de carga
-
+  const [alumnos,setAlumnos] = useState('');
 
   const currentUrl = window.location.href;
   // Dividir la URL por las barras "/"
@@ -49,6 +54,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
       });
       console.log(response.data);
       setTemas(response.data.Tema[0].temas);
+      setAlumnos(response.data.Tema[0].matriculas);
       setLoading(false); 
     } catch (error) {
       console.error("Error al obtener los temas:", error);
@@ -121,7 +127,24 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
     navigate(`/home/Temas/info`);
   }
 
+  const [valor1,setValor1] = useState("0")
+  const [valor2,setValor2] = useState("100%")
 
+  const handleClickTemas =()=>{
+    setValor1("-100%")
+    setValor2("0")
+  } 
+  const handleClickAlumnos =()=>{
+    setValor1("0")
+    setValor2("100%")
+
+  } 
+  const [seccionActiva, setSeccionActiva] = useState('temas');
+
+    const cambiarSeccion = (seccion) => {
+      setSeccionActiva(seccion);
+
+   }
   return (
     <> 
       <div className="flex-shrink-0 w-72 bg-blue-950 text-white">
@@ -129,7 +152,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
       </div>
 
       <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
-        <section className='w-full h-full'>
+        <section className='w-full h-full overflow-hidden'>
 
 
         {/* CONTENIDO  */}
@@ -142,7 +165,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
               {!loading && (
                 <>
 
-              {/* TITULO */}
+                  {/* TITULO */}
                   <div className='w-full h-[110px] flex justify-between items-center'> 
                     <h1 className='font-mono px-1 font-semibold uppercase text-[60px]'>
                         {curso}
@@ -157,28 +180,64 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
                   </div>
 
 
-                  {temas.map((item,index) => (
-                    <section className='w-full h-[150px] flex  p-8 text-3xl justify-between space-x-0 border-solid rounded-xl
-                  border-black border-[1px] items-center my-2' key={index}>
-                      <h1>
-                          {item.nombre}
-                      </h1>
-                      <h1>
-                          {item.descripcion}  
-                      </h1>
-                      <Button 
-                      className='flex h-[55px] bg-[#baf5c2] border-solid rounded-xl border-black border-[1px] w-[110px] p-1 items-center justify-center' onClick={() => handleClickCurso(idCurso,index)}>
-                          <section className='text-lg text-black' >Entrar</section>
-                      </Button>
-                  </section>
-                  ))}
+                  <div className='w-full flex px-[37px]'>
+                      <Button onClick={() => cambiarSeccion('temas')} className=' w-full h-20 bg-red-400 rounded-r-none text-3xl'>Temas</Button>
+                      <Button onClick={() => cambiarSeccion('alumnos')} className='w-full h-20 bg-green-400 rounded-l-none text-3xl'>Alumnos</Button>
+                  </div>
+                        
+
+                  <div className="slider-container">
+                    <div className="slider-content" style={{ transform: `translateX(${seccionActiva === 'alumnos' ? '-50%' : '0'})` }}>
+                      <div className="slider-item" style={{ }}>
+                          {/* ITEM 1 */}
+                          <div className={`flex flex-col w-[100%] `}>
+                              {temas.map((item) => (
+                                  <section className='w-full flex h-[150px] p-8 text-3xl justify-between space-x-0 border-solid rounded-xl
+                                border-black border-[1px] items-center my-2 ' key={item.id}>
+                                    <h1>
+                                        {item.nombre}
+                                    </h1>
+                                    <h1>
+                                        {item.descripcion}  
+                                    </h1>
+                                    <Button 
+                                    className='flex h-[55px] bg-[#baf5c2] border-solid rounded-xl border-black border-[1px] w-[110px] p-1 items-center justify-center' onClick={() => handleClickCurso(idCurso,item.id)}>
+                                        <section className='text-lg text-black' >Entrar</section>
+                                    </Button>
+                                </section>
+                                  ))}
+                          </div>
+                        {/* ITEM 1 */}
+                      </div>
+                      <div className="slider-item" style={{ }}>
+                        {/* ITEM 2 */}
+                            <div className="duration-700 ease-in-out justify-center items-center h-[800px]" data-carousel-item>
+                                {alumnos.map((item,index) => (
+                                      <section className='w-full flex h-[150px] p-8 text-3xl space-x-0 border-solid rounded-xl
+                                    border-black border-[1px] items-center my-2 ' key={index}>
+                                        <h1>
+                                            {item.alumnos.nombre } &nbsp;
+                                        </h1>
+                                        <h1>
+                                            {item.alumnos.apaterno }   &nbsp;
+                                        </h1>
+                                        <h1>
+                                            {item.alumnos.amaterno }   &nbsp;
+                                        </h1>
+
+                                    </section>
+                                      ))}
+                            </div>
+                        
+                        {/* ITEM 2 */}
+                      </div>
+                    </div>
+
+                  </div>
+
+    
                 </>
               )}
-                 
-
-
-
-
 
             {/* MODAL */}
         <div className="w-full top-1/2 right-1/2">
@@ -244,27 +303,6 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
             </Box>
           </Modal>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             </div>
 

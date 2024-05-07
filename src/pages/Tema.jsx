@@ -1,24 +1,57 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react"
 import { SideBar } from "../Components/SideBar"
 import { Collapse} from '@material-tailwind/react';
 import { Button } from "@material-tailwind/react";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export const Tema = ({idCurso,idTema}) => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('jwtdata')
   const [lectura,setLectura] = useState('Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur libero quis voluptatibus sapiente natus itaque nobis. Possimus eaque dolor, iste aut praesentium voluptatem. Doloribus cumque iure fugit culpa reiciendis.')
   const [isOpen, setIsOpen] = useState(false);
-
+  const [juegos,setJuegos] = useState ('');
   const toggleOpen = () => setIsOpen(!isOpen);
+  const navigate = useNavigate();
+  if(idTema== undefined || idTema == ""){
 
-  
+ }else{
+   localStorage.setItem('idTema',idTema)
+  }
+
+
+
+  const verTema = async (idTema) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/app/verTema/${idTema}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      console.log(response.data.Temas.juegos);
+      setJuegos(response.data.Temas.juegos);
+      setLoading(false); 
+    } catch (error) {
+      console.error("Error al obtener los temas:", error);
+      setLoading(false); 
+    }
+  };
+
+  useEffect(() =>{
+    const cursoLSG = localStorage.getItem('idTema');
+    
+
+    verTema(parseInt(cursoLSG))
+    console.log(juegos)
+    
+  },[idTema,token])
 
   return (
     <>
@@ -59,40 +92,51 @@ export const Tema = ({idCurso,idTema}) => {
 
                   <Collapse open={isOpen} >
 
-                    <div className="w-full overflow-hidden shadow-lg border-2 flex flex-col items-center h-[300px]">
+                    <div className="w-full overflow-hidden shadow-lg border-2 flex flex-col items-center h-auto">
+                    {loading && <div>Cargando...</div>}
+                    {!loading && (
+                      <>
 
-                      <div className="w-full h-2/6 rounded overflow-hidden border-b-2 flex items-center">
-                        <div className="w-4/5">
-                          <h2 className="w-80 font-normal font-sans text-[20px] px-5">Nombre del juego</h2>
-                        </div>
-                        <div className="w-1/5 h-full flex items-center justify-center">
-                          <button className="uppercase h-3/5 w-3/5 bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Entrar</button>
-                        </div>
-                      </div>
-
-                      <div className="w-full h-2/6 rounded overflow-hidden border-b-2 flex items-center">
-                        <div className="w-4/5">
-                          <h2 className="w-80 font-normal font-sans text-[20px] px-5">Nombre del juego</h2>
-                        </div>
-                        <div className="w-1/5 h-full flex items-center justify-center">
-                          <button className="uppercase h-3/5 w-3/5 bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Entrar</button>
-                        </div>
-                      </div>
-
-                      <div className="w-full h-2/6 rounded overflow-hidden border-b-2 flex items-center">
-                        <div className="w-4/5">
-                          <h2 className="w-80 font-normal font-sans text-[20px] px-5">Agregar juego</h2>
-                        </div>
-                        <div className="w-1/5 h-full flex items-center justify-center">
-                          <Button onClick={handleOpen} className="h-3/5 w-3/5 bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Agregar</Button>
-                        </div>
-                      </div>
+                        {juegos.map((item) => (
+                          <div
+                            className="w-full h-[100px] rounded overflow-hidden border-b-2 flex items-center"
+                            key={item.id}
+                          >
+                            <div className="w-4/5">
+                              <h2 className="w-80 font-normal font-sans text-[20px] px-5">{item.nombreJuego}</h2>  {/* Accedemos a la propiedad nombreJuego del objeto actual */}
+                            </div>
+                            <div className="w-1/5 h-full flex items-center justify-center">
+                              <Button
+                                onClick={handleOpen}
+                                className="h-3/5 w-3/5 bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded"
+                              >
+                                IR al juego
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                      </>
+                    )}
 
                     </div>
-
+                    <div
+                      className="w-full h-[100px] rounded overflow-hidden border-b-2 flex items-center"
+                    >
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Button
+                          onClick={handleOpen}
+                          className="h-3/5 w-3/5 bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded"
+                        >
+                          ¿AGREGAR UN JUEGO?
+                        </Button>
+                      </div>
+                    </div>
                   </Collapse>
 
                 </div>
+
+
+
 
                 <div className="w-full top-1/2 right-1/2">
           <Modal
@@ -207,6 +251,9 @@ export const Tema = ({idCurso,idTema}) => {
             </Box>
           </Modal>
         </div>
+
+
+
 
         </section>
 

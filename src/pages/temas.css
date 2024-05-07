@@ -1,0 +1,27 @@
+.slider-container {
+    width: 200%;
+    overflow: hidden;
+    position: relative;
+}
+.slider-content {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+.slider-item {
+    width: 50%; /* Ajusta el ancho según tus necesidades */
+    flex: 0 0 auto;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+/* Para dos elementos */
+.slider-content.two-items {
+    width: 100%; /* Doble del ancho de un elemento */
+}
+/* Anima la transición de desplazamiento */
+@keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Para dos elementos */
+}
+.slider-content.two-items {
+    animation: slide 3s infinite alternate; /* Alterna la animación de ida y vuelta */
+}
