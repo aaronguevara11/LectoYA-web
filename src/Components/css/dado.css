@@ -52,3 +52,13 @@ img{
   font-size: 24px;
   z-index: 50;
 }
+
+.mi-elemento {
+  opacity: 0; /* Inicialmente transparente */
+  transition: opacity 1s; /* Transición suave de la opacidad durante 1 segundo */
+}
+
+/* Estilo cuando el contenido cambia y el elemento aparece */
+.mi-elemento.mostrar {
+  opacity: 1; /* Hace visible el elemento */
+}

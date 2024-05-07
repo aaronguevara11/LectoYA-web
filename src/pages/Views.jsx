@@ -5,7 +5,7 @@ import { Modulos } from '../Components/views/Modulos';
 import { Formulario } from './Formulario';
 import { nuevoCurso } from './nuevoCurso';
 import { Interactivas } from '../Components/Games/Interactivas';
-
+import { Dado } from '../Components/Games/Dado';
 
 export const Views = ({setIdTema,setNombreCurso}) => {
 
@@ -16,9 +16,9 @@ export const Views = ({setIdTema,setNombreCurso}) => {
         <SideBar token={token} />
       </div>
       <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
-      {/* <Interactivas/> */}
-        <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/>  
-       {/* <RouteChange />  */}
+      <Dado/>
+        {/* <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/>   */}
+      
     </div>
     </>
   )

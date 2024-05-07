@@ -11,12 +11,9 @@ export const Dado = () => {
       <div className="body w-full h-screen">
       <HdDado />
       <div className="pregunta h-3/5 w-full flex justify-center align-top mt-5">
-        <div className="h-full w-2/5 mx-3 px-6 bg-gray-200 rounded-xl border-4 overflow-hidden shadow-lg grid items-center">
-          <p className="text-gray mt-5 w-full text-[28px]" id="question_123">Pregunta</p>
-        </div>
-        <div className="h-full w-2/5 mx-3 px-6 bg-gray-200 rounded-xl border-4 overflow-hidden shadow-lg grid items-center justify-center">
+        
           <IDado/>
-        </div>
+       
       </div>
 
       <div className="respuesta w-full h-20 mt-10 flex justify-center align-bottom space-x-5">
