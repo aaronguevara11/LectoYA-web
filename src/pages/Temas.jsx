@@ -52,7 +52,6 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
           Authorization: token,
         },
       });
-      console.log(response.data);
       setTemas(response.data.Tema[0].temas);
       setAlumnos(response.data.Tema[0].matriculas);
       setLoading(false); 
@@ -166,6 +165,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
                 <>
 
                   {/* TITULO */}
+                  
                   <div className='w-full h-[110px] flex justify-between items-center'> 
                     <h1 className='font-mono px-1 font-semibold uppercase text-[60px]'>
                         {curso}
@@ -192,9 +192,12 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
                           {/* ITEM 1 */}
                           <div className={`flex flex-col w-[100%] `}>
                               {temas.map((item) => (
-                                  <section className='w-full flex h-[150px] p-8 text-3xl justify-between space-x-0 border-solid rounded-xl
-                                border-black border-[1px] items-center my-2 ' key={item.id}>
-                                    <h1>
+                                <section className='w-full flex h-[103px] p-8 text-3xl justify-between space-x-0 border-solid 
+                                border-black border-[1px] items-center mt-8 relative' key={item.id}>
+                                  <div className='w-[10px] h-[103px] bg-violet-400 absolute left-0 top-0 '>
+
+                                  </div>
+                                    <h1 className='pl-8'>
                                         {item.nombre}
                                     </h1>
                                     <h1>

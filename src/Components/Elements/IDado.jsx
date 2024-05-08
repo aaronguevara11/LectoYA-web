@@ -122,7 +122,7 @@ let tiro = 0
     
     function showResult(resultadoDado) {
       const result = document.createElement('div');
-      question.style.transition = 'ease-in-out 1s';
+      question.style.transition = 'ease-in-out 2s';
       // question.classList.toggle('mi-elemento')
       
       question.textContent = ''

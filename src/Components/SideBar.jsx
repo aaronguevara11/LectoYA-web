@@ -13,7 +13,7 @@ export const SideBar = ({token}) => {
     navigate('/LoginDocente')
   }
   const decoded = jwtDecode(token);
-  console.log(decoded)
+
 
   return (
     <section className="w-full h-screen bg-[#444444] m-0">

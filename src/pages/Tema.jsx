@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
-export const Tema = ({idCurso,idTema}) => {
+export const Tema = ({idCurso,idTema,setIdJuego}) => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -28,7 +28,7 @@ export const Tema = ({idCurso,idTema}) => {
   }
 
 
-
+  // VER TEMA PETICION 
   const verTema = async (idTema) => {
     try {
       const response = await axios.get(`http://localhost:3000/app/verTema/${idTema}`, {
@@ -36,7 +36,7 @@ export const Tema = ({idCurso,idTema}) => {
           Authorization: token,
         },
       });
-      console.log(response.data);
+
       setJuegos(response.data.Temas.juegos);
       setDataResponse(response.data)
       setLoading(false); 
@@ -46,14 +46,40 @@ export const Tema = ({idCurso,idTema}) => {
     }
   };
 
+
+
+
+
   useEffect(() =>{
     const cursoLSG = localStorage.getItem('idTema');
     
 
     verTema(parseInt(cursoLSG))
-    console.log(juegos)
     
   },[idTema,token])
+
+
+  const handleRedirectGame = (idJuego,nombreJuego,setIdJuego) =>{
+      
+      setIdJuego(idJuego)
+    if(nombreJuego == "Interactivas" ){
+      navigate("/home/historiasinteractivas")
+    }else if(nombreJuego == "Que haremos hoy?"){
+      navigate("/home/AhoraQueHaremos")
+    }else if(nombreJuego == "La Ruleta Ya"){
+      navigate("/home/JuegoDeLaRuleta")
+    }else if(nombreJuego == "Ordenalo Ya"){
+      navigate("/home/OrdenaloYa")
+    }else if(nombreJuego == "El Juego del Dado"){
+      navigate("/home/JuegoDelDado")
+    }else if(nombreJuego == "Dale un Significado"){
+      navigate("/home/DaleUnSignificado")
+    }else{
+      alert("el juego tiene problemas contacte con soporte o crealo denuevo")
+    }
+      
+  }
+  
 
   return (
     <>
@@ -111,7 +137,7 @@ export const Tema = ({idCurso,idTema}) => {
                             </div>
                             <div className="w-1/5 h-full flex items-center justify-center">
                               <Button
-                                onClick={handleOpen}
+                                onClick={()=>{handleRedirectGame(item.id, item.nombreJuego, setIdJuego )} }
                                 className="h-3/5 w-3/5 bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded"
                               >
                                 IR al juego

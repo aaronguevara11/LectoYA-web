@@ -6,7 +6,7 @@ import { Interactivas } from "../Components/Games/Interactivas";
 import { Dado } from "../Components/Games/Dado";
 import {IDado } from "../Components/Elements/IDado";
 import {Modulos} from "../Components/views/Modulos"
-import { OrdenaloYa } from "../Components/Games/OrdenaloYa";
+import { OrdenaloYaGame } from "../Components/Games/OrdenaloYaGame";
 import { Ruleteando } from "../Components/Games/RuletaYA";
 import { RuletaRusaYa } from "../Components/Games/RuletaRusaYa";
 import { Homeicon } from "../Components/Elements/Homeicon";

@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const OrdenaloYa = () => {
+export const OrdenaloYaGame = () => {
     const [sentence, setSentence] = useState([
         { 
             id: 1,

@@ -11,7 +11,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./ProtectedRouter.jsx";
 import { Views } from "../pages/Views";
-import { Tema } from "./TemaAnterios.jsx";
 
 export const Login = ({setJwtDataLocal}) => {
   const endpoint = "http://localhost:3000/app/loginDocentes"
@@ -65,7 +64,6 @@ export const Login = ({setJwtDataLocal}) => {
 
   useEffect(() => {
     if (jwtdata && jwtdata != "1") {
-      console.log(localStorage.getItem('jwtdata'))
       setJwtDataLocal(jwtdata)
       navigate("/home");
 

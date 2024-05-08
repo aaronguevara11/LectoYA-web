@@ -1,7 +1,7 @@
 import { Home } from "../Headers/HdHaremos"
 import { AiOutlineSend } from "react-icons/ai";
 
-export const Queharemos = () => {
+export const Queharemos = ({infojuego}) => {
   return (
     <section className="w-full h-3/5">
       <Home/>
@@ -21,7 +21,8 @@ export const Queharemos = () => {
             <div className=" h-4/5 w-full mx-3 my-6 bg-gray-100 rounded-xl overflow-hidden shadow-lg justify-center">
               <div className="px-4 my-3">
                 <p className="text-gray mt-5 text-[22px]">
-                En el pintoresco pueblo de Villa Esperanza, la tranquila cotidianidad se ve abruptamente interrumpida por la misteriosa desaparición de los niños. La intriga y el temor envuelven a la comunidad, sumergiéndola en un suspense creciente. Tomás, Sofía y Mateo, un grupo de valientes amigos, deciden enfrentarse al enigma y emprenden una investigación por cuenta propia. Su búsqueda los lleva a un colegio abandonado, donde descubren una puerta secreta que revela una escena desconcertante: los niños desaparecidos, en un estado extraño, y un hombre misterioso que parece tener respuestas. ¿Quién es este enigmático personaje y qué oscuros secretos guarda tras la puerta?
+                    {infojuego.pregunta}
+
                  </p>
               </div>
             </div>

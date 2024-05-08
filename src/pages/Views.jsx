@@ -4,8 +4,13 @@ import { RouteChange } from "../pages/RouteChange";
 import { Modulos } from '../Components/views/Modulos';
 import { Formulario } from './Formulario';
 import { nuevoCurso } from './nuevoCurso';
-import { Interactivas } from '../Components/Games/Interactivas';
+//JUEGOS
 import { Dado } from '../Components/Games/Dado';
+import { Interactivas } from '../Components/Games/Interactivas';
+import { RuletaRusaYa } from '../Components/Games/RuletaRusaYa';
+import { OrdenaloYaGame } from '../Components/Games/OrdenaloYaGame';
+import { Queharemos } from '../Components/Games/Queharemos';
+import { Significado } from '../Components/Games/Significado';
 
 export const Views = ({setIdTema,setNombreCurso}) => {
 
@@ -16,9 +21,9 @@ export const Views = ({setIdTema,setNombreCurso}) => {
         <SideBar token={token} />
       </div>
       <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
-      <Dado/>
-        {/* <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/>   */}
-      
+      {/* <Dado/> */}
+       <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/>  
+     
     </div>
     </>
   )
