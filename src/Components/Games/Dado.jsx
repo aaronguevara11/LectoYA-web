@@ -1,10 +1,19 @@
 import { HdDado } from "../Headers/HdDados";
 import { AiOutlineSend } from "react-icons/ai";
 import { IDado } from "../Elements/IDado";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import axios from "axios";
 
-export const Dado = () => {
+export const Dado = ({idJuego}) => {
   const [result,setResult] = useState()
+  const token = localStorage.getItem('jwtdata');
+  const [loading, setLoading] = useState(true);
+
+
+
+
+
+
 
   return (
     <section className="w-full h-4/5 d-grid">
@@ -12,7 +21,7 @@ export const Dado = () => {
       <HdDado />
       <div className="pregunta h-3/5 w-full flex justify-center align-top mt-5">
         
-          <IDado/>
+          <IDado idJuego={idJuego}/>
        
       </div>
 

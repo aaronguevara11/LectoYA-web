@@ -25,7 +25,7 @@ export const HistoriasInteractivas = ({idJuego}) => {
             Authorization: token
           }
         });
-        console.log(response.data)
+        console.log(response)
         setInfoJuego(response.data.nivel[0])
         setLoading(false)
     }catch (error){
