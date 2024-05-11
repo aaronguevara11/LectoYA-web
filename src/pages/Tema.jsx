@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
-export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego}) => {
+export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,}) => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -21,6 +21,56 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego}) => {
   const toggleOpen = () => setIsOpen(!isOpen);
   const [dataResponse,setDataResponse] = useState('');
   const navigate = useNavigate();
+
+  const nombreCurso = [
+    {
+      juego: "Historias interactivas",
+    },
+    {
+      juego: "¿Ahora que haremos?",
+    },
+    {
+      juego: "El dado de las preguntas",
+    },
+    {
+      juego: "Cambialo YA",
+    },
+    {
+      juego: "Ordenalo YA",
+    },
+    {
+      juego: "Ruleteando",
+    },
+    {
+      juego: "Dale un significado",
+    }
+    
+  ]
+ const handleredirectform = (nombreJuego,setNombreJuego,idTema,setIdTema)=>{
+    setNombreJuego(nombreJuego)
+    setIdTema(idTema)
+    if(nombreJuego == "Historias interactivas" ){
+      navigate("/home/FormularioJuego")
+    }else if(nombreJuego == "¿Ahora que haremos?"){
+      navigate("/home/FormularioJuego")
+    }else if(nombreJuego == "Ruleteando"){
+      navigate("/home/FormularioJuego")
+    }else if(nombreJuego == "Ordenalo YA"){
+      navigate("/home/FormularioJuego")
+    }else if(nombreJuego == "El dado de las preguntas"){
+      navigate("/home/FormularioJuego")
+    }else if(nombreJuego == "Dale un significado"){
+      navigate("/home/FormularioJuego")
+    }else if(nombreJuego == "Cambialo YA"){
+      navigate("/home/FormularioJuego")
+    }else{
+      alert("el juego tiene problemas contacte con soporte o crealo denuevo")
+    }
+ }
+
+
+
+
   if(idTema== undefined || idTema == ""){
 
  }else{
@@ -62,17 +112,20 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego}) => {
   const handleRedirectGame = (idJuego,nombreJuego,setIdJuego) =>{
       
       setIdJuego(idJuego)
-    if(nombreJuego == "Historias interactivas"){
+      console.log(nombreJuego)
+    if(nombreJuego == "Historias interactivas" ){
       navigate("/home/historiasinteractivas")
     }else if(nombreJuego == "¿Ahora que haremos?"){
       navigate("/home/AhoraQueHaremos")
-    }else if(nombreJuego == "La Ruleta Ya"){
+    }else if(nombreJuego == "Ruleteando"){
       navigate("/home/JuegoDeLaRuleta")
-    }else if(nombreJuego == "Ordenalo Ya"){
+    }else if(nombreJuego == "Ordenalo YA"){
       navigate("/home/OrdenaloYa")
     }else if(nombreJuego == "El dado de las preguntas"){
       navigate("/home/JuegoDelDado")
-    }else if(nombreJuego == "Dale un Significado"){
+    }else if(nombreJuego == "Dale un significado"){
+      navigate("/home/DaleUnSignificado")
+    }else if(nombreJuego == "Cambialo YA"){
       navigate("/home/DaleUnSignificado")
     }else if (nombreJuego == "Cambialo YA"){
       navigate("/home/CambioYa")
@@ -128,8 +181,7 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego}) => {
 
                     <div className="w-full overflowx-hidden shadow-lg border-2 flex flex-col items-center h-auto">
 
-                      <>
-
+                  
                         {juegos.map((item) => (
                           <div
                             className="w-full h-[100px] rounded overflowx-hidden border-b-2 flex items-center"
@@ -148,7 +200,7 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego}) => {
                             </div>
                           </div>
                         ))}
-                      </>
+                      
      
 
                     </div>
@@ -179,105 +231,33 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego}) => {
               aria-describedby="modal-modal-description"
               className="w-full h-full flex justify-center items-center "
             >
-            <Box className="w-[650px] h-[85%] backdrop-blur-md flex justify-center px-3 backdrop-brightness-50 rounded-[15px] p-4 ml-72">
-              <form className="w-full max-w-lg h-auto flex justify-center">
+
+
+            <Box className="w-[650px] h-[85%] backdrop-blur-md flex justify-center px-3 backdrop-brightness-50 rounded-[15px] p-4">
+              <form className="w-[90%] h-auto flex justify-center">
                 <div className="w-full h-full relative top-0">
 
                   <div className="titulo my-5 h-[10%]">
                     <h1 className="text-gray-100 uppercase font-bold font-mono text-[55px] text-center">Elegir juego</h1>
                   </div>
 
-                  <div className="h-auto w-full">
-                    <div className="flex flex-wrap w-full h-[14%] mx-3">
-                      <div className="w-full h-full px-3 flex items-center justify-center">
-                        <div className="w-4/5 h-full flex items-center">
-                          <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
-                            Preguntas interactivas 
-                          </label>
-                        </div>
-                        <div className="w-1/5 h-full flex items-center">
-                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="h-[84%] w-full">
+                  {nombreCurso.map((item)=>(
 
-                    <div className="flex flex-wrap w-full h-[14%] mx-3">
-                      <div className="w-full h-full px-3 flex items-center justify-center">
-                        <div className="w-4/5 h-full flex items-center">
-                          <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
-                            ¿Que haremos hoy?
-                          </label>
+                        <div className="flex flex-wrap w-full h-[12%] my-[15px] bg-slate-400 rounded-lg px-2" key={item.juego}>
+                          <div className="w-full h-full px-3 flex items-center justify-center ">
+                            <div className="w-4/5 h-full flex items-center">
+                              <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold " htmlFor="grid-password">
+                                {item.juego} 
+                              </label>
+                            </div>
+                            <div className="w-1/5 h-full flex items-center">
+                              <Button className="h-[45px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded" onClick={() => {handleredirectform(item.juego,setNombreJuego,idTema,setIdTema)}}>Elegir</Button>
+                            </div>
+                          </div>
                         </div>
-                        <div className="w-1/5 h-full flex items-center">
-                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
-                        </div>
-                      </div>
-                    </div>
+                  ))}
 
-                    <div className="flex flex-wrap w-full h-[14%] mx-3">
-                      <div className="w-full h-full px-3 flex items-center justify-center">
-                        <div className="w-4/5 h-full flex items-center">
-                          <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
-                            Dado de las preguntas
-                          </label>
-                        </div>
-                        <div className="w-1/5 h-full flex items-center">
-                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap w-full h-[14%] mx-3">
-                      <div className="w-full h-full px-3 flex items-center justify-center">
-                        <div className="w-4/5 h-full flex items-center">
-                          <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
-                            Ruleta 
-                          </label>
-                        </div>
-                        <div className="w-1/5 h-full flex items-center">
-                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap w-full h-[14%] mx-3">
-                      <div className="w-full h-full px-3 flex items-center justify-center">
-                        <div className="w-4/5 h-full flex items-center">
-                          <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
-                            Ordenalo YA
-                          </label>
-                        </div>
-                        <div className="w-1/5 h-full flex items-center">
-                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap w-full h-[14%] mx-3">
-                      <div className="w-full h-full px-3 flex items-center justify-center">
-                        <div className="w-4/5 h-full flex items-center">
-                          <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
-                            Cambialo YA
-                          </label>
-                        </div>
-                        <div className="w-1/5 h-full flex items-center">
-                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap w-full h-[14%] mx-3">
-                      <div className="w-full h-full px-3 flex items-center justify-center">
-                        <div className="w-4/5 h-full flex items-center">
-                          <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold mb-2" htmlFor="grid-password">
-                            Dale un Significado 
-                          </label>
-                        </div>
-                        <div className="w-1/5 h-full flex items-center">
-                          <button className="h-[65px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded">Elegir</button>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </form>

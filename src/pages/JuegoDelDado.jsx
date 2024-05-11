@@ -2,7 +2,7 @@ import { Dado } from "../Components/Games/Dado"
 import { useState } from "react";
 import { SideBar } from "../Components/SideBar";
 
-export const JuegoDelDado = () => {
+export const JuegoDelDado = ({idJuego}) => {
     const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('jwtdata')
 
@@ -23,7 +23,7 @@ export const JuegoDelDado = () => {
                 </div>
 
                 <section className="flex flex-col overflow-auto bg-white relative w-full h-full ">
-                    <Dado />
+                    <Dado idJuego = {idJuego} />
                 </section>
             </>
         )} 

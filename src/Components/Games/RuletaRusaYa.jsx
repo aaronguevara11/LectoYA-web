@@ -3,19 +3,22 @@ import { Wheel } from 'react-custom-roulette';
 import "../css/roulette.css"
 import { AiOutlineSend } from "react-icons/ai";
 
-
-const data = [
-  { option: '1', question:"1+1" },
-  { option: '2', question:"2+2" },
-  { option: '3', question:"3+3" },
-  { option: '4', question:"4+4" },
-  { option: '5', question:"5+5" },
-];
-
 export const RuletaRusaYa = (props) => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(1);
   const [question, setQuestion] = useState('Tira la ruleta');
+
+
+  const data = [
+    { option: '1', question:"1+1" },
+    { option: '2', question:"2+2" },
+    { option: '3', question:"3+3" },
+    { option: '4', question:"4+4" },
+    { option: '5', question:"5+5" },
+  ];
+  
+
+  
 
   const handleSpinClick = () => {
     const prizenumberfilter = Math.floor(Math.random() * 4) 
