@@ -26,7 +26,7 @@ export const HistoriasInteractivas = ({idJuego}) => {
           }
         });
         console.log(response.data)
-        setInfoJuego(response.data.nivel[0])
+        setInfoJuego(response.data.juego)
         setLoading(false)
     }catch (error){
       console.log("ERRRO" , error)

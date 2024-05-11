@@ -52,8 +52,8 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
           Authorization: token,
         },
       });
-      setTemas(response.data.Tema[0].temas);
-      setAlumnos(response.data.Tema[0].matriculas);
+      setTemas(response.data.Tema.temas);
+      setAlumnos(response.data.Tema.matriculas);
       setLoading(false); 
     } catch (error) {
       console.error("Error al obtener los temas:", error);
@@ -151,7 +151,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
       </div>
 
       <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
-        <section className='w-full h-full overflow-hidden'>
+        <section className='w-full h-full overflowx-hidden'>
 
 
         {/* CONTENIDO  */}

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Wheel } from 'react-custom-roulette';
 import "../css/roulette.css"
 import { AiOutlineSend } from "react-icons/ai";
+
+
 const data = [
   { option: '1', question:"1+1" },
   { option: '2', question:"2+2" },

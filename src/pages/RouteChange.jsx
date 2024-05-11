@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Queharemos } from "../Components/Games/Queharemos";
-import { CambialoYa } from "../Components/Games/CambialoYa";
+import { CambialoYaGame } from "../Components/Games/CambialoYaGame";
 import { Significado } from "../Components/Games/Significado";
 import { Interactivas } from "../Components/Games/Interactivas";
 import { Dado } from "../Components/Games/Dado";

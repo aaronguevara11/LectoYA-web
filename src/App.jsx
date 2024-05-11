@@ -13,6 +13,7 @@ import { DaleUnSignificado } from "./pages/DaleUnSignificado";
 import { AhoraQueHaremos } from "./pages/AhoraQueHaremos";
 import { JuegoDeLaRuleta } from "./pages/JuegoDeLaRuleta";
 import { OrdenaloYA } from "./pages/OrdenaloYA";
+import { CambioYa } from "./pages/CambioYa";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
   const [idTema, setIdTema] = useState('');
   const [idCurso, setIdCurso] = useState('');
   const [idJuego, setIdJuego] = useState('');
+  const [nombrejuego,setNombreJuego] = useState('')
   
    useEffect(
      () =>{
@@ -45,7 +47,7 @@ function App() {
             {/* NAVEGACION */}
             <Route path="/home" element={<Views setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/> }/>
             <Route path="/home/Temas/:id" element={<Temas setIdTema={setIdTema} nombreCurso={nombreCurso} setIdCurso={setIdCurso}/>} />
-            <Route path="/home/Temas/info" element={<Tema idCurso={idCurso} idTema={idTema} setIdJuego={setIdJuego}/>} />
+            <Route path="/home/Temas/info" element={<Tema idCurso={idCurso} idTema={idTema} setIdJuego={setIdJuego} setNombreJuego={setNombreJuego} />} />
             {/* JUEGOS */}
             <Route path="/home/JuegoDelDado" element={<JuegoDelDado  idJuego={idJuego}/>} />
             <Route path="/home/HistoriasInteractivas" element={<HistoriasInteractivas idJuego={idJuego}/>} />
@@ -53,6 +55,7 @@ function App() {
             <Route path="/home/OrdenaloYa" element={<OrdenaloYA  idJuego={idJuego}/>} />
             <Route path="/home/AhoraQueHaremos" element={<AhoraQueHaremos  idJuego={idJuego}/>} />
             <Route path="/home/DaleUnSignificado" element={<DaleUnSignificado  idJuego={idJuego}/>} />
+            <Route path="/home/CambioYa" element={<CambioYa  idJuego={idJuego}/>} />
                         
              {/* VISTA PERFILES Y FORMULARIOS*/}
 

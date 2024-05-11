@@ -101,8 +101,8 @@ export const Login = ({setJwtDataLocal}) => {
 
 
 
-      if (jwtdata =="1" || jwtdata == undefined) {
-        setJwtDataLocal(jwtdata)
+      if (jwtdata =="1" || jwtdata == undefined || jwtdata) {
+          setJwtDataLocal(jwtdata)
         
       } else {
         console.log("error");
@@ -148,9 +148,10 @@ export const Login = ({setJwtDataLocal}) => {
                         Sign in
                         
                         </button>
-                        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Don’t have an account yet? <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
-                        </p>
+                        <div className="text-sm font-light w-full h-8 flex">
+                            <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500 w-full text-center flex items-center justify-center rounded-sm bg-black text-white mx-2">Crear Cuenta Docente</a>
+                            <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500 w-full text-center flex items-center justify-center rounded-sm bg-black text-white mx-2">Crear Cuenta Alumno</a>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -1,11 +1,10 @@
 import { HdCambialo } from "../Headers/HdCambialo";
 import { AiOutlineSend } from "react-icons/ai";
 
-export const CambialoYa = () => {
+export const CambialoYaGame = () => {
   return (
     <section className="w-full h-3/5">
       <HdCambialo/>
-
       <div className="pregunta w-full h-full flex justify-center">
         <div className=" h-full w-5/6 px-6 bg-gray-200 rounded-xl border-4 overflow-hidden shadow-lg grid items-center">
           <div className="px-4 mt-3">

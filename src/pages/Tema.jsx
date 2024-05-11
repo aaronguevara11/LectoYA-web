@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
-export const Tema = ({idCurso,idTema,setIdJuego}) => {
+export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego}) => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -62,19 +62,22 @@ export const Tema = ({idCurso,idTema,setIdJuego}) => {
   const handleRedirectGame = (idJuego,nombreJuego,setIdJuego) =>{
       
       setIdJuego(idJuego)
-    if(nombreJuego == "Interactivas" ){
+    if(nombreJuego == "Historias interactivas"){
       navigate("/home/historiasinteractivas")
-    }else if(nombreJuego == "Que haremos hoy?"){
+    }else if(nombreJuego == "¿Ahora que haremos?"){
       navigate("/home/AhoraQueHaremos")
     }else if(nombreJuego == "La Ruleta Ya"){
       navigate("/home/JuegoDeLaRuleta")
     }else if(nombreJuego == "Ordenalo Ya"){
       navigate("/home/OrdenaloYa")
-    }else if(nombreJuego == "El Juego del Dado"){
+    }else if(nombreJuego == "El dado de las preguntas"){
       navigate("/home/JuegoDelDado")
     }else if(nombreJuego == "Dale un Significado"){
       navigate("/home/DaleUnSignificado")
-    }else{
+    }else if (nombreJuego == "Cambialo YA"){
+      navigate("/home/CambioYa")
+    }
+    else{
       alert("el juego tiene problemas contacte con soporte o crealo denuevo")
     }
       
@@ -90,7 +93,7 @@ export const Tema = ({idCurso,idTema,setIdJuego}) => {
           <SideBar token={token} />
         </div>
 
-        <section className="flex flex-col overflow-auto bg-white relative w-full h-full ">
+        <section className="flex flex-col overflowx-auto bg-white relative w-full h-full ">
           <div className="w-full h-[120px] flex items-center flex-col min-w-[560px]">
             <div className="titulo h-full flex items-center w-full">
               <div className="titulo w-full">
@@ -109,8 +112,8 @@ export const Tema = ({idCurso,idTema,setIdJuego}) => {
 
 
 
-            <div className="w-full h-[60%] px-10 mt-7 flex flex-col items-center">
-                <div className="bg-gray-200 w-full h-[15%] rounded overflow-hidden shadow-lg flex items-center ">
+            <div className="w-full h-auto px-10 mt-7 flex flex-col items-center">
+                <div className="bg-gray-200 w-full h-[15%] rounded overflowx-hidden shadow-lg flex items-center ">
                   <div className="h-full w-full flex items-center">
                     <button className="text-start px-5 w-full h-full text-[45px] font-mono rounded-lg font-medium text-gray-700 hover:bg-gray-300 focus:outline-none transition duration-150 ease-in-out"
                       onClick={toggleOpen}
@@ -121,15 +124,15 @@ export const Tema = ({idCurso,idTema,setIdJuego}) => {
                   </div>
                 </div>
 
-                  <Collapse open={isOpen} >
+                  <Collapse open={isOpen} className=" overflow-y-scroll" >
 
-                    <div className="w-full overflow-hidden shadow-lg border-2 flex flex-col items-center h-auto">
+                    <div className="w-full overflowx-hidden shadow-lg border-2 flex flex-col items-center h-auto">
 
                       <>
 
                         {juegos.map((item) => (
                           <div
-                            className="w-full h-[100px] rounded overflow-hidden border-b-2 flex items-center"
+                            className="w-full h-[100px] rounded overflowx-hidden border-b-2 flex items-center"
                             key={item.id}
                           >
                             <div className="w-4/5">
@@ -150,7 +153,7 @@ export const Tema = ({idCurso,idTema,setIdJuego}) => {
 
                     </div>
                     <div
-                      className="w-full h-[100px] rounded overflow-hidden border-b-2 flex items-center"
+                      className="w-full h-[100px] rounded overflowx-hidden border-b-2 flex items-center"
                     >
                       <div className="w-full h-full flex items-center justify-center">
                         <Button
@@ -184,7 +187,7 @@ export const Tema = ({idCurso,idTema,setIdJuego}) => {
                     <h1 className="text-gray-100 uppercase font-bold font-mono text-[55px] text-center">Elegir juego</h1>
                   </div>
 
-                  <div className="h-[84%] w-full">
+                  <div className="h-auto w-full">
                     <div className="flex flex-wrap w-full h-[14%] mx-3">
                       <div className="w-full h-full px-3 flex items-center justify-center">
                         <div className="w-4/5 h-full flex items-center">

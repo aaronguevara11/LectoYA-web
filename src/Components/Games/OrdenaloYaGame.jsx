@@ -39,6 +39,35 @@ export const OrdenaloYaGame = () => {
         },
     ]);
 
+
+    const crearTema = async (idCurso,tituloTema, descripcionTema, lecturaTema) => {
+        try {
+          const response = await axios.post('http://localhost:3000/app/agregarTemas',
+           {
+             order1: idCurso,
+             order2 :tituloTema,
+             order3 : descripcionTema,
+             
+           }
+          , {
+            headers: { 
+              Authorization: token,
+            }
+          });
+        } catch (error) {
+          console.log(error);
+          
+        }
+      }
+    
+
+
+
+
+
+
+
+
     const getList = (list) => {
       return sentence.filter(item => item.list === list)
   }

@@ -75,7 +75,7 @@ let tiro = 0
     dice.addEventListener('click', rollDice);
     
     function rollDice() {
-      console.log(tiro)
+      
       if(tiro==0){
           // valor del 1 al 6
       const valorAleatorio = Math.floor(Math.random() * 6) + 1;
