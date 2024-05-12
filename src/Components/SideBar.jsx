@@ -10,7 +10,7 @@ export const SideBar = ({token}) => {
   const navigate = useNavigate();
   const closeSession=()=>{
     localStorage.removeItem("jwtdata");
-    navigate('/LoginDocente')
+    navigate('/Login')
   }
   const decoded = jwtDecode(token);
 

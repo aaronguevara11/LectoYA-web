@@ -7,56 +7,52 @@ import dado5 from '../img/5.png';
 import dado6 from '../img/6.png';
 import React, { useEffect,useState } from 'react';
 import axios from 'axios';
-
-export const IDado = ({idJuego}) => {
+import { AiOutlineSend } from 'react-icons/ai';
+export const IDado = ({ruta}) => {
 
 
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('jwtdata');
   const [infojuego, setInfoJuego] = useState('');
   const [dataPregunta,setdataPregunta] = useState([]);
-
-  if(idJuego== undefined || idJuego == ""){
-
-  }else{
-    localStorage.setItem('idJuego',idJuego)
-  }
+  const [preguntaResponder, setPreguntaReponder] = useState('');
+  const [respuesta,setRespuesta] = useState("");
+  const [eventoOcurrido, setEventoOcurrido] = useState(false);
 
 
   const buscarJuego = async (idjuegolocal) =>{
-      console.log(idjuegolocal)
+      
     try{
-      const response = await axios.get(`http://localhost:3000/app/juegos/buscarJuego/${idjuegolocal}`,
+      const response = await axios.get(`${ruta}/juegos/buscarJuego/${idjuegolocal}`,
         {
           headers : {
             Authorization: token
           }
         });
-        console.log(response.data)
+
         setdataPregunta([
           {
             cara : 1,
-            pregunta : response.data.nivel[0].primera_pre
+            pregunta : response.data.juego.primera_pre
           },{
             cara : 2,
-            pregunta : response.data.nivel[0].segunda_pre
+            pregunta : response.data.juego.segunda_pre
           },{
             cara : 3,
-            pregunta : response.data.nivel[0].tercera_pre
+            pregunta : response.data.juego.tercera_pre
           },{
             cara : 4,
-            pregunta : response.data.nivel[0].cuarta_pre
+            pregunta : response.data.juego.cuarta_pre
           },{
             cara : 5,
-            pregunta : response.data.nivel[0].quinta_pre
+            pregunta : response.data.juego.quinta_pre
           },{
             cara : 6,
-            pregunta : response.data.nivel[0].sexta_pre
+            pregunta : response.data.juego.sexta_pre
           }
 
         ])
 
-        console.log(dataPregunta)
         // setInfoJuego(response.data.nivel[0])
         setLoading(false)
     }catch (error){
@@ -71,7 +67,7 @@ export const IDado = ({idJuego}) => {
     let idjuegolocal = localStorage.getItem('idJuego')
     // agregardado()
     buscarJuego(idjuegolocal)
-    console.log(idjuegolocal)
+
   },[])
 
 
@@ -79,12 +75,58 @@ export const IDado = ({idJuego}) => {
     // let idjuegolocal = localStorage.getItem('idJuego')
     // agregardado()
     const dice = document.getElementById('dice');
-    console.log(dataPregunta)
+    
     if(dataPregunta != [] &&  dice){
       funcionesdado()
     }
     
   },[dataPregunta])
+
+
+
+
+
+
+  /* RESPUESTA */
+
+  const respuestaDado = async (pregunta, respuesta, id ) => {
+    console.log(pregunta,respuesta,id)
+    try {
+        const response = await axios.post(`${ruta}/dado/respuestaDado`,{
+          pregunta: pregunta,
+          respuesta : respuesta,
+          id : id // tabla juegos
+        },{
+            headers:{
+                Authorization : token
+            }
+        })
+        console.log(response.data)
+    }catch (error) {
+      console.error("Error al obtener los temas:", error);
+      setLoading(false); 
+    }
+  }
+  
+  const handleChangeRespuesta = ({target}) =>{
+    setRespuesta(target.value)
+  }
+  
+  const handlesubmit = async (e) =>{
+    e.preventDefault();
+    let idjuegolocal = localStorage.getItem('idJuego')
+    await respuestaDado(preguntaResponder,respuesta,idjuegolocal)
+  }
+  
+  useEffect(()=>{
+
+    if(preguntaResponder!=''){
+      setEventoOcurrido(true)
+    }
+
+
+  },[preguntaResponder])
+
 
 
 
@@ -126,16 +168,16 @@ export const IDado = ({idJuego}) => {
     { valor1: 2160, valor2: 2070, resultado: 3 }
   ]
 
-let tiro = 0  
+let shoot = 0  
 const funcionesdado = () =>{
+  
   const dice = document.getElementById('dice');
   const question = document.getElementById('question_123');
   
   dice.addEventListener('click', rollDice);
   
   function rollDice() {
-    console.log(tiro)
-    if(tiro==0){
+    if(shoot==0){
         // valor del 1 al 6
     const valorAleatorio = Math.floor(Math.random() * 6) + 1;
 
@@ -169,7 +211,7 @@ const funcionesdado = () =>{
       
       resultadoDado = registroSeleccionado.resultado 
       setTimeout(showResult(resultadoDado), 1000);
-      tiro+=1
+      shoot+=1
     } else {
       console.log('No hay registros con el valor', valorAleatorio, 'en la propiedad resultado');
     }
@@ -191,9 +233,10 @@ const funcionesdado = () =>{
     setTimeout(() => {
       // question.classList.toggle('mi-elemento.mostrar');
       const pregunta = dataPregunta.filter(registro => registro.cara == resultadoDado);
-      console.log(pregunta)
+
       question.textContent = 'Resultado: ' + pregunta[0].pregunta;
       
+      setPreguntaReponder(pregunta[0].pregunta)
     }, 1000);
     
     
@@ -214,6 +257,10 @@ const funcionesdado = () =>{
   }, []); // El segundo argumento es un arreglo vacío para que se ejecute solo una vez cuando se monta el componente
 
   return (
+    <>
+
+   
+    <div className="pregunta h-3/5 w-full flex justify-center align-top mt-5">
     <>
     {loading && <div>Cargando...</div>}
       {!loading && ( 
@@ -255,7 +302,31 @@ const funcionesdado = () =>{
 
           
         </> )}
-      
+       
     </> 
+    </div>
+      <div className="respuesta w-full h-20 mt-10 flex justify-center align-bottom space-x-5">
+      <form 
+        className="respuesta w-full h-24 mt-10 flex justify-center items-center space-x-5"
+        onSubmit={handlesubmit}
+        >
+
+          <input type="text" 
+            placeholder="Escribe aqui tu respuesta maximo 300 caracteres" 
+            className="w-3/4 h-full p-8 mx-4 rounded-3xl border-none outline-none text-clip overflow-hidden"
+            value={respuesta}
+            onChange={handleChangeRespuesta}
+            readOnly={!eventoOcurrido}
+            />
+          <button 
+          className="rounded-[80%] w-[90px] h-20 bg-black text-white flex justify-center items-center"
+          type="submit"
+          disabled={!eventoOcurrido}
+          >
+            <AiOutlineSend className="h-3/5 w-3/5"/> 
+        </button>
+        </form>
+      </div>
+    </>
   )
 }

@@ -1,65 +1,81 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import axios from "axios";
+export const OrdenaloYaGame = ({ruta}) => {
+    const [loading, setLoading] = useState(true);
 
-export const OrdenaloYaGame = () => {
-    const [sentence, setSentence] = useState([
-        { 
-            id: 1,
-            title: 'Tarea 1',
-            body: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit ipsum dolor.',
-            list: 100,
-            order : 0
-        },
-        { 
-            id: 2,
-            title: 'Tarea 2',
-            body: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit ipsum dolor.',
-            list: 100,
-            order : 0
-        },
-        { 
-            id: 3,
-            title: 'Tarea 3',
-            body: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit ipsum dolor.',
-            list: 100,
-            order : 0
-        },
-        { 
-            id: 4,
-            title: 'Tarea 4',
-            body: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit ipsum dolor.',
-            list: 100,
-            order : 0
-        },
-        { 
-            id: 5,
-            title: 'Tarea 5',
-            body: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit ipsum dolor.',
-            list: 100,
-            order : 0
-        },
-    ]);
+    const [sentence, setSentence] = useState([]);
+    const token = localStorage.getItem('jwtdata')
+    let idjuegolocal = localStorage.getItem('idJuego')
+
+  const buscarJuego = async (idjuegolocal) =>{
+      
+    try{
+      const response = await axios.get(`${ruta}/juegos/buscarJuego/${idjuegolocal}`,
+        {
+          headers : {
+            Authorization: token
+          }
+        });
+        console.log(response.data)
+   
+
+        setSentence([
+            { 
+                id: 1,
+                title: 'Tarea 1',
+                body: response.data.juego.parrafo1,
+                list: 100,
+                order : 0
+            },
+            { 
+                id: 2,
+                title: 'Tarea 2',
+                body: response.data.juego.parrafo2,
+                list: 100,
+                order : 0
+            },
+            { 
+                id: 3,
+                title: 'Tarea 3',
+                body: response.data.juego.parrafo3,
+                list: 100,
+                order : 0
+            },
+            { 
+                id: 4,
+                title: 'Tarea 4',
+                body: response.data.juego.parrafo4,
+                list: 100,
+                order : 0
+            },
+            { 
+                id: 5,
+                title: 'Tarea 5',
+                body: response.data.juego.parrafo5,
+                list: 100,
+                order : 0
+            },
+        ])
+
+        // setInfoJuego(response.data.nivel[0])
+        setLoading(false)
+    }catch (error){
+      console.log("ERRRO" , error)
+      setLoading(false)
+    }
+
+  }
 
 
-    const crearTema = async (idCurso,tituloTema, descripcionTema, lecturaTema) => {
-        try {
-          const response = await axios.post('http://localhost:3000/app/agregarTemas',
-           {
-             order1: idCurso,
-             order2 :tituloTema,
-             order3 : descripcionTema,
-             
-           }
-          , {
-            headers: { 
-              Authorization: token,
-            }
-          });
-        } catch (error) {
-          console.log(error);
-          
-        }
-      }
+  useEffect(()=>{
     
+    // agregardado()
+    buscarJuego(idjuegolocal)
+
+  },[])
+
+
+
 
 
 
@@ -80,11 +96,11 @@ export const OrdenaloYaGame = () => {
   }
   const startDrag = (evt, item) => {
       evt.dataTransfer.setData('itemID', item.id)
-      console.log(item)
+     // console.log(item)
   }
   const startDragOrder = (evt, item) => {
     evt.dataTransfer.setData('itemID', item.id)
-    console.log(item)
+    // console.log(item)
 }
   const draggingOver = (evt) => {
       evt.preventDefault();
@@ -150,6 +166,29 @@ export const OrdenaloYaGame = () => {
 
   }
 
+
+
+  const agregarRespuestaOrdenalo = async (orden1, orden2, orden3, orden4, orden5, id ) => {
+    try {
+        const response = await axios.post(`${ruta}/ordenalo/agregarRespuesta`,{
+          orden1: orden1,
+          orden2: orden2,
+          orden3: orden3,
+          orden4: orden4,
+          orden5: orden5,
+          id: id //id-tabla-juegos
+        },{
+            headers:{
+                Authorization : token
+            }
+        })
+        console.log(response.data)
+    }catch (error) {
+      console.error("Error al obtener los temas:", error);
+      setLoading(false); 
+    }
+  }
+
   const sendOrder = () =>{
     let elements  = 0 ;
         sentence.map( senten => {
@@ -161,7 +200,13 @@ export const OrdenaloYaGame = () => {
     if(elements==5){
         //enviardata
         console.log("correct")
-        
+     
+        let order1 = sentence.filter(item => item.order == 1)
+        let order2 = sentence.filter(item => item.order == 2)
+        let order3 = sentence.filter(item => item.order == 3)
+        let order4 = sentence.filter(item => item.order == 4)
+        let order5 = sentence.filter(item => item.order == 5)
+        agregarRespuestaOrdenalo(order1[0].body,order2[0].body,order3[0].body,order4[0].body,order5[0].body,idjuegolocal)
     }else{
         console.log("error")
     }
@@ -169,6 +214,9 @@ export const OrdenaloYaGame = () => {
 
   return (
     <>
+        {loading && <div>Cargando...</div>}
+    {!loading && (
+        <>
         <div className="w-full h-full">
                 <h1 className=" text-6xl py-5 text-center">
                     ORDENALO YA &nbsp;
@@ -213,6 +261,8 @@ export const OrdenaloYaGame = () => {
 
                 </div>
         </div> 
+        </>
+        )} 
     </>
   )
 }

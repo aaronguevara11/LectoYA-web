@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
-export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,}) => {
+export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,ruta}) => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -50,19 +50,19 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,}) => {
     setNombreJuego(nombreJuego)
     setIdTema(idTema)
     if(nombreJuego == "Historias interactivas" ){
-      navigate("/home/FormularioJuego")
+      navigate("/home/FormularioInteractivas")
     }else if(nombreJuego == "¿Ahora que haremos?"){
-      navigate("/home/FormularioJuego")
+      navigate("/home/FormularioQueHaremos")
     }else if(nombreJuego == "Ruleteando"){
-      navigate("/home/FormularioJuego")
+      navigate("/home/FormularioRuleteando")
     }else if(nombreJuego == "Ordenalo YA"){
-      navigate("/home/FormularioJuego")
+      navigate("/home/FormularioOrdenaloYa")
     }else if(nombreJuego == "El dado de las preguntas"){
-      navigate("/home/FormularioJuego")
+      navigate("/home/FormularioJuegoDelDado")
     }else if(nombreJuego == "Dale un significado"){
-      navigate("/home/FormularioJuego")
+      navigate("/home/FormularioDaleUnSignificado")
     }else if(nombreJuego == "Cambialo YA"){
-      navigate("/home/FormularioJuego")
+      navigate("/home/FormularioCambialoYa")
     }else{
       alert("el juego tiene problemas contacte con soporte o crealo denuevo")
     }
@@ -98,21 +98,135 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,}) => {
 
 
 
+  const agregarSignificado = async (lectura, idTema) => {
+    try {
+        const response = await axios.post(`${ruta}/significado/agregarSignificado`,{
+          lectura:lectura,
+          idTema: idTema
+        },{
+            headers:{
+                Authorization : token
+            }
+        })
+        console.log(response.data)
+    }catch (error) {
+      console.error("Error al obtener los temas:", error);
+      setLoading(false); 
+    }
+  }
 
+  const agregarOrdenalo = async (parrafo1, parrafo2, parrafo3, parrafo4, parrafo5, idTema ) => {
+    try {
+        const response = await axios.post(`${ruta}/ordenalo/agregarOrdenalo`,{
+          parrafo1: parrafo1,
+          parrafo2: parrafo2,
+          parrafo3: parrafo3,
+          parrafo4: parrafo4,
+          parrafo5: parrafo5,
+          idTema: idTema 
+        },{
+            headers:{
+                Authorization : token
+            }
+        })
+        console.log(response.data)
+    }catch (error) {
+      console.error("Error al obtener los temas:", error);
+      setLoading(false); 
+    }
+  }
+
+
+  const agregarQueHaremos = async (pregunta, idTema ) => {
+    try {
+        const response = await axios.post(`${ruta}/haremos/agregarTrabajo`,{
+          pregunta:pregunta,
+          idTema : idTema
+  
+        },{
+            headers:{
+                Authorization : token
+            }
+        })
+        console.log(response.data)
+    }catch (error) {
+      console.error("Error al obtener los temas:", error);
+      setLoading(false); 
+    }
+  }
+
+  const agregarRuleta = async (pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, idTema) => {
+    try {
+        const response = await axios.post(`${ruta}/ruleta/agregarRuleta`,{
+          pregunta1: pregunta1,
+          pregunta2: pregunta2,
+          pregunta3: pregunta3,
+          pregunta4 : pregunta4,
+          pregunta5 : pregunta5,
+          idTema : idTema
+        },{
+            headers:{
+                Authorization : token
+            }
+        })
+        console.log(response.data)
+    }catch (error) {
+      console.error("Error al obtener los temas:", error);
+      setLoading(false); 
+    }
+  }
+
+  const agregarTrabajoCambialo = async (enunciado, emocion, idTema) => {
+    try {
+        const response = await axios.post(`${ruta}/cambialo/agregarTrabajo`,{
+          enunciado :enunciado,
+          emocion : emocion,
+          idTema: idTema
+
+        },{
+            headers:{
+                Authorization : token
+            }
+        })
+        console.log(response.data)
+    }catch (error) {
+      console.error("Error al obtener los temas:", error);
+      setLoading(false); 
+    }
+  }
 
   useEffect(() =>{
     const cursoLSG = localStorage.getItem('idTema');
-    
+    const idTemalocal = parseInt(cursoLSG)
 
+    
     verTema(parseInt(cursoLSG))
+    // agregarSignificado("lectura",idTemalocal)
+    // agregarOrdenalo("parrafo1", "parrafo2", "parrafo3", "parrafo4", "parrafo5", idTemalocal )
+    // agregarQueHaremos("pregunta",idTemalocal)
+    //agregarRuleta("pregunta1", "pregunta2", "pregunta3", "pregunta4", "pregunta5", idTemalocal)
+    // agregarTrabajoCambialo("enunciado", "emocion", idTemalocal)
     
   },[idTema,token])
+
+
+
+
+
+
 
 
   const handleRedirectGame = (idJuego,nombreJuego,setIdJuego) =>{
       
       setIdJuego(idJuego)
-      console.log(nombreJuego)
+      
+      if(idJuego== undefined || idJuego == ""){
+
+      }else{
+        localStorage.setItem('idJuego',idJuego)
+      }
+    
+    
     if(nombreJuego == "Historias interactivas" ){
       navigate("/home/historiasinteractivas")
     }else if(nombreJuego == "¿Ahora que haremos?"){
@@ -124,8 +238,6 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,}) => {
     }else if(nombreJuego == "El dado de las preguntas"){
       navigate("/home/JuegoDelDado")
     }else if(nombreJuego == "Dale un significado"){
-      navigate("/home/DaleUnSignificado")
-    }else if(nombreJuego == "Cambialo YA"){
       navigate("/home/DaleUnSignificado")
     }else if (nombreJuego == "Cambialo YA"){
       navigate("/home/CambioYa")

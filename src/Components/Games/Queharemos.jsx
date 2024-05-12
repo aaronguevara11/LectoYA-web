@@ -1,9 +1,94 @@
 import { Home } from "../Headers/HdHaremos"
 import { AiOutlineSend } from "react-icons/ai";
+import { useState,useEffect } from "react";
+import axios from "axios";
 
-export const Queharemos = ({infojuego}) => {
+export const Queharemos = ({ruta}) => {
+
+  const [infojuego, setInfoJuego] = useState('');
+
+
+
+  const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem('jwtdata');
+  const [respuesta,setRespuesta] = useState("");
+
+
+  const buscarJuego = async (idLocalJuego) =>{
+        
+    try{    
+        const response = await axios.get(`${ruta}/juegos/buscarJuego/${idLocalJuego}`,
+
+        {
+            headers:{
+                Authorization: token
+            }
+        })
+        console.log(response.data)
+        console.log(response.data.juego.pregunta)
+        setInfoJuego(response.data.juego.pregunta)
+        setLoading(false)
+
+    }catch(error){
+        console.log("error" , error)
+        setLoading(false)
+    }
+}
+
+
+useEffect(()=>{
+    let idjuegolocal = localStorage.getItem('idJuego')
+    buscarJuego(idjuegolocal)
+},[])
+
+
+
+
+
+const agregarRespuestaQueHaremos = async (pregunta, respuesta, id) => {
+  try {
+      const response = await axios.post(`${ruta}/haremos/agregarRespuesta`,{
+        pregunta: pregunta,
+        respuesta: respuesta,
+        id :id
+
+      },{
+          headers:{
+              Authorization : token
+          }
+      })
+      console.log(response.data)
+  }catch (error) {
+    console.error("Error al obtener los temas:", error);
+    setLoading(false); 
+  }
+}
+
+
+
+
+const handleChangeRespuesta = ({target}) =>{
+  setRespuesta(target.value)
+}
+
+const handlesubmit = async (e) =>{
+  e.preventDefault();
+  let idjuegolocal = localStorage.getItem('idJuego')
+  await agregarRespuestaQueHaremos(infojuego,respuesta,idjuegolocal)
+}
+
+
+
+
+
+
+
   return (
-    <section className="w-full h-3/5">
+    <>
+    {loading && <div>Cargando...</div>}
+    {!loading && (
+        <>
+        <section className="w-full h-3/5">
       <Home/>
 
       <div className="pregunta w-full h-full flex justify-center">
@@ -21,7 +106,7 @@ export const Queharemos = ({infojuego}) => {
             <div className=" h-4/5 w-full mx-3 my-6 bg-gray-100 rounded-xl overflow-hidden shadow-lg justify-center">
               <div className="px-4 my-3">
                 <p className="text-gray mt-5 text-[22px]">
-                    {infojuego.pregunta}
+                    {infojuego}
 
                  </p>
               </div>
@@ -31,11 +116,29 @@ export const Queharemos = ({infojuego}) => {
       </div>
 
       <div className="respuesta w-full h-2/8 mt-10 flex justify-center space-x-5">
-        <input type="text" placeholder="Escribe aqui tu respuesta maximo 300 caracteres" className="w-3/4 h-full p-8 mx-4 rounded-3xl border-none outline-none text-clip overflow-hidden"/>
-        <button className="rounded-[80%] w-[90px] bg-black text-white flex justify-center items-center">
-          <AiOutlineSend className="h-3/5 w-3/5"/> 
-        </button>
+        <form 
+        className="respuesta w-full h-2/8 mt-10 flex justify-center space-x-5"
+        onSubmit={handlesubmit}
+        >
+          <input type="text" 
+          placeholder="Escribe aqui tu respuesta maximo 300 caracteres" 
+          className="w-3/4 h-full p-8 mx-4 rounded-3xl border-none outline-none text-clip overflow-hidden"
+          value={respuesta}
+          onChange={handleChangeRespuesta}
+          />
+          <button 
+          className="rounded-[80%] w-[90px] bg-black text-white flex justify-center items-center"
+          type="submit"
+          >
+            <AiOutlineSend className="h-3/5 w-3/5"/> 
+          </button>
+        </form>
+
       </div>
     </section>
+    
+    </>
+  )} 
+  </>
   )
 }

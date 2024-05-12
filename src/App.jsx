@@ -26,7 +26,7 @@ function App() {
   const [idCurso, setIdCurso] = useState('');
   const [idJuego, setIdJuego] = useState('');
   const [nombreJuego,setNombreJuego] = useState('')
-  
+  const ruta = "http://localhost:3000/app"
    useEffect(
      () =>{
         
@@ -49,18 +49,25 @@ function App() {
             {/* NAVEGACION */}
             <Route path="/home" element={<Views setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/> }/>
             <Route path="/home/Temas/:id" element={<Temas setIdTema={setIdTema} nombreCurso={nombreCurso} setIdCurso={setIdCurso}/>} />
-            <Route path="/home/Temas/info" element={<Tema idCurso={idCurso} idTema={idTema} setIdJuego={setIdJuego} setNombreJuego={setNombreJuego} setIdTema={setIdTema} />} />
+            <Route path="/home/Temas/info" element={<Tema idCurso={idCurso} idTema={idTema} setIdJuego={setIdJuego} setNombreJuego={setNombreJuego} setIdTema={setIdTema} ruta={ruta} />} />
             {/* JUEGOS */}
-            <Route path="/home/JuegoDelDado" element={<JuegoDelDado  idJuego={idJuego}/>} />
-            <Route path="/home/HistoriasInteractivas" element={<HistoriasInteractivas idJuego={idJuego}/>} />
-            <Route path="/home/JuegoDeLaRuleta" element={<JuegoDeLaRuleta  idJuego={idJuego}/>} />
-            <Route path="/home/OrdenaloYa" element={<OrdenaloYA  idJuego={idJuego}/>} />
-            <Route path="/home/AhoraQueHaremos" element={<AhoraQueHaremos  idJuego={idJuego}/>} />
-            <Route path="/home/DaleUnSignificado" element={<DaleUnSignificado  idJuego={idJuego}/>} />
-            <Route path="/home/CambioYa" element={<CambioYa  idJuego={idJuego}/>} />
+            <Route path="/home/JuegoDelDado" element={<JuegoDelDado   ruta={ruta} />} />
+            <Route path="/home/HistoriasInteractivas" element={<HistoriasInteractivas  ruta={ruta} />} />
+            <Route path="/home/JuegoDeLaRuleta" element={<JuegoDeLaRuleta  ruta={ruta} />} />
+            <Route path="/home/OrdenaloYa" element={<OrdenaloYA   ruta={ruta} />} />
+            <Route path="/home/AhoraQueHaremos" element={<AhoraQueHaremos   ruta={ruta} />} />
+            <Route path="/home/DaleUnSignificado" element={<DaleUnSignificado   ruta={ruta} />} />
+            <Route path="/home/CambioYa" element={<CambioYa  ruta={ruta} />} />
                         
              {/* VISTA PERFILES Y FORMULARIOS*/}
-             <Route path="/home/FormularioJuego" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioInteractivas" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioQueHaremos" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioJuegoDelDado" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioRuleteando" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioOrdenaloYa" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioDaleUnSignificado" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioCambialoYa" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
+
 
           </Route>
 

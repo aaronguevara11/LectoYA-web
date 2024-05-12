@@ -242,6 +242,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
                 </>
               )}
 
+
             {/* MODAL */}
         <div className="w-full top-1/2 right-1/2">
           <Modal

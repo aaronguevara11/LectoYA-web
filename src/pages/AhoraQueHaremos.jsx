@@ -3,16 +3,12 @@ import { useEffect, useState } from "react";
 import { SideBar } from "../Components/SideBar";
 import axios from "axios";
 
-export const AhoraQueHaremos = ({idJuego}) => {
+export const AhoraQueHaremos = ({ruta}) => {
     
     const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('jwtdata')
     const [infojuego, setInfoJuego] = useState('');
-    if(idJuego== undefined || idJuego == ""){
 
-    }else{
-      localStorage.setItem('idJuego',idJuego)
-     }
 
 
     const buscarJuego = async (idLocalJuego) =>{
@@ -43,19 +39,16 @@ export const AhoraQueHaremos = ({idJuego}) => {
 
   return (
     <>
-    {loading && <div>Cargando...</div>}
-    {!loading && (
-        <>
+
             <div className="flex-shrink-0 w-72 bg-blue-950 text-white">
                 <SideBar token={token} />
             </div>
 
             <section className="flex flex-col overflow-auto bg-white relative w-full h-full ">
         
-                <Queharemos infojuego={infojuego}/>
+                <Queharemos ruta={ruta}/>
             </section>
         </>
-  )} 
-  </>
+
   )
 }
