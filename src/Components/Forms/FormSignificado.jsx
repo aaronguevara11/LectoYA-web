@@ -36,7 +36,7 @@ export const FormSignificado = ({ruta}) => {
 
   const handleSubmitSignificado=  async (e) => {
     e.preventDefault();
-    await agregarSignificado(lectura,idTema);
+    await agregarSignificado(lecturaSignificado,idTema);
     setLecturaSignificado('');
     alert("se agrego el juego correctamente")
   }

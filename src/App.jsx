@@ -54,9 +54,9 @@ function App() {
           
             {/* NAVEGACION */}
             <Route path="/home" element={<Views setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/> }/>
-            <Route path="/home/Temas/:id" element={<Temas setIdTema={setIdTema} nombreCurso={nombreCurso} setIdCurso={setIdCurso}/>} />
+            <Route path="/home/Temas/:id" element={<Temas setIdTema={setIdTema} nombreCurso={nombreCurso} setIdCurso={setIdCurso} ruta={ruta}/>} />
             <Route path="/home/Temas/info" element={<Tema idCurso={idCurso} idTema={idTema} setIdJuego={setIdJuego} setNombreJuego={setNombreJuego} setIdTema={setIdTema} ruta={ruta} />} />
-            {/* JUEGOS */}
+            {/* JUEGOS */}    
             <Route path="/home/JuegoDelDado" element={<JuegoDelDado   ruta={ruta} />} />
             <Route path="/home/HistoriasInteractivas" element={<HistoriasInteractivas  ruta={ruta} />} />
             <Route path="/home/JuegoDeLaRuleta" element={<JuegoDeLaRuleta  ruta={ruta} />} />

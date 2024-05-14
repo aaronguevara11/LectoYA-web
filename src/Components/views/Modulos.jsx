@@ -45,6 +45,7 @@ export const Modulos = ({setIdTema, setNombreCurso}) => {
           Authorization: token,
         }
       });
+      console.log(response.data.cursos[0].cursos)
       setDatacurso(response.data.cursos[0].cursos);
       setLoading(false); // Cambia el estado de carga a falso después de recibir la respuesta
     } catch (error) {
@@ -166,16 +167,16 @@ export const Modulos = ({setIdTema, setNombreCurso}) => {
       {/* ALUMNO DISEÑO */}
       {person == "alumno" ?  (
         <>
-              {datacurso.map((item,index) => (
+              {datacurso.map((item) => (
           
-                <div className="h-60 bg-gray-200 rounded overflow-hidden shadow-lg flex justify-center items-center m-[15px] hover:shadow-2xl" key={index}>
+                <div className="h-60 bg-gray-200 rounded overflow-hidden shadow-lg flex justify-center items-center m-[15px] hover:shadow-2xl" key={item.cursos.id}>
                   <div className="informacion w-full px-3 h-full flex flex-col justify-center relative">
                     <div className="p-2" >
                       <div className="font-bold font-sans text-[28px]">{item.cursos.nombre} </div>
                       <p className="text-gray text-[22px]">{item.cursos.docente.nombre} {item.cursos.docente.apaterno}</p>
                     </div>
                     <div className="btn flex justify-center w-full my-4 h-[45px]  bottom-0">
-                      <button className="bg-black text-white hover:bg-neutral-700 w-4/5 font-bold py-2 px-4 rounded text-[20px] absolute bottom-5" onClick={() => handleClickCurso(index,item.cursos.nombre)}>
+                      <button className="bg-black text-white hover:bg-neutral-700 w-4/5 font-bold py-2 px-4 rounded text-[20px] absolute bottom-5" onClick={() => handleClickCurso(item.cursos.id,item.cursos.nombre)}>
                         Entrar
                       </button>
                     </div>
