@@ -15,13 +15,13 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 
 
-export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
+export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
   const token = localStorage.getItem('jwtdata')
   const [tituloTema,setTituloTema] = useState('');
   const [descripcionTema,setDescripcionTema] = useState('');
   const [lecturaTema,setLecturaTema] = useState('');
   const [curso,setCurso]= useState('');
-
+  const [idTemaActualizar,setIdTemaActualizar] = useState('')
   
   useEffect(() => {
     // Almacenar el nombre del curso en localStorage cada vez que cambie
@@ -50,7 +50,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
 
   const mostrarTemas = async (idCurso) => {
     try {
-      const response = await axios.get(`http://localhost:3000/app/mostrarTemas/${idCurso}`, {
+      const response = await axios.get(`${ruta}/mostrarTemas/${idCurso}`, {
         headers: {
           Authorization: token,
         },
@@ -82,7 +82,10 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
   const handleClose = () => setOpen(false);
 
   const [op, setOp] = React.useState(false);
-  const handleOp = () => setOp(true);
+  const handleOp = (idTema) =>{
+  setIdTemaActualizar(idTema)
+  setOp(true)
+} 
   const handleCl = () => setOp(false);
 
    const handleInputtituloTema = ({target})=>{
@@ -95,7 +98,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
 
    const crearTema = async (idCurso,tituloTema, descripcionTema, lecturaTema) => {
     try {
-      const response = await axios.post('http://localhost:3000/app/agregarTemas',
+      const response = await axios.post(`${ruta}/agregarTemas`,
        {
          idCurso: idCurso,
          nombre :tituloTema,
@@ -113,6 +116,32 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
     }
   }
 
+  const  borrarTemaAxios = async (idTemaActualizar) => {
+    try {
+      const response = await axios.delete(`${ruta}/borrarTemas`, 
+      {
+        headers: {
+          Authorization: token
+        },
+        data: {
+          id: idTemaActualizar
+        }
+      })
+      console.log(response.data)
+    }catch(error){
+        console.log(error);
+    }
+  }
+  const borrarTema = async () => {
+    await borrarTemaAxios(idTemaActualizar)
+        mostrarTemas(idCurso);
+        handleCl();
+  }
+
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await crearTema(idCurso,tituloTema,descripcionTema,lecturaTema)
@@ -121,7 +150,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
     setDescripcionTema('');
     setLecturaTema('');
     handleClose();
-  };
+  };  
 
 
   const handleClickCurso = (idCurso,idTema) => {
@@ -347,7 +376,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso}) => {
                       </div>
 
                       <div className="crear w-full flex justify-center items-center h-[60px] my-5">
-                        <Button className='flex h-[53px] bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[80%] p-1 items-center justify-center' onClick={() => (idTema, itemToDelete.id)}>
+                        <Button className='flex h-[53px] bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[80%] p-1 items-center justify-center' onClick={() => borrarTema()}>
                           <section className='flex items-center justify-center text-[22px] text-white'> <DeleteOutlineOutlinedIcon/> Eliminar</section>
                         </Button>
                       </div>

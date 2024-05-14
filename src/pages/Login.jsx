@@ -10,7 +10,7 @@ import axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./ProtectedRouter.jsx";
-import { Views } from "./Views.jsx";
+import { Views } from './Views.jsx';
 
 export const Login = ({setJwtDataLocal}) => {
   const endpoint = "http://localhost:3000/app/loginDocentes"
@@ -23,23 +23,48 @@ export const Login = ({setJwtDataLocal}) => {
 
   localStorage.setItem('jwtdata', jwtdata)
 
-  const loginAxiosDocente = async (correo, contraseña) => {
+  // const loginAxiosDocente = async (correo, contraseña) => {
 
-    //LOGIN
-    const response = await axios.put(endpoint, {
-      correo: correo,
-      password: contraseña
-    }).then(function (response) {
+  //   //LOGIN
+  //   const response = await axios.put(endpoint, {
+  //     correo: correo,
+  //     password: contraseña
+  //   }).then(function (response) {
+     
+  //   }).catch(function (error) {
+
+  //     console.log(error);
+  //   });
+  // }
+
+  const loginAxiosDocente = async (idTema) => {
+    try {
+      const response = await axios.put(endpoint, {
+        correo: correo,
+        password: contraseña
+      });
+
       setJwtData(response.data.token)
       localStorage.setItem('jwtdata', response.data.token);
       localStorage.setItem('person', "Docente");
       if (response.data.message === "Datos incorrectos") {
         alert(response.data.message)
       }
-    }).catch(function (error) {
-      console.log(error);
-    });
-  }
+     
+    } catch (error) {
+      console.error("Error al obtener los temas:", error);
+
+    }
+  };
+
+
+
+
+
+
+
+
+
 
   const loginAxiosAlumno = async (correo, contraseña) => {
 
@@ -141,7 +166,7 @@ export const Login = ({setJwtDataLocal}) => {
                             <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500 dark:text-white text-[18px]">Restablecer contraseña</a>
                         </div>
                         <button type="submit" className="w-full h-[50px] text-white bg-blue-500 border-solid border-black  hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                        Sign in
+                        Sign in 
                         
                         </button>
                         <div className="text-sm font-light w-full h-8 flex items-center">
