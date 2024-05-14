@@ -5,28 +5,28 @@ import { SideBar } from "../SideBar";
 import Box from '@mui/material/Box';
 import axios from "axios";
 
-export const FormRegisterGame = ({setNombreJuego, ruta}) => {
+export const FormOrdenalo = ({ruta}) => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('jwtdata')
   const idTema = localStorage.getItem('idTema')
 
   // INFO REGISTRAR INTERACTIVAS
-  const [parrafoInteractivas,setParrafoInteractivas] = useState('')
-  const [preguntaInteractivas,setPreguntaInteractivas] = useState('')
-  const [claveAInteractivas,setClaveAInteractivas] = useState('')
-  const [claveBInteractivas,setClaveBInteractivas] = useState('')
-  const [claveCInteractivas,setClaveCInteractivas] = useState('')
+  const [parrafo1,setParrafo1] = useState('')
+  const [parrafo2,setParrafo2] = useState('')
+  const [parrafo3,setParrafo3] = useState('')
+  const [parrafo4,setParrafo4] = useState('')
+  const [parrafo5,setParrafo5] = useState('')
 
-  const agregarInteractivas = async (parrafo,pregunta,claveA,claveB,claveC,idTema) =>{
+  const agregarOrdenalo = async (parrafo1, parrafo2, parrafo3, parrafo4, parrafo5, idTema) =>{
 
     try{
-      const response = await axios.post(`${ruta}/interactivas/agregarHistoria`,
+      const response = await axios.post(`${ruta}/ordenalo/agregarOrdenalo`,
       {
-        parrafo : parrafo,
-        pregunta : pregunta,
-        claveA : claveA,
-        claveB : claveB,
-        claveC : claveC,
+        parrafo1: parrafo1,
+        parrafo2: parrafo2,
+        parrafo3: parrafo3,
+        parrafo4: parrafo4,
+        parrafo5: parrafo5,
         idTema : idTema
       },{
         headers:{
@@ -42,33 +42,32 @@ export const FormRegisterGame = ({setNombreJuego, ruta}) => {
     
   }
 
-  const handleSubmitInteractivas =  async (e) => {
+  const handleSubmitOrdenalo =  async (e) => {
     e.preventDefault();
-    await agregarInteractivas(parrafoInteractivas,preguntaInteractivas,claveAInteractivas,claveBInteractivas,claveCInteractivas,idTema);
-    setParrafoInteractivas('');
-    setPreguntaInteractivas('');
-    setClaveAInteractivas('');
-    setClaveBInteractivas('');
-    setClaveCInteractivas('');
+    await agregarOrdenalo(parrafo1, parrafo2, parrafo3, parrafo4, parrafo5, idTema);
+    setParrafo1('');
+    setParrafo2('');
+    setParrafo3('');
+    setParrafo4('');
+    setParrafo5('');
     alert("se agrego el juego correctamente")
   }
 
-  const handleParrafoInteractivas = ({target})=>{
-    setParrafoInteractivas(target.value)
+  const handleParrafo1 = ({target})=>{
+    setParrafo1(target.value)
   }
-  const handlePreguntaInteractivas = ({target})=>{
-    setPreguntaInteractivas(target.value)
+  const handleParrafo2 = ({target})=>{
+    setParrafo2(target.value)
   }
-  const handleClaveAInteractivas = ({target})=>{
-    setClaveAInteractivas(target.value)
+  const handleParrafo3 = ({target})=>{
+    setParrafo3(target.value)
   }
-  const handleClaveBInteractivas = ({target})=>{
-    setClaveBInteractivas(target.value)
+  const handleParrafo4 = ({target})=>{
+    setParrafo4(target.value)
   }
-  const handleClaveCInteractivas = ({target})=>{
-    setClaveCInteractivas(target.value)
+  const handleParrafo5 = ({target})=>{
+    setParrafo5(target.value)
   }
-
   return (
     <>
       <div className="flex-shrink-0 w-72 bg-blue-950 text-white">
@@ -77,97 +76,94 @@ export const FormRegisterGame = ({setNombreJuego, ruta}) => {
       <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
         <section className="w-full h-full">
           <div className=" w-full h-auto flex justify-center pb-5">
-            <h1 className="w-4/5 uppercase font-bold text-[60px] pt-4">Preguntas Interactivas</h1>
+            <h1 className="w-4/5 uppercase font-bold text-[60px] pt-4">Ordenalo YA</h1>
           </div>
 
           <hr className="border-2"/>
 
           <div className="h-[70%] w-full mt-10">
-            <form className="w-full" onSubmit={handleSubmitInteractivas}>
+            <form className="w-full" onSubmit={handleSubmitOrdenalo}>
               <div className="w-full flex flex-col my-3 justify-center">
                 <div className="w-full flex justify-center">
                   <label className="w-4/5 uppercase tracking-wide text-gray-700 text-[22px] font-bold mb-2">
-                    Parrafo de la lectura:
+                    Parrafo 1:
                   </label>
                 </div>
 
                 <div className="w-full h-auto flex justify-center">
                   <textarea 
                   className="w-4/5 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white min-h-[60px] max-h-[150px]" 
-                  placeholder="Escriba el parrafo..."
-                  value={parrafoInteractivas}
-                  onChange={handleParrafoInteractivas}
+                  placeholder="Escriba la primera pregunta..."
+                  value={parrafo1}
+                  onChange={handleParrafo1}
                   />
                 </div>
               </div>
 
               <div className="w-full flex flex-col my-3 justify-center">
                 <div className="w-full flex justify-center">
-                  <label className="w-4/5 uppercase tracking-wide text-gray-700 text-[22px] font-bold mb-2" htmlFor="grid-first-name">
-                    Pregunta:
+                  <label className="w-4/5 uppercase tracking-wide text-gray-700 text-[22px] font-bold mb-2">
+                    Parrafo 2:
                   </label>
                 </div>
 
                 <div className="w-full h-auto flex justify-center">
                   <textarea 
                   className="w-4/5 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white min-h-[60px] max-h-[150px]" 
-                  placeholder="Escriba la pregunta..."
-                  value={preguntaInteractivas}
-                  onChange={handlePreguntaInteractivas}
+                  placeholder="Escriba la segunda pregunta... "
+                  value={parrafo2}
+                  onChange={handleParrafo2}
                   />
                 </div>
               </div>
 
               <div className="w-full flex flex-col my-3 justify-center">
                 <div className="w-full flex justify-center">
-                  <label className="w-4/5 uppercase tracking-wide text-gray-700 text-[22px] font-bold mb-2" htmlFor="grid-first-name">
-                    Clave A:
+                  <label className="w-4/5 uppercase tracking-wide text-gray-700 text-[22px] font-bold mb-2">
+                    Parrafo 3:
                   </label>
                 </div>
 
                 <div className="w-full h-auto flex justify-center">
                   <textarea 
                   className="w-4/5 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white min-h-[60px] max-h-[150px]" 
-                  id="grid-first-name" type="text" 
-                  placeholder="Escriba la alternativa"
-                  value={claveAInteractivas}
-                  onChange={handleClaveAInteractivas}
+                  placeholder="Escriba la tercera pregunta..."
+                  value={parrafo3}
+                  onChange={handleParrafo3}
                   />
                 </div>
               </div>
 
               <div className="w-full flex flex-col my-3 justify-center">
                 <div className="w-full flex justify-center">
-                  <label className="w-4/5 uppercase tracking-wide text-gray-700 text-[22px] font-bold mb-2" htmlFor="grid-first-name">
-                    Clave B:
+                  <label className="w-4/5 uppercase tracking-wide text-gray-700 text-[22px] font-bold mb-2">
+                    Parrafo 4:
                   </label>
                 </div>
 
                 <div className="w-full h-auto flex justify-center">
                   <textarea 
                   className="w-4/5 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white min-h-[60px] max-h-[150px]" 
-                  id="grid-first-name" type="text" 
-                  placeholder="Escriba la alternativa"
-                  value={claveBInteractivas}
-                  onChange={handleClaveBInteractivas}
+                  placeholder="Escriba la cuarta pregunta..."
+                  value={parrafo4}
+                  onChange={handleParrafo4}
                   />
                 </div>
               </div>
 
               <div className="w-full flex flex-col my-3 justify-center">
                 <div className="w-full flex justify-center">
-                  <label className="w-4/5 uppercase tracking-wide text-gray-700 text-[22px] font-bold mb-2" htmlFor="grid-first-name">
-                    Clave C:
+                  <label className="w-4/5 uppercase tracking-wide text-gray-700 text-[22px] font-bold mb-2">
+                    Parrafo 5:
                   </label>
                 </div>
 
                 <div className="w-full h-auto flex justify-center">
                   <textarea 
                   className="w-4/5 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white min-h-[60px] max-h-[150px]" 
-                  id="grid-first-name" type="text" 
-                  placeholder="Escriba la alternativa"
-                  value={claveCInteractivas}
-                  onChange={handleClaveCInteractivas}
+                  placeholder="Escriba la quinta pregunta..."
+                  value={parrafo5}
+                  onChange={handleParrafo5}
                   />
                 </div>
               </div>

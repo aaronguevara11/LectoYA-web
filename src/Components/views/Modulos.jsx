@@ -168,7 +168,7 @@ export const Modulos = ({setIdTema, setNombreCurso}) => {
         <>
               {datacurso.map((item,index) => (
           
-                <div className="h-60 bg-gray-200 rounded overflow-hidden shadow-lg flex justify-center items-center m-3" key={index}>
+                <div className="h-60 bg-gray-200 rounded overflow-hidden shadow-lg flex justify-center items-center m-[15px] hover:shadow-2xl" key={index}>
                   <div className="informacion w-full px-3 h-full flex flex-col justify-center relative">
                     <div className="p-2" >
                       <div className="font-bold font-sans text-[28px]">{item.cursos.nombre} </div>
@@ -252,7 +252,7 @@ export const Modulos = ({setIdTema, setNombreCurso}) => {
                   
 
          
-                <div className="h-60 bg-gray-200 rounded overflow-hidden shadow-lg flex justify-center items-center m-3" key={item.id}>
+                <div className="h-60 bg-gray-200 overflow-hidden flex justify-center items-center m-[15px] hover:shadow-2xl" key={item.id}>
                   <div className="informacion w-full px-3 h-full flex flex-col justify-center relative">
                     <div className="p-2" >
                       <div className="font-bold font-sans text-[28px]">{item.nombre}</div>

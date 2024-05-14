@@ -16,7 +16,7 @@ export const SideBar = ({token}) => {
 
 
   return (
-    <section className="w-full h-screen bg-[#444444] m-0">
+    <section className="w-full h-screen bg-[#2c2c2c] m-0">
       <div className="flex justify-center h-[25%] w-full" id="hdsb">
       </div>
       <div className="titulo h-[10%] flex items-center justify-center">

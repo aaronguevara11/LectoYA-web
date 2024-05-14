@@ -17,6 +17,12 @@ import { CambioYa } from "./pages/CambioYa";
 
 /* Formulario Registro Juego */
 import { FormRegisterGame } from "./Components/Forms/FormRegisterGame";
+import { FormHaremos } from "./Components/Forms/FormHaremos";
+import { FormDado } from "./Components/Forms/FormDado";
+import { FormRuleteando } from "./Components/Forms/FormRuleteando";
+import { FormOrdenalo } from "./Components/Forms/FormOrdenalo";
+import { FormSignificado } from "./Components/Forms/FormSignificado";
+import { FormCambialo } from "./Components/Forms/FormCambialo";
 
 function App() {
   const [jwtDataLocal, setJwtDataLocal] = useState(localStorage.getItem('jwtdata'));
@@ -60,13 +66,13 @@ function App() {
             <Route path="/home/CambioYa" element={<CambioYa  ruta={ruta} />} />
                         
              {/* VISTA PERFILES Y FORMULARIOS*/}
-             <Route path="/home/FormularioInteractivas" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
-             <Route path="/home/FormularioQueHaremos" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
-             <Route path="/home/FormularioJuegoDelDado" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
-             <Route path="/home/FormularioRuleteando" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
-             <Route path="/home/FormularioOrdenaloYa" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
-             <Route path="/home/FormularioDaleUnSignificado" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
-             <Route path="/home/FormularioCambialoYa" element={<FormRegisterGame  nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioInteractivas" element={<FormRegisterGame ruta={ruta} nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioQueHaremos" element={<FormHaremos ruta={ruta} nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioJuegoDelDado" element={<FormDado ruta={ruta} nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioRuleteando" element={<FormRuleteando ruta={ruta} nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioOrdenaloYa" element={<FormOrdenalo ruta={ruta} nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioDaleUnSignificado" element={<FormSignificado ruta={ruta} nombreJuego={nombreJuego}/>} />
+             <Route path="/home/FormularioCambialoYa" element={<FormCambialo ruta={ruta} nombreJuego={nombreJuego}/>} />
 
 
           </Route>

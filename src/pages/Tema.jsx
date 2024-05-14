@@ -278,7 +278,7 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,ruta}) 
 
 
             <div className="w-full h-auto px-10 mt-7 flex flex-col items-center">
-                <div className="bg-gray-200 w-full h-[15%] rounded overflowx-hidden shadow-lg flex items-center ">
+                <div className="bg-gray-200 w-full h-[45%] rounded overflowx-hidden shadow-lg flex items-center ">
                   <div className="h-full w-full flex items-center">
                     <button className="text-start px-5 w-full h-full text-[45px] font-mono rounded-lg font-medium text-gray-700 hover:bg-gray-300 focus:outline-none transition duration-150 ease-in-out"
                       onClick={toggleOpen}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { SideBar } from "../Components/SideBar";
-import { RouteChange } from "../pages/RouteChange";
+import { RouteChange } from "./RouteChange";
 import { Modulos } from '../Components/views/Modulos';
 import { Formulario } from './Formulario';
 import { nuevoCurso } from './nuevoCurso';
@@ -11,6 +11,12 @@ import { RuletaRusaYa } from '../Components/Games/RuletaRusaYa';
 import { OrdenaloYaGame } from '../Components/Games/OrdenaloYaGame';
 import { Queharemos } from '../Components/Games/Queharemos';
 import { Significado } from '../Components/Games/Significado';
+import { FormRuleteando } from '../Components/Forms/FormRuleteando';
+import { FormHaremos } from '../Components/Forms/FormHaremos';
+import { FormSignificado } from '../Components/Forms/FormSignificado';
+import { FormDado } from '../Components/Forms/FormDado';
+import { FormCambialo } from '../Components/Forms/FormCambialo';
+import { FormOrdenalo } from '../Components/Forms/FormOrdenalo';
 
 export const Views = ({setIdTema,setNombreCurso}) => {
 
@@ -22,8 +28,7 @@ export const Views = ({setIdTema,setNombreCurso}) => {
       </div>
       <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
       {/* <Dado/> */}
-       <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/>  
-     
+      <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/>
     </div>
     </>
   )
