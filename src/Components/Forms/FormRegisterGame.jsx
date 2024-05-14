@@ -80,7 +80,7 @@ export const FormRegisterGame = ({setNombreJuego}) => {
     setClaveAInteractivas('');
     setClaveBInteractivas('');
     setClaveCInteractivas('');
-    alert("se agrefo el juego correctamente")
+    alert("se agrego el juego correctamente")
   }
 
   const handleParrafoInteractivas = ({target})=>{
