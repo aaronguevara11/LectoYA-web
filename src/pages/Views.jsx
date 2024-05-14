@@ -17,6 +17,7 @@ import { FormSignificado } from '../Components/Forms/FormSignificado';
 import { FormDado } from '../Components/Forms/FormDado';
 import { FormCambialo } from '../Components/Forms/FormCambialo';
 import { FormOrdenalo } from '../Components/Forms/FormOrdenalo';
+import { RegistroDocente } from './RegistroDocente';
 
 export const Views = ({setIdTema,setNombreCurso,ruta}) => {
 
