@@ -6,6 +6,8 @@ import { Button } from "@material-tailwind/react";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import axios from "axios";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
 import { useNavigate } from 'react-router-dom';
 
 export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,ruta}) => {
@@ -299,16 +301,24 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,ruta}) 
                             className="w-full h-[100px] rounded overflowx-hidden border-b-2 flex items-center"
                             key={item.id}
                           >
-                            <div className="w-4/5">
+                            <div className="w-5/6">
                               <h2 className="w-80 font-normal font-sans text-[20px] px-5">{item.nombreJuego}</h2>  {/* Accedemos a la propiedad nombreJuego del objeto actual */}
                             </div>
-                            <div className="w-1/5 h-full flex items-center justify-center">
-                              <Button
-                                onClick={()=>{handleRedirectGame(item.id, item.nombreJuego, setIdJuego )} }
-                                className="h-3/5 w-3/5 bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded"
-                              >
-                                IR al juego
-                              </Button>
+                            <div className="w-1/6 px-4 h-full flex items-end justify-center">
+                              <div className="w-4/5 h-full flex items-center justify-center">
+                                <Button
+                                  onClick={()=>{handleRedirectGame(item.id, item.nombreJuego, setIdJuego )} }
+                                  className="h-[50px] w-full bg-blue-900 hover:bg-blue-950 hover:shadow-lg hover:shadow-gray-500 text-white font-bold rounded-lg py-2 px-4 mr-2"
+                                >
+                                  Ir al juego
+                                </Button>
+                              </div>
+                              <div className="w-1/5 h-full flex items-center">
+                                <Button 
+                                className='flex bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg px-3 h-[50px] items-center justify-center'  onClick={() => handleOp(item.id)}>  
+                                    <section className='text-lg text-white'> <DeleteOutlineOutlinedIcon/></section>
+                                </Button>
+                              </div>
                             </div>
                           </div>
                         ))}

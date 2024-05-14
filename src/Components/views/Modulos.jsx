@@ -11,6 +11,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { Routes, Route } from "react-router-dom";
 import { Temas } from "../../pages/Temas";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 const style = {
   position: 'absolute',
@@ -259,11 +260,21 @@ export const Modulos = ({setIdTema, setNombreCurso}) => {
                       <div className="font-bold font-sans text-[28px]">{item.nombre}</div>
                       <p className="text-gray text-[22px]">{item.docente.nombre} {item.docente.apaterno}</p>
                     </div>
-                    <div className="btn flex justify-center w-full my-4 h-[45px]  bottom-0">
-                      <button className="bg-black text-white hover:bg-neutral-700 w-4/5 font-bold py-2 px-4 rounded text-[20px] absolute bottom-5" onClick={() => handleClickCurso(item.id,item.nombre)}>
-                        Entrar
-                      </button>
+
+                    <div className="btn flex items-center justify-center w-full mx-2 mt-4 h-[45px]">
+                      <div className="w-4/5 h-[45px]">
+                        <button className="bg-black text-white hover:bg-neutral-700 w-full h-[50px] rounded-lg font-bold px-4 text-[20px]" onClick={() => handleClickCurso(item.id,item.nombre)}>
+                          Entrar
+                        </button>
+                      </div>
+                      <div className="w-1/5 h-full flex items-center ml-2 mt-1">
+                        <Button 
+                        className='flex bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg px-3 h-[50px] items-center justify-center'  onClick={() => handleOp(item.id)}>  
+                            <section className='text-lg text-white'> <DeleteOutlineOutlinedIcon/></section>
+                        </Button>
+                      </div>
                     </div>
+
                   </div>
                 </div>
 
