@@ -25,7 +25,7 @@ const style = {
   p: 4,
 };
 
-export const Modulos = ({setIdTema, setNombreCurso}) => {
+export const Modulos = ({setIdTema, setNombreCurso, ruta}) => {
   const [datacurso, setDatacurso] = useState();
   const [loading, setLoading] = useState(true); // Estado para controlar el estado de carga
   const [nombreCC, setnombreCC] = useState(''); 
@@ -41,7 +41,7 @@ export const Modulos = ({setIdTema, setNombreCurso}) => {
   //  OBTENER CURSOS DOCENTES
   const obtenerCursos = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/app/cursosDocente', {
+      const response = await axios.get(`${ruta}/cursosDocente`, {
         headers: { 
           Authorization: token,
         }
@@ -58,7 +58,7 @@ export const Modulos = ({setIdTema, setNombreCurso}) => {
   // OBTENER CURSOS ALUMNOS
   const obtenerCursosAlumno = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/app/cursosAlumno', {
+      const response = await axios.get(`${ruta}/cursosAlumno`, {
         headers: { 
           Authorization: token,
         }
@@ -152,6 +152,43 @@ export const Modulos = ({setIdTema, setNombreCurso}) => {
     setNombreCurso(nombreCurso);
     navigate(`Temas/${idTema}`);
   }
+
+
+const [idCursoBorar,setIdCursoBorar] = useState('')
+
+  const  borrarCursosAxios = async (idCursoBorar) => {
+    try {
+      const response = await axios.delete(`${ruta}/eliminarCurso`, 
+      {
+        headers: {
+          Authorization: token
+        },
+        data: {
+          id: idCursoBorar
+        }
+      })
+      console.log(response.data)
+    }catch(error){
+        console.log(error);
+    }
+  }
+  const borrarTema = async () => {
+    await borrarCursosAxios(idCursoBorar)
+      obtenerCursos();         
+      handleCl();
+  }
+
+
+
+
+  
+    const handleCl = () => setOp(false);
+    const [op, setOp] = React.useState(false);
+    const handleOp = (idCursoBorar) =>{
+    setIdCursoBorar(idCursoBorar)
+    setOp(true)
+  } 
+
 
   return (
     <section className="w-full h-4/5 justify-center">
@@ -348,8 +385,35 @@ export const Modulos = ({setIdTema, setNombreCurso}) => {
     )}
 
 
+      {/* MODAL BORRAR */}
+          <div className="w-full top-1/2 right-1/2">
+              <Modal
+                  open={op}
+                  onClose={handleCl}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                  className="w-full h-full flex justify-center items-center "
+                >
+                <Box className="w-[500px] h-auto backdrop-blur-md flex justify-center px-12 bg-white/90 rounded-[15px] p-4 ml-72">
+                  <form className="w-full max-w-lg h-auto flex justify-center">
+                    <div className="w-full h-full relative">
 
+                      <div className="titulo my-5">
+                        <h1 className="text-black uppercase font-bold font-sans text-[45px] text-start">Borrar tema</h1>
+                        <h1 className='mt-0 text-[25px]'>¿Desea borrar el tema?</h1>
+                      </div>
 
+                      <div className="crear w-full flex justify-center items-center h-[60px] my-5">
+                        <Button className='flex h-[53px] bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[80%] p-1 items-center justify-center' onClick={() => borrarTema()}>
+                          <section className='flex items-center justify-center text-[22px] text-white'> <DeleteOutlineOutlinedIcon/> Eliminar</section>
+                        </Button>
+                      </div>
+
+                    </div>
+                  </form>
+                </Box>
+              </Modal>
+            </div>  
 
 
 

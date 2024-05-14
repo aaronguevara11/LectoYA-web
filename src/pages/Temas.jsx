@@ -86,6 +86,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
   setIdTemaActualizar(idTema)
   setOp(true)
 } 
+
   const handleCl = () => setOp(false);
 
    const handleInputtituloTema = ({target})=>{

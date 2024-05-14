@@ -18,7 +18,7 @@ import { FormDado } from '../Components/Forms/FormDado';
 import { FormCambialo } from '../Components/Forms/FormCambialo';
 import { FormOrdenalo } from '../Components/Forms/FormOrdenalo';
 
-export const Views = ({setIdTema,setNombreCurso}) => {
+export const Views = ({setIdTema,setNombreCurso,ruta}) => {
 
   const token = localStorage.getItem('jwtdata')
   return (
@@ -28,7 +28,7 @@ export const Views = ({setIdTema,setNombreCurso}) => {
       </div>
       <div className="flex flex-grow overflow-auto bg-gray-100 relative w-full h-full justify-center">
       {/* <Dado/> */}
-      <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/>
+      <Modulos setIdTema={setIdTema}  setNombreCurso={setNombreCurso} ruta={ruta}/>
     </div>
     </>
   )

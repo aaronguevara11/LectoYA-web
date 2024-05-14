@@ -251,6 +251,57 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,ruta}) 
   }
   
 
+
+
+  const [idJuegoBorrar,setIdJuegoBorrar] = useState('')
+
+  const  borrarJuegoAxios = async (idJuegoBorrar) => {
+    try {
+      const response = await axios.delete(`${ruta}/juegos/borrarJuegos`, 
+      {
+        headers: {
+          Authorization: token
+        },
+        data: {
+          id: idJuegoBorrar
+        }
+      })
+      console.log(response.data)
+    }catch(error){
+        console.log(error);
+    }
+  }
+  const borrarTema = async () => {
+    await borrarJuegoAxios(idJuegoBorrar)       
+      const cursoLSG = localStorage.getItem('idTema');
+     const idTemalocal = parseInt(cursoLSG)
+
+    
+    verTema(parseInt(cursoLSG))
+      handleCl();
+  }
+
+
+
+
+  
+    const handleCl = () => setOp(false);
+    const [op, setOp] = React.useState(false);
+    const handleOp = (idJuegoB) =>{
+    setIdJuegoBorrar(idJuegoB)
+    setOp(true)
+  } 
+
+
+
+
+
+
+
+
+
+
+
   return (
     <>
       {loading && <div>Cargando...</div>}
@@ -389,6 +440,34 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,ruta}) 
 
 
 
+        <div className="w-full top-1/2 right-1/2">
+              <Modal
+                  open={op}
+                  onClose={handleCl}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                  className="w-full h-full flex justify-center items-center "
+                >
+                <Box className="w-[500px] h-auto backdrop-blur-md flex justify-center px-12 bg-white/90 rounded-[15px] p-4 ml-72">
+                  <form className="w-full max-w-lg h-auto flex justify-center">
+                    <div className="w-full h-full relative">
+
+                      <div className="titulo my-5">
+                        <h1 className="text-black uppercase font-bold font-sans text-[45px] text-start">Borrar tema</h1>
+                        <h1 className='mt-0 text-[25px]'>¿Desea borrar el tema?</h1>
+                      </div>
+
+                      <div className="crear w-full flex justify-center items-center h-[60px] my-5">
+                        <Button className='flex h-[53px] bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[80%] p-1 items-center justify-center' onClick={() => borrarTema()}>
+                          <section className='flex items-center justify-center text-[22px] text-white'> <DeleteOutlineOutlinedIcon/> Eliminar</section>
+                        </Button>
+                      </div>
+
+                    </div>
+                  </form>
+                </Box>
+              </Modal>
+            </div> 
 
         </section>
       </>

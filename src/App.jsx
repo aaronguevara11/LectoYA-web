@@ -53,7 +53,7 @@ function App() {
           <Route element={<ProtectedRoute jwtdatalocal={jwtDataLocal}/>}>
           
             {/* NAVEGACION */}
-            <Route path="/home" element={<Views setIdTema={setIdTema}  setNombreCurso={setNombreCurso}/> }/>
+            <Route path="/home" element={<Views setIdTema={setIdTema}  setNombreCurso={setNombreCurso} ruta={ruta}/> }/>
             <Route path="/home/Temas/:id" element={<Temas setIdTema={setIdTema} nombreCurso={nombreCurso} setIdCurso={setIdCurso} ruta={ruta}/>} />
             <Route path="/home/Temas/info" element={<Tema idCurso={idCurso} idTema={idTema} setIdJuego={setIdJuego} setNombreJuego={setNombreJuego} setIdTema={setIdTema} ruta={ruta} />} />
             {/* JUEGOS */}    
