@@ -5,6 +5,9 @@ import { jwtDecode } from "jwt-decode";
 import PersonOutlineRoundedIcon  from '@mui/icons-material/PersonOutlineRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import './css/sidebar.css'
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+import MarkEmailUnreadOutlinedIcon from '@mui/icons-material/MarkEmailUnreadOutlined';
 
 export const SideBar = ({token}) => {
   const navigate = useNavigate();
@@ -31,17 +34,11 @@ export const SideBar = ({token}) => {
 
       <div className="datos h-[45%] w-full flex justify-center px-2 items-start ml-0 mt-0">
         <List className="text-white grid py-4 w-full text-[20px] mt-0 pt-0">
-          <ListItem className="py-6 flex items-center"><PersonOutlineRoundedIcon className="mr-4 mt-1"/> Nombreeeeeeeeeee</ListItem>
-          <ListItem className="py-6 flex items-start"><MenuBookRoundedIcon className="mr-4 mt-1"/> Apellido</ListItem>
+          <ListItem className="py-6 flex items-center"><PersonOutlineRoundedIcon className="mr-4 mt-1"/>{decoded.nombre} </ListItem>
+          <ListItem className="py-6 flex items-start"><PeopleAltOutlinedIcon className="mr-4 mt-1"/>{decoded.apaterno}</ListItem>
 
-          <ListItem className="py-6 flex items-center"><PersonOutlineRoundedIcon className="mr-4 mt-1"/> Nombreeeeeeeeeee</ListItem>
-          <ListItem className="py-6 flex items-start"><MenuBookRoundedIcon className="mr-4 mt-1"/> Apellido</ListItem>
-
-
-          {/* <ListItem className="py-6 flex flex-col items-start">Apellido Materno: <span className="mt-2">{decoded.amaterno} </span></ListItem>
-          <ListItem className="py-6 flex flex-col items-start">Correo: <span className="mt-2">{decoded.correo}</span></ListItem>
-          <ListItem className="py-6 flex flex-col items-start">Dni: <span className="mt-2">{decoded.dni}</span></ListItem>
-          <ListItem className="py-6 flex flex-col items-start">Numero: <span className="mt-2">{decoded.numero}</span></ListItem> */}
+          <ListItem className="py-6 flex items-center"><CallOutlinedIcon className="mr-4 mt-1"/>{decoded.numero}</ListItem>
+          <ListItem className="py-6 flex items-start"><MarkEmailUnreadOutlinedIcon className="mr-4 mt-1"/>{decoded.correo} </ListItem>
         </List>
       </div>
 

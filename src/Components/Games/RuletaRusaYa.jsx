@@ -137,31 +137,27 @@ export const RuletaRusaYa = ({ruta}) => {
     {!loading && (
         <>
     <div className='w-full h-full flex  items-center flex-col relative top-0 p-2'>
+      <div className="w-11/12 h-[120px] flex justify-center pb-5">
+        <h1 className="px-10 w-full uppercase font-bold text-[60px] pt-4">Ruleteando</h1>
+      </div>
+      <hr className='w-full'/>
+      <div className="w-full h-4/5 flex">
 
-          <h1 className=' text-6xl text-[#e5177b] h-24'>GAME OF ROULETTE</h1>
-          
-      <div className='h-3/5'>
-      <div className='container-roullete h-[600px] w-[600px]'>
+          <div className="w-1/2 h-full pt-5 flex justify-center items-center flex-col">
+            <div className='container-roullete h-[450px] w-[450px] '>
 
                 <Wheel
                 mustStartSpinning={mustSpin}
-                outerBorderWidth={4}
+                outerBorderWidth={3}
                 radiusLineWidth={2}
                 prizeNumber={prizeNumber}
                 data={data}
                 backgroundColors={[
-                    "#3f297e",
-                    "#175fa9",
-                    "#169ed8",
-                    "#239b63",
-                    "#64b031",
-                    "#efe61f",
-                    "#f7a416",
-                    "#e6471d",
-                    "#dc0936",
-                    "#e5177b",
-                    "#be1180",
-                    "#871f7f"
+                    "#98C0D9",
+                    "#7890A5",
+                    "#3D5B80",
+                    "#856666",
+                    "#A4A4A4",
                   ]}
                 onStopSpinning={() => {
                   setMustSpin(false);
@@ -169,24 +165,29 @@ export const RuletaRusaYa = ({ruta}) => {
                   
                 }} 
                 />
-                </div>
+            </div>
+            <div className="h-[70px] w-full mt-5 flex justify-center">
+              <button className='p-5 bg-blue-950 hover:bg-blue-900 text-white rounded-lg w-52 text-center font-semibold text-[20px]'
+              onClick={handleSpinClick}
+              disabled={spinEvent}
+              >GIRAR</button>
+            </div>
+          </div>
+
+        <div className="w-1/2 h-full flex items-center">
+          <div className="w-4/5 h-1/3 rounded overflow-hidden shadow-lg flex items-center">
+            <div className="px-4 mt-3">
+              <div className="font-bold text-[28px]">Pregunta</div>
+              <span className='text-black rounded-lg w-72 text-center text-3xl uppercase'>{question}</span>
+            </div>
+          </div>
+        </div>
       </div>
 
 
 
-         <div className= " h-1/5 flex flex-col items-center pt-8">
-              <span className=' p-5  text-[#f7a416] rounded-lg w-72 text-center text-3xl uppercas text font-bold'>{question}</span>
 
-              <button className=' p-5 bg-[#871f7f] text-white rounded-lg w-52 text-center mt-10'
-              onClick={handleSpinClick}
-              disabled={spinEvent}
-              >SPIN</button>
-         </div>
-
-
-
-
-         <div className="respuesta w-full h-2/8 mt-10 flex justify-center space-x-5">
+      <div className="respuesta w-full h-2/8 mb-10 flex justify-center space-x-5">
          <form 
         className="respuesta w-full h-24 mt-10 flex justify-center items-center space-x-5"
         onSubmit={handlesubmit}
@@ -194,18 +195,20 @@ export const RuletaRusaYa = ({ruta}) => {
 
           <input type="text" 
             placeholder="Escribe aqui tu respuesta maximo 300 caracteres" 
-            className="w-3/4 h-full p-8 mx-4 rounded-3xl border-none outline-none text-clip overflow-hidden"
+            className="w-3/4 h-full px-4 text-gray-500 text-xl shadow appearance-none border rounded-xl leading-tight focus:outline-none focus:shadow-outline "
             value={respuesta}
             onChange={handleChangeRespuesta}
             readOnly={!eventoOcurrido}
-            />
+          />
+
           <button 
           className="rounded-[80%] w-[90px] h-20 bg-black text-white flex justify-center items-center"
           type="submit"
           disabled={!eventoOcurrido}
           >
             <AiOutlineSend className="h-3/5 w-3/5"/> 
-        </button>
+          </button>
+
         </form>
 
       </div>
