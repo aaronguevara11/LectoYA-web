@@ -236,13 +236,22 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
                     <h1 className='font-mono px-1 font-semibold uppercase text-[60px]'>
                         {curso}
                     </h1>
-                    <Button 
-                    className='flex justify-center items-center h-[70px] border-solid bg-[#272d5d] rounded-xl border-black border-[1px] w-[170px] p-1 text-white '
-                    onClick={handleOpen}
-                    >
-                        <section className='h-full w-2/5 flex items-center justify-end'> <AddBoxOutlinedIcon/></section>
-                        <section className='pl-2 text-start text-lg font-semibold leading-6'>Agregar tema</section>
-                    </Button>
+                    <div className="w-1/5 space-x-2 flex">
+                      <Button 
+                      className='flex justify-center items-center h-[70px] border-solid bg-blue-950 rounded-xl border-black border-[1px] w-[170px] p-1 text-white '
+                      onClick={handleOpen}
+                      >
+                          <section className='h-full w-2/5 flex items-center justify-end'> <AddBoxOutlinedIcon/></section>
+                          <section className='pl-2 text-start text-lg font-semibold leading-6'>Agregar tema</section>
+                      </Button>
+                      <Button 
+                      className='flex justify-center items-center h-[70px] border-solid bg-orange-900 rounded-xl border-black border-[1px] w-[170px] p-1 text-white '
+                      onClick={handleOpen}
+                      >
+                          <section className='h-full w-2/5 flex items-center justify-end'> <AddBoxOutlinedIcon/></section>
+                          <section className='pl-2 text-start text-lg font-semibold leading-6'>Crear link</section>
+                      </Button>
+                    </div>
                   </div>
 
 
@@ -302,7 +311,7 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
                         {/* ITEM 2 */}
                             <div className="duration-700 ease-in-out justify-center items-center h-[800px]" data-carousel-item>
                                 {alumnos.map((item,index) => (
-                                      <section className='w-full flex h-[150px] p-8 text-3xl space-x-0 border-solid rounded-xl
+                                    <section className='w-full flex h-[150px] p-8 text-3xl space-x-0 border-solid rounded-xl
                                     border-black border-[1px] items-center my-2 ' key={index}>
                                         <h1>
                                             {item.alumnos.nombre } &nbsp;
