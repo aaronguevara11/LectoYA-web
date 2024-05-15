@@ -1,6 +1,7 @@
 import { HdInteractivas } from "../Headers/HdInteractivas"
 import { useState,useEffect } from "react";
 import axios from "axios";
+import { Navigate } from "react-router";
 
 export const Interactivas = ({ruta}) => {
 
@@ -50,7 +51,7 @@ export const Interactivas = ({ruta}) => {
     let valorNuevo = infojuego['' + valorinfo]
     let envioRespuesta =  valorinfo + ": " + valorNuevo
 
-  
+    alert('Se agrego la respuesta')
     console.log(infojuego.pregunta, envioRespuesta,idjuegolocal)
     agregarRespuestaInteractivas(infojuego.pregunta,envioRespuesta,idjuegolocal)
   };
@@ -105,15 +106,16 @@ useEffect(()=>{
         <>
           <section className="w-full h-4/5 justify-center">
             <HdInteractivas />
-            <div className="pregunta w-full h-1/5 flex items-center justify-center mt-3 mb-5">
-              <div className=" h-auto w-5/6 px-6 bg-gray-200 rounded-xl border-4 overflow-hidden shadow-lg">
-                <div className="px-4">
-                  <p className="text-gray mt-4 text-[22px]">
-                    {infojuego.parrafo}
-                  </p>
+            <div className="pregunta w-full h-auto flex items-center justify-center mt-3 mb-5">
+              <div className="h-auto w-5/6 px-6 bg-gray-200 rounded-xl border-4 overflow-hidden shadow-lg">
+                <div className="px-4 pt-3">
+                  <p
+                  className="w-full h-auto min-h-[80px] max-h-[430px] text-[20px]">
+                    {infojuego.parrafo}            
+                  </p> 
                 </div>
                 <div className="pregunta flex justify-center w-full">
-                  <div className=" h-4/5 w-full mx-3 my-3 bg-yellow-500 rounded-xl overflow-hidden shadow-lg justify-center">
+                  <div className="min-h-[80px] max-h-[120px] w-full mx-3 my-3 bg-yellow-500 rounded-xl overflow-hidden shadow-lg justify-center">
                     <div className="px-4 my-3">
                       <p className="text-gray mt-5 text-[22px]">
                         {infojuego.pregunta}                
@@ -125,32 +127,32 @@ useEffect(()=>{
             </div>
 
             
-              <form className="alternativas h-4/5 w-full  flex flex-col justify-center items-center" onSubmit={handleSubmit}>
+              <form className="alternativas h-3/5 w-full flex flex-col justify-center items-center" onSubmit={handleSubmit}>
                 <div className="alternativas h-full w-full flex justify-center items-center ">
-                <div
-                className={selectedItem == 'claveA' ? 'border-solid border-red-600 border-[2px] h-80 w-1/4 mx-8 px-6 bg-red-300 rounded-xl overflow-hidden shadow-lg grid items-center' 
-                : 'h-80 w-1/4 mx-8 px-6 bg-red-300 rounded-xl overflow-hidden shadow-lg grid items-center' }
-                onClick={() => handleItemClick('claveA')}
-                >
-                  <p className="text-gray mt-5 w-full text-[28px] text-center">{infojuego.claveA} </p>
-                </div>
-                <div
-                className={ selectedItem == 'claveB' ? 'border-solid border-red-600 border-[2px] h-80 w-1/4 mx-8 px-6 bg-blue-300 rounded-xl overflow-hidden shadow-lg grid items-center' 
-                : 'h-80 w-1/4 mx-8 px-6 bg-blue-300 rounded-xl overflow-hidden shadow-lg grid items-center' }
-                onClick={() => handleItemClick('claveB')}
-                >
-                  <p className="text-gray mt-5 w-full text-[28px] text-center">{infojuego.claveB} </p>
-                </div>
-                <div 
-                className={selectedItem == 'claveC' ? 'border-solid border-red-600 border-[2px] h-80 w-1/4 mx-8 px-6 bg-green-300 rounded-xl overflow-hidden shadow-lg grid items-center' 
-                : 'h-80 w-1/4 mx-8 px-6 bg-green-300 rounded-xl overflow-hidden shadow-lg grid items-center' }
-                onClick={() => handleItemClick('claveC')}
-                >
-                  <p className="text-gray mt-5 w-full text-[28px] text-center">{infojuego.claveC} </p>
+                  <div
+                  className={selectedItem == 'claveA' ? 'border-solid border-gray-600 border-[2px] h-80 w-1/4 mx-8 px-6 bg-red-300 rounded-xl overflow-hidden shadow-lg grid items-center' 
+                  : 'h-80 w-1/4 mx-8 px-6 bg-red-300 rounded-xl overflow-hidden shadow-lg grid items-center' }
+                  onClick={() => handleItemClick('claveA')}
+                  >
+                    <p className="text-gray mt-5 w-full text-[28px] text-center">{infojuego.claveA} </p>
+                  </div>
+                  <div
+                  className={ selectedItem == 'claveB' ? 'border-solid border-gray-600 border-[2px] h-80 w-1/4 mx-8 px-6 bg-blue-300 rounded-xl overflow-hidden shadow-lg grid items-center' 
+                  : 'h-80 w-1/4 mx-8 px-6 bg-blue-300 rounded-xl overflow-hidden shadow-lg grid items-center' }
+                  onClick={() => handleItemClick('claveB')}
+                  >
+                    <p className="text-gray mt-5 w-full text-[28px] text-center">{infojuego.claveB} </p>
+                  </div>
+                  <div 
+                  className={selectedItem == 'claveC' ? 'border-solid border-gray-600 border-[2px] h-80 w-1/4 mx-8 px-6 bg-green-300 rounded-xl overflow-hidden shadow-lg grid items-center' 
+                  : 'h-80 w-1/4 mx-8 px-6 bg-green-300 rounded-xl overflow-hidden shadow-lg grid items-center' }
+                  onClick={() => handleItemClick('claveC')}
+                  >
+                    <p className="text-gray mt-5 w-full text-[28px] text-center">{infojuego.claveC} </p>
+                  </div>
                 </div>
 
-                </div>
-                <button className=" w-40 h-10 bg-red-400 text-black relative bottom-0"
+                <button className="w-[250px] bg-blue-950 hover:bg-blue-900 text-white h-[75px] rounded-xl"
                   type="submit"
                   disabled={!eventoOcurrido}
                 >

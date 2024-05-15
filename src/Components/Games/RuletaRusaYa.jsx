@@ -119,6 +119,7 @@ export const RuletaRusaYa = ({ruta}) => {
     e.preventDefault();
     
     await respuestaRuleta(question,respuesta,idjuegolocal)
+    alert('Se envio la respuesta')
   }
   
   

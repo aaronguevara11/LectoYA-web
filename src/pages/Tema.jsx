@@ -323,14 +323,14 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,ruta}) 
 
           <div className="w-full h-auto min-h-[200px] max-h-[430px] px-10">
             <textarea name="textarea" id="" value={dataResponse.Temas.lectura} readOnly
-            className="w-full p-3 h-auto min-h-[200px] max-h-[430px] border-solid border-2 border-gray-900 focus:outline-none rounded-lg text-[20 px]">
+            className="w-full my-3 p-4 h-auto min-h-[200px] max-h-[300px] border-solid border-2 border-gray-200 focus:outline-none rounded-lg text-[20 px]">
 
             </textarea> 
           </div>
 
 
 
-            <div className="w-full h-[60%] px-10 mt-7 flex flex-col items-center">
+            <div className="w-full h-[60%] px-10 mt-8 flex flex-col items-center">
                 <div className="bg-gray-200 w-full h-[20%] rounded overflowx-hidden shadow-lg flex items-center ">
                   <div className="h-full w-full flex items-center">
                     <button className="text-start px-5 w-full h-full text-[45px] font-mono rounded-lg font-medium text-gray-700 hover:bg-gray-300 focus:outline-none transition duration-150 ease-in-out"
@@ -417,10 +417,10 @@ export const Tema = ({idCurso,idTema,setIdJuego,setNombreJuego,setIdTema,ruta}) 
                   <div className="h-[84%] w-full">
                   {nombreCurso.map((item)=>(
 
-                        <div className="flex flex-wrap w-full h-[12%] my-[15px] bg-slate-400 rounded-lg px-2" key={item.juego}>
+                        <div className="flex flex-wrap w-full h-[12%] my-[15px] backdrop-blur-xl rounded-lg px-2 border" key={item.juego}>
                           <div className="w-full h-full px-3 flex items-center justify-center ">
                             <div className="w-4/5 h-full flex items-center">
-                              <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold " htmlFor="grid-password">
+                              <label className="w-full h-full flex items-center uppercase tracking-wide text-white text-[20px] font-semibold ">
                                 {item.juego} 
                               </label>
                             </div>

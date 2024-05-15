@@ -12,6 +12,7 @@ import "./temas.css"
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
 
 
@@ -87,6 +88,10 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
   setOp(true)
 } 
 
+  const [pe, setPe] = React.useState(false);
+  const handlePe = () => setPe(true);
+  const handleClo = () => setPe(false)
+
   const handleCl = () => setOp(false);
 
    const handleInputtituloTema = ({target})=>{
@@ -117,7 +122,38 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
     }
   }
 
-  const  borrarTemaAxios = async (idTemaActualizar) => {
+  const actualizarTema = async (idTemaActualizar,tituloTema, descripcionTema, lecturaTema) => {
+    try {
+      const response = await axios.put(`${ruta}/actualizarTemas`, 
+      
+      {
+        id: idTemaActualizar,
+        nombre :tituloTema,
+        descripcion : descripcionTema,
+        lectura : lecturaTema
+      },
+      {
+        headers: { 
+          Authorization: token,
+        }
+      });
+      console.log(response.data)
+    }catch(error){
+        console.log(error);
+    }
+  }
+
+  const handleActualizar = async (e) => {
+        e.preventDefault();
+        await actualizarTema(idTemaActualizar,tituloTema,descripcionTema,lecturaTema)
+        setTituloTema('');
+        setDescripcionTema('');
+        setLecturaTema('');
+        mostrarTemas(idCurso);
+        handleClo();
+      };
+
+  const borrarTemaAxios = async (idTemaActualizar) => {
     try {
       const response = await axios.delete(`${ruta}/borrarTemas`, 
       {
@@ -138,10 +174,6 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
         mostrarTemas(idCurso);
         handleCl();
   }
-
-
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -255,6 +287,10 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
                                       <Button 
                                       className='flex h-[53px] bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[50px] p-1 items-center justify-center'  onClick={() => handleOp(item.id)}>  
                                           <section className='text-lg text-white'> <DeleteOutlineOutlinedIcon/></section>
+                                      </Button>
+                                      <Button 
+                                      className='flex h-[53px] bg-green-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[50px] p-1 items-center justify-center'  onClick={() => handlePe(item.id)}>  
+                                          <section className='text-lg text-white'> <DriveFileRenameOutlineOutlinedIcon/></section>
                                       </Button>
                                     </div>
                                 </section>
@@ -387,6 +423,71 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
                 </Box>
               </Modal>
             </div>  
+
+             {/* MODAl ACTUALIZAR */}
+             <div className="w-full top-1/2 right-1/2">
+                <Modal
+                    open={pe}
+                    onClose={handleClo}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    className="w-full h-full flex justify-center items-center "
+                  >
+                  <Box className="w-[600px] h-auto backdrop-blur-md flex justify-center px-12 backdrop-brightness-50 rounded-[15px] p-4 ml-72">
+                    <form className="w-full max-w-lg h-auto flex justify-center" onSubmit={handleActualizar}>
+                      <div className="w-full h-full relative top-0">
+
+                        <div className="titulo my-5">
+                          <h1 className="text-gray-100 uppercase font-bold font-sans text-[50px] text-center">Actualizar Tema</h1>
+                        </div>
+
+                        <div className="h-auto">
+                          <div className="flex flex-wrap -mx-3 mb-6">
+                            <div className="w-full px-3">
+                              <label className="block uppercase tracking-wide text-white text-[17px] font-semibold mb-2" htmlFor="grid-password">
+                                Nombre del tema: 
+                              </label>
+                              <input type="text" placeholder="Nombre del tema" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white" 
+                                value={tituloTema} onChange={handleInputtituloTema}
+                              />
+                            </div>
+                          </div>
+
+
+                          <div className="flex flex-wrap -mx-3 mb-6">
+                            <div className="w-full px-3">
+                              <label className="block uppercase tracking-wide text-white text-[17px] font-semibold mb-2" htmlFor="grid-password">
+                                Descripción del tema:
+                              </label>
+                              <input type="text" placeholder="Descripcion del tema" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white" value={descripcionTema} 
+                              onChange={handleDescripcionTema} />
+                            </div>
+                          </div>
+
+
+                          <div className="flex flex-wrap -mx-3 mb-6">
+                            <div className="w-full px-3">
+                              <label className="block uppercase tracking-wide text-white text-[17px] font-semibold mb-2" htmlFor="grid-password">
+                                Lectura del curso: 
+                              </label>
+                              <textarea type="text" placeholder="Descripcion" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-[1px] focus:outline-none focus:border-b-[1px] focus:border-white max-h-96 " value={lecturaTema} 
+                              onChange={(e) => {setLecturaTema(e.target.value)}} />
+                            </div>
+                          </div>
+
+
+
+                        </div>
+
+                        <div className="crear w-full flex justify-center items-center h-[60px] my-5">
+                          <Button className="w-3/4 h-[60px] text-[22px] text-white bg-[#3D5B80] my-5" type="submit" >Actualizar</Button>
+                        </div>
+
+                      </div>
+                    </form>
+                  </Box>
+                </Modal>
+              </div>
             </div>
 
           </section>

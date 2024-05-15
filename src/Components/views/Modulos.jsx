@@ -12,6 +12,7 @@ import { useNavigate } from "react-router";
 import { Routes, Route } from "react-router-dom";
 import { Temas } from "../../pages/Temas";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
 const style = {
   position: 'absolute',
@@ -152,6 +153,10 @@ export const Modulos = ({setIdTema, setNombreCurso, ruta}) => {
     setNombreCurso(nombreCurso);
     navigate(`Temas/${idTema}`);
   }
+
+  const [pe, setPe] = React.useState(false);
+  const handlePe = () => setPe(true);
+  const handleClo = () => setPe(false)
 
 
 const [idCursoBorar,setIdCursoBorar] = useState('')
@@ -304,11 +309,15 @@ const [idCursoBorar,setIdCursoBorar] = useState('')
                           Entrar
                         </button>
                       </div>
-                      <div className="w-1/5 h-full flex items-center ml-2 mt-1">
+                      <div className="w-2/5 h-full flex items-center ml-1 mt-1">
                         <Button 
-                        className='flex bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg px-3 h-[50px] items-center justify-center'  onClick={() => handleOp(item.id)}>  
-                            <section className='text-lg text-white'> <DeleteOutlineOutlinedIcon/></section>
+                        className='flex bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg px-3 h-[50px] items-center justify-center mx-1'  onClick={() => handleOp(item.id)}>  
+                        <section className='text-lg text-white'> <DeleteOutlineOutlinedIcon/></section>
                         </Button>
+                        <Button 
+                        className='flex bg-green-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg px-3 h-[50px] items-center justify-center mx-1'  onClick={() => handlePe(item.id)}>  
+                         <section className='text-lg text-white'> <DriveFileRenameOutlineOutlinedIcon/></section>
+                        </Button>
                       </div>
                     </div>
 
@@ -320,7 +329,7 @@ const [idCursoBorar,setIdCursoBorar] = useState('')
 
               <div className="h-60 bg-gray-200 rounded overflow-hidden shadow-lg flex justify-center items-center m-5">
                   <div className="informacion w-full h-full flex flex-col justify-center">
-                        <Button onClick={handleOpen} className="text-black w-full h-full font-bold flex items-center justify-center text-[33px] hover:bg-gray-300"> Crear curso </Button>
+                        <Button onClick={handleOpen} className="text-black w-full h-full font-bold flex items-center justify-center text-[33px] hover:bg-gray-300 bg-gray-200"> Crear curso </Button>
                   </div>
                 </div>
 
@@ -399,8 +408,8 @@ const [idCursoBorar,setIdCursoBorar] = useState('')
                     <div className="w-full h-full relative">
 
                       <div className="titulo my-5">
-                        <h1 className="text-black uppercase font-bold font-sans text-[45px] text-start">Borrar tema</h1>
-                        <h1 className='mt-0 text-[25px]'>¿Desea borrar el tema?</h1>
+                        <h1 className="text-black uppercase font-bold font-sans text-[45px] text-start">Borrar curso</h1>
+                        <h1 className='mt-0 text-[25px]'>¿Desea borrar el curso?</h1>
                       </div>
 
                       <div className="crear w-full flex justify-center items-center h-[60px] my-5">
@@ -413,7 +422,57 @@ const [idCursoBorar,setIdCursoBorar] = useState('')
                   </form>
                 </Box>
               </Modal>
-            </div>  
+            </div>
+
+            {/* MODAl ACTUALIZAR */}
+            <div className="w-full top-1/2 right-1/2">
+                <Modal
+                    open={pe}
+                    onClose={handleClo}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    className="w-full h-full flex justify-center items-center "
+                  >
+                  <Box className="w-[600px] h-auto backdrop-blur-md flex justify-center px-12 backdrop-brightness-50 rounded-[15px] p-4 ml-72">
+                    <form className="w-full max-w-lg h-auto flex justify-center">
+                      <div className="w-full h-full relative top-0">
+
+                        <div className="titulo my-5">
+                          <h1 className="text-gray-100 uppercase font-bold font-sans text-[50px] text-center">Actualizar Curso</h1>
+                        </div>
+
+                        <div className="h-auto">
+                          <div className="flex flex-wrap -mx-3 mb-6">
+                            <div className="w-full px-3">
+                              <label className="block uppercase tracking-wide text-white text-[17px] font-semibold mb-2" htmlFor="grid-password">
+                                Nombre del Curso: 
+                              </label>
+                              <input type="text" placeholder="Nombre del curso" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white" 
+                              />
+                            </div>
+                          </div>
+
+
+                          <div className="flex flex-wrap -mx-3 mb-6">
+                            <div className="w-full px-3">
+                              <label className="block uppercase tracking-wide text-white text-[17px] font-semibold mb-2" htmlFor="grid-password">
+                                Descripción del Curso:
+                              </label>
+                              <input type="text" placeholder="Descripcion del curso" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white"  
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="crear w-full flex justify-center items-center h-[60px] my-5">
+                          <Button className="w-3/4 h-[60px] text-[22px] text-white bg-[#3D5B80] my-5" type="submit" >Actualizar</Button>
+                        </div>
+
+                      </div>
+                    </form>
+                  </Box>
+                </Modal>
+              </div>  
 
 
 

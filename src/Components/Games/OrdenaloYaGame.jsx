@@ -207,6 +207,7 @@ export const OrdenaloYaGame = ({ruta}) => {
         let order4 = sentence.filter(item => item.order == 4)
         let order5 = sentence.filter(item => item.order == 5)
         agregarRespuestaOrdenalo(order1[0].body,order2[0].body,order3[0].body,order4[0].body,order5[0].body,idjuegolocal)
+        alert('Respuesta enviada')
     }else{
         console.log("error")
     }
