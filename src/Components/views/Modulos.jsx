@@ -154,11 +154,6 @@ export const Modulos = ({setIdTema, setNombreCurso, ruta}) => {
     navigate(`Temas/${idTema}`);
   }
 
-  const [pe, setPe] = React.useState(false);
-  const handlePe = () => setPe(true);
-  const handleClo = () => setPe(false)
-
-
 const [idCursoBorar,setIdCursoBorar] = useState('')
 
   const  borrarCursosAxios = async (idCursoBorar) => {
@@ -193,7 +188,41 @@ const [idCursoBorar,setIdCursoBorar] = useState('')
     setIdCursoBorar(idCursoBorar)
     setOp(true)
   } 
+  
+  const actualizarCurso = async (idCursoBorar,nombreCC, descripcionCC) => {
+    try {
+      const response = await axios.put(`${ruta}/actualizarCurso`, 
+      
+      {
+        id: idCursoBorar,
+        nombre : nombreCC,
+        descripcion : descripcionCC,
+      },
+      {
+        headers: { 
+          Authorization: token,
+        }
+      });
+      console.log(response.data)
+    }catch(error){
+        console.log(error);
+    }
+  }
 
+  const handleActualizar = async (e) => {
+    await actualizarCurso (idCursoBorar,nombreCC,descripcionCC)
+    setnombreCC('');
+    setdescripcionCC('');
+    obtenerCursos();
+    handleClo();
+  };
+
+  const [pe, setPe] = React.useState(false);
+  const handlePe = (idCursoBorar) => {
+    setIdCursoBorar(idCursoBorar);
+    setPe(true)
+  }
+  const handleClo = () => setPe(false)
 
   return (
     <section className="w-full h-4/5 justify-center">
@@ -434,7 +463,7 @@ const [idCursoBorar,setIdCursoBorar] = useState('')
                     className="w-full h-full flex justify-center items-center "
                   >
                   <Box className="w-[600px] h-auto backdrop-blur-md flex justify-center px-12 backdrop-brightness-50 rounded-[15px] p-4 ml-72">
-                    <form className="w-full max-w-lg h-auto flex justify-center">
+                    <form className="w-full max-w-lg h-auto flex justify-center" onSubmit={handleActualizar}>
                       <div className="w-full h-full relative top-0">
 
                         <div className="titulo my-5">
@@ -448,7 +477,7 @@ const [idCursoBorar,setIdCursoBorar] = useState('')
                                 Nombre del Curso: 
                               </label>
                               <input type="text" placeholder="Nombre del curso" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white" 
-                              />
+                              value={nombreCC} onChange={handleInputNombreCurso}/>
                             </div>
                           </div>
 
@@ -459,7 +488,7 @@ const [idCursoBorar,setIdCursoBorar] = useState('')
                                 Descripción del Curso:
                               </label>
                               <input type="text" placeholder="Descripcion del curso" className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white"  
-                              />
+                              value={descripcionCC} onChange={handleInputDescripcionCurso}/>
                             </div>
                           </div>
                         </div>
