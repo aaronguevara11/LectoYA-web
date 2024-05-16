@@ -87,12 +87,15 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
   setIdTemaActualizar(idTema)
   setOp(true)
 } 
+  const handleCl = () => setOp(false);
 
   const [pe, setPe] = React.useState(false);
-  const handlePe = () => setPe(true);
+  const handlePe = (idTema) => {
+    setIdTemaActualizar(idTema)
+    setPe(true)
+  }
   const handleClo = () => setPe(false)
 
-  const handleCl = () => setOp(false);
 
    const handleInputtituloTema = ({target})=>{
     setTituloTema(target.value)
@@ -143,16 +146,6 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
     }
   }
 
-  const handleActualizar = async (e) => {
-        e.preventDefault();
-        await actualizarTema(idTemaActualizar,tituloTema,descripcionTema,lecturaTema)
-        setTituloTema('');
-        setDescripcionTema('');
-        setLecturaTema('');
-        mostrarTemas(idCurso);
-        handleClo();
-      };
-
   const borrarTemaAxios = async (idTemaActualizar) => {
     try {
       const response = await axios.delete(`${ruta}/borrarTemas`, 
@@ -184,6 +177,18 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
     setLecturaTema('');
     handleClose();
   };  
+
+
+
+  const handleActualizar = async (e) => {
+    e.preventDefault();
+    await actualizarTema(idTemaActualizar,tituloTema,descripcionTema,lecturaTema)
+    mostrarTemas(idCurso);
+    setTituloTema('');
+    setDescripcionTema('');
+    setLecturaTema('');
+    handleClo();
+  };
 
 
   const handleClickCurso = (idCurso,idTema) => {

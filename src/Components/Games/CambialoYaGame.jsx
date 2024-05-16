@@ -85,7 +85,7 @@ export const CambialoYaGame = ({ruta}) => {
             <div className="h-32 w-full mx-3 mb-6 bg-red-950 rounded-xl overflow-hidden shadow-lg justify-center">
               <div className="h-full flex justify-center items-center">
                 <p className="text-white h-full text-center text-[30px] uppercase flex justify-center items-center">
-                  Una final con mucha: <span className="font-semibold px-4">{emocion}</span>
+                  Un final con mucha: <span className="font-bold px-4">{emocion}</span>
                 </p>
               </div>
             </div>
