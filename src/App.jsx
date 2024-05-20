@@ -1,6 +1,13 @@
+/* IMPORTS */
 import { useState, useEffect } from "react";
-import { Login } from "./pages/Login";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+
+
+/* LOGIN Y REGISTRO */
+import { Login } from "./pages/Login";
+import { Registro } from "./pages/Registro";
+
+/* vistas */
 import { Views } from "./pages/Views";
 import { Temas } from "./pages/Temas";
 import { ProtectedRoute } from "./pages/ProtectedRouter";
@@ -33,6 +40,7 @@ function App() {
   const [idJuego, setIdJuego] = useState('');
   const [nombreJuego,setNombreJuego] = useState('')
   const ruta = "http://localhost:3000/app"
+
    useEffect(
      () =>{
         
@@ -48,6 +56,7 @@ function App() {
           <Route path="/" element={<Navigate to="/Login" />} />
           {/* LOGIN */}
           <Route path="/Login" element={<Login  setJwtDataLocal={setJwtDataLocal}/>} />
+          <Route path="/Registro/:user" element={<Registro  ruta={ruta}/>} />
 
           {/* RUTA PROTEGIDA */}
           <Route element={<ProtectedRoute jwtdatalocal={jwtDataLocal}/>}>

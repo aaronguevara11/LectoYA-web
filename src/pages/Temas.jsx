@@ -72,9 +72,6 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
   }, [idCurso, token]);
   
  
-  // consultarTemas(idTema)
-
-
 
 
 
@@ -293,6 +290,12 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
                                     </div>
                                     
                                     <div className='flex space-x-2'>
+                                
+
+
+
+
+
                                       <Button 
                                       className='flex h-[53px] bg-blue-950 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[150px] p-1 items-center justify-center' onClick={() => handleClickCurso(idCurso,item.id)}>
                                           <section className='w-3/5 flex justify-center text-lg text-white'>Entrar</section>
@@ -502,6 +505,16 @@ export const Temas = ({setIdTema,nombreCurso,setIdCurso,ruta}) => {
                   </Box>
                 </Modal>
               </div>
+
+
+
+
+
+
+
+
+
+
             </div>
 
           </section>
