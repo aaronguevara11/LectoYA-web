@@ -1,7 +1,7 @@
 import { Significado } from "../Components/Games/Significado"
 import { useState } from "react";
 import { SideBar } from "../Components/SideBar";
-export const DaleUnSignificado = ({ruta}) => {
+export default ({ruta}) => {
 
     const token = localStorage.getItem('jwtdata')
   return (

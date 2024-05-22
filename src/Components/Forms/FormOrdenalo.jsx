@@ -5,7 +5,7 @@ import { SideBar } from "../SideBar";
 import Box from '@mui/material/Box';
 import axios from "axios";
 
-export const FormOrdenalo = ({ruta}) => {
+export default ({ruta}) => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('jwtdata')
   const idTema = localStorage.getItem('idTema')

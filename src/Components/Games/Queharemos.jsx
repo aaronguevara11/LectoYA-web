@@ -2,6 +2,7 @@ import { Home } from "../Headers/HdHaremos"
 import { AiOutlineSend } from "react-icons/ai";
 import { useState,useEffect } from "react";
 import axios from "axios";
+import axiosBase from "../../api/axiosBase";
 
 export const Queharemos = ({ruta}) => {
 
@@ -17,13 +18,8 @@ export const Queharemos = ({ruta}) => {
   const buscarJuego = async (idLocalJuego) =>{
         
     try{    
-        const response = await axios.get(`${ruta}/juegos/buscarJuego/${idLocalJuego}`,
-
-        {
-            headers:{
-                Authorization: token
-            }
-        })
+      const response = await axiosBase.get("/juegos/buscarJuego/" + idLocalJuego
+      )
         console.log(response.data)
         console.log(response.data.juego.pregunta)
         setInfoJuego(response.data.juego.pregunta)

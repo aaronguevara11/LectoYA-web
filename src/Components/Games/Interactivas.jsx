@@ -2,6 +2,7 @@ import { HdInteractivas } from "../Headers/HdInteractivas"
 import { useState,useEffect } from "react";
 import axios from "axios";
 import { Navigate } from "react-router";
+import axiosBase from "../../api/axiosBase";
 
 export const Interactivas = ({ruta}) => {
 
@@ -78,13 +79,7 @@ useEffect(()=>{
   // PETICION BUSCAR JUEGO
    const buscarJuego = async (idjuegolocal) =>{
      try{
-       const response = await axios.get(`${ruta}/juegos/buscarJuego/${idjuegolocal}`,
-         {
-           headers : {
-             Authorization: token
-           }
-         });
-         
+      const response = await axiosBase.get("/juegos/buscarJuego/" + idjuegolocal)
          setInfoJuego(response.data.juego)
          setLoading(false)
      }catch (error){

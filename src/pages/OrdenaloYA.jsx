@@ -1,21 +1,17 @@
-import { OrdenaloYaGame } from "../Components/Games/OrdenaloYaGame"
-import { useState } from "react";
+import { OrdenaloYaGame } from "../Components/Games/OrdenaloYaGame";
 import { SideBar } from "../Components/SideBar";
-export const OrdenaloYA = ({ruta}) => {
-
-    const token = localStorage.getItem('jwtdata')
+export default ({ ruta }) => {
+  const token = localStorage.getItem("jwtdata");
 
   return (
     <>
+      <div className="flex-shrink-0 w-72 bg-blue-950 text-white">
+        <SideBar token={token} />
+      </div>
 
-            <div className="flex-shrink-0 w-72 bg-blue-950 text-white">
-                <SideBar token={token} />
-            </div>
-
-            <section className="flex flex-col overflow-auto bg-white relative w-full h-full ">
-                <OrdenaloYaGame ruta={ruta}/>
-            </section>
-
-  </>
-  )
-}
+      <section className="flex flex-col overflow-auto bg-white relative w-full h-full ">
+        <OrdenaloYaGame ruta={ruta} />
+      </section>
+    </>
+  );
+};

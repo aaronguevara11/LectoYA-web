@@ -2,6 +2,7 @@ import { HdCambialo } from "../Headers/HdCambialo";
 import { AiOutlineSend } from "react-icons/ai";
 import { useState,useEffect } from "react";
 import axios from "axios";
+import axiosBase from "../../api/axiosBase";
 export const CambialoYaGame = ({ruta}) => {
   const [respuesta,setRespuesta] = useState("");
   const [loading, setLoading] = useState(true);
@@ -14,12 +15,7 @@ export const CambialoYaGame = ({ruta}) => {
   const buscarJuego = async (idjuegolocal) =>{
       
     try{
-      const response = await axios.get(`http://localhost:3000/app/juegos/buscarJuego/${idjuegolocal}`,
-        {
-          headers : {
-            Authorization: token
-          }
-        });
+      const response = await axiosBase.get("/juegos/buscarJuego/" + idjuegolocal)
         setEmocion(response.data.juego.emocion)
         setEnunciado(response.data.juego.enunciado)
         // setInfoJuego(response.data.nivel[0])

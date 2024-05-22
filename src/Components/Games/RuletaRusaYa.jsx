@@ -3,6 +3,7 @@ import { Wheel } from 'react-custom-roulette';
 import axios from 'axios';
 import "../css/roulette.css"
 import { AiOutlineSend } from "react-icons/ai";
+import axiosBase from '../../api/axiosBase';
 
 export const RuletaRusaYa = ({ruta}) => {
   const [mustSpin, setMustSpin] = useState(false);
@@ -24,12 +25,7 @@ export const RuletaRusaYa = ({ruta}) => {
   const buscarJuego = async (idjuegolocal) =>{
       
     try{
-      const response = await axios.get(`http://localhost:3000/app/juegos/buscarJuego/${idjuegolocal}`,
-        {
-          headers : {
-            Authorization: token
-          }
-        });
+      const response = await axiosBase.get("/juegos/buscarJuego/" + idjuegolocal)
 
         setData([
           { option: '1', question: response.data.juego.pregunta1 },

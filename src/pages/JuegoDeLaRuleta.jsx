@@ -1,7 +1,6 @@
 import { RuletaRusaYa } from "../Components/Games/RuletaRusaYa"
-import { useState } from "react";
 import { SideBar } from "../Components/SideBar";
-export const JuegoDeLaRuleta = ({ruta}) => {
+export default ({ruta}) => {
     const token = localStorage.getItem('jwtdata')
 
   return (

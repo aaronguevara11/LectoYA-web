@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react"
 import axios from "axios";
+import axiosBase from "../../api/axiosBase";
 export const OrdenaloYaGame = ({ruta}) => {
     const [loading, setLoading] = useState(true);
 
@@ -10,12 +11,7 @@ export const OrdenaloYaGame = ({ruta}) => {
   const buscarJuego = async (idjuegolocal) =>{
       
     try{
-      const response = await axios.get(`${ruta}/juegos/buscarJuego/${idjuegolocal}`,
-        {
-          headers : {
-            Authorization: token
-          }
-        });
+        const response = await axiosBase.get("/juegos/buscarJuego/" + idjuegolocal)
         console.log(response.data)
    
 
