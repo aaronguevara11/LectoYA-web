@@ -1,46 +1,37 @@
 /* IMPORTS */
-import { useState, useEffect, lazy } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+
 
 /* LOGIN Y REGISTRO */
-const Login = lazy(() => import("./pages/Login"));
-const Registro = lazy(() => import("./pages/Registro"));
+import { Login } from "./pages/Login";
+import { Registro } from "./pages/Registro";
 
 /* vistas */
-const Views = lazy(() => import("./pages/Views"));
-const Temas = lazy(() => import("./pages/Temas"));
-const ProtectedRoute = lazy(() => import("./pages/ProtectedRouter"));
-const Tema = lazy(() => import("./pages/Tema"));
+import { Views } from "./pages/Views";
+import { Temas } from "./pages/Temas";
+import { ProtectedRoute } from "./pages/ProtectedRouter";
+import { Tema } from "./pages/Tema";
+
 
 /* IMPORTACION DE LAS PAGINAS JUEGOS */
-const JuegoDelDado = lazy(() => import("./pages/JuegoDelDado"));
-const HistoriasInteractivas = lazy(() =>
-  import("./pages/HistoriasInteractivas")
-);
-const DaleUnSignificado = lazy(() => import("./pages/DaleUnSignificado"));
-const AhoraQueHaremos = lazy(() => import("./pages/AhoraQueHaremos"));
-const JuegoDeLaRuleta = lazy(() => import("./pages/JuegoDeLaRuleta"));
-const OrdenaloYA = lazy(() => import("./pages/OrdenaloYA"));
+import { JuegoDelDado } from "./pages/JuegoDelDado";
+import { HistoriasInteractivas } from "./pages/HistoriasInteractivas";
+import { DaleUnSignificado } from "./pages/DaleUnSignificado";
+import { AhoraQueHaremos } from "./pages/AhoraQueHaremos";
+import { JuegoDeLaRuleta } from "./pages/JuegoDeLaRuleta";
+import { OrdenaloYA } from "./pages/OrdenaloYA";
 import { CambioYa } from "./pages/CambioYa";
 
 /* Formulario Registro Juego */
-const FormRegisterGame = lazy(() =>
-  import("./Components/Forms/FormRegisterGame")
-);
-const FormHaremos = lazy(() => import("./Components/Forms/FormHaremos"));
-const FormDado = lazy(() => import("./Components/Forms/FormDado"));
-const FormRuleteando = lazy(() => import("./Components/Forms/FormRuleteando"));
-const FormOrdenalo = lazy(() => import("./Components/Forms/FormOrdenalo"));
-const FormSignificado = lazy(() =>
-  import("./Components/Forms/FormSignificado")
-);
-const FormCambialo = lazy(() => import("./Components/Forms/FormCambialo"));
-
+import { FormRegisterGame } from "./Components/Forms/FormRegisterGame";
+import { FormHaremos } from "./Components/Forms/FormHaremos";
+import { FormDado } from "./Components/Forms/FormDado";
+import { FormRuleteando } from "./Components/Forms/FormRuleteando";
+import { FormOrdenalo } from "./Components/Forms/FormOrdenalo";
+import { FormSignificado } from "./Components/Forms/FormSignificado";
+import { FormCambialo } from "./Components/Forms/FormCambialo";
+import { Validar } from "./pages/Validar";
 function App() {
   const [jwtDataLocal, setJwtDataLocal] = useState(
     localStorage.getItem("jwtdata")
@@ -68,8 +59,16 @@ function App() {
           <Route path="/Registro/:user" element={<Registro ruta={ruta} />} />
 
           {/* RUTA PROTEGIDA */}
-          <Route element={<ProtectedRoute jwtdatalocal={jwtDataLocal} />}>
+          <Route element={<ProtectedRoute jwtdatalocal={jwtDataLocal}  />}>
             {/* NAVEGACION */}
+            <Route
+              path="/validar/:token"
+              element={
+                <Validar
+                />
+              }
+            />
+            
             <Route
               path="/home"
               element={
@@ -92,7 +91,7 @@ function App() {
               }
             />
             <Route
-              path="/home/Temas/info"
+              path="/home/Temas/info/"
               element={
                 <Tema
                   idCurso={idCurso}

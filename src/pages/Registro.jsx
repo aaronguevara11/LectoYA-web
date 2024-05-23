@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-export default ({ ruta }) => {
+export const Registro= ({ ruta }) => {
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [apaterno, setApaterno] = useState("");

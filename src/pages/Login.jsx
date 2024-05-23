@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import axiosBase from "../api/axiosBase";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import { Validar } from "./Validar";
 
-export default ({ setJwtDataLocal }) => {
+export const Login=  ({ setJwtDataLocal }) => {
   /* DATA */
   const [jwtdata, setJwtData] = useState("1");
   const [correo, setCorreo] = useState("");
@@ -9,6 +12,48 @@ export default ({ setJwtDataLocal }) => {
   const [userData, setUserData] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   localStorage.setItem("jwtdata", jwtdata);
+  const navigate = useNavigate();  
+  const location = useLocation();
+  const [tokenURL, setTokenURL] = useState('');
+
+
+
+
+
+useEffect(() => {
+  // Función para extraer el token de la URL
+  const extraerTokenDeURL = () => {
+    const params = new URLSearchParams(location.search);
+    const tokenFromURL = params.get('token'); // Obtener el valor del parámetro 'token' de la URL
+
+      let partesRuta = location.pathname.split('/');
+
+      let tokenvalidar = partesRuta[partesRuta.length - 2]; // palabra ruta validar
+
+        if(tokenvalidar =="validar"){
+          localStorage.setItem('tkvl', tokenvalidar)
+        const tokenFromPath = partesRuta[partesRuta.length - 1]; // El token está en la última parte de la ruta
+        setTokenURL(tokenFromPath);
+        console.log(tokenFromPath)
+        localStorage.setItem('tkMT', tokenFromPath)
+        }else{
+          localStorage.setItem('tkvl', "123")
+        }
+      
+  };
+
+  extraerTokenDeURL();
+}, [location]);
+
+
+
+
+
+
+
+
+
+
 
   /* LOGIN DOCENTES */
   const loginAxiosDocente = async (idTema) => {
@@ -39,6 +84,8 @@ export default ({ setJwtDataLocal }) => {
       })
       .then(function (response) {
         setJwtData(response.data.token);
+        setJwtDataLocal(response.data.token);
+
         localStorage.setItem("jwtdata", response.data.token);
         localStorage.setItem("person", "alumno");
         if (response.data.message === "Datos incorrectos") {
@@ -53,7 +100,19 @@ export default ({ setJwtDataLocal }) => {
   useEffect(() => {
     if (jwtdata && jwtdata != "1") {
       setJwtDataLocal(jwtdata);
-      window.location.href = "/home";
+      let valorTokenURL =  localStorage.getItem("tkMT")
+      let tkvl = localStorage.getItem("tkvl")
+      if(tkvl == "validar"){
+        navigate("/validar/home/hola")
+        console.log("navegar")
+      }else{
+        navigate("/home");  
+        console.log("navegar2")
+
+      }
+
+
+      
     }
   }, [jwtdata]);
 

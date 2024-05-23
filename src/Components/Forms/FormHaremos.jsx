@@ -3,7 +3,7 @@ import { Button } from "@material-tailwind/react";
 import { SideBar } from "../SideBar";
 import axiosBase from "../../api/axiosBase";
 
-export default ({ ruta }) => {
+export const FormHaremos =  ({ ruta }) => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("jwtdata");
   const idTema = localStorage.getItem("idTema");

@@ -11,7 +11,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import { useNavigate } from "react-router-dom";
 import axiosBase from "../api/axiosBase";
 
-export default ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema }) => {
+export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -85,6 +85,7 @@ export default ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema }) => {
   const verTema = async (idTema) => {
     try {
       const response = await axiosBase.get(`/verTema/${idTema}`);
+      console.log(response.data)
       setJuegos(response.data.Temas.juegos);
       setDataResponse(response.data);
       setLoading(false);

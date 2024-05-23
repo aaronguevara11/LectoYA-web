@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { SideBar } from "../Components/SideBar";
 import axiosBase from "../api/axiosBase";
 
-export default ({ ruta }) => {
+export const AhoraQueHaremos = ({ ruta }) => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("jwtdata");
   const [infojuego, setInfoJuego] = useState("");

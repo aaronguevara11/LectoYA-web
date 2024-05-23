@@ -1,6 +1,6 @@
 import { OrdenaloYaGame } from "../Components/Games/OrdenaloYaGame";
 import { SideBar } from "../Components/SideBar";
-export default ({ ruta }) => {
+export const OrdenaloYA=  ({ ruta }) => {
   const token = localStorage.getItem("jwtdata");
 
   return (

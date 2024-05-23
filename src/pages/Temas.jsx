@@ -11,8 +11,9 @@ import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import axiosBase from "../api/axiosBase";
+import { useNavigate } from 'react-router-dom';
 
-export default ({ setIdTema, nombreCurso, setIdCurso }) => {
+export const Temas= ({ setIdTema, nombreCurso, setIdCurso }) => {
   const token = localStorage.getItem("jwtdata");
   const [tituloTema, setTituloTema] = useState("");
   const [descripcionTema, setDescripcionTema] = useState("");
@@ -31,9 +32,12 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
     setCurso(cursoLSG || ""); // Si no hay valor en localStorage, establecer el estado como una cadena vacía
   }, [nombreCurso]);
 
+  const navigate = useNavigate();
   const [temas, setTemas] = useState("");
   const [loading, setLoading] = useState(true); // Estado para controlar el estado de carga
   const [alumnos, setAlumnos] = useState("");
+
+  const [descripcion,setDescripcion] = useState('');
 
   const currentUrl = window.location.href; // Dividir la URL por las barras "/"
   const urlParts = currentUrl.split("/"); // Obtener el último elemento de la matriz (que sería el número)
@@ -42,7 +46,8 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
 
   const mostrarTemas = async (idCurso) => {
     try {
-      const response = await axiosBase.get("/mostrarTemas/" + idCurso);
+      const response = await axiosBase.get(`/mostrarTemas/${idCurso}`);
+      console.log(response.data)
       setTemas(response.data.Tema.temas);
       setAlumnos(response.data.Tema.matriculas);
       setLoading(false);
@@ -75,11 +80,48 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
   };
   const handleClos = () => setOpe(false);
 
-  const [pe, setPe] = useState(false);
-  const handlePe = (idTema) => {
-    setIdTemaActualizar(idTema);
-    setPe(true);
+  
+  // VER TEMA PETICION
+  const verTema = async (idTema) => {
+    try {
+      const response = await axiosBase.get(`/verTema/${idTema}`);
+      console.log(response.data)
+      setNombreTema(response.data.Temas.nombre)
+      setLecturaActualizar(response.data.Temas.lectura)
+      
+    } catch (error) {
+      console.error("Error al obtener los temas:", error);
+      setLoading(false);
+    }
   };
+
+
+  const [nombreTema,setNombreTema] = useState('');
+  const [lecturaActualizar,setLecturaActualizar] = useState('');
+  const [pe, setPe] = useState(false);
+  const handlePe = (idTema,descripcion) => {
+    setIdTemaActualizar(idTema);
+    setDescripcion(descripcion);
+    setPe(true);
+    verTema(idTema)
+
+  };
+
+  const handlenombreTema = ({ target }) => {
+    setNombreTema(target.value);
+  };
+
+  const handleDescripcion = ({ target }) => {
+    setDescripcion(target.value);
+  };
+
+
+  
+
+
+
+
+
   const handleClo = () => setPe(false);
 
   const handleInputtituloTema = ({ target }) => {
@@ -90,12 +132,7 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
     setDescripcionTema(target.value);
   };
 
-  const crearTema = async (
-    idCurso,
-    tituloTema,
-    descripcionTema,
-    lecturaTema
-  ) => {
+  const crearTema = async (idCurso,tituloTema,descripcionTema,lecturaTema) => {
     try {
       const response = await axiosBase.post(`/agregarTemas`, {
         idCurso: idCurso,
@@ -108,12 +145,7 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
     }
   };
 
-  const actualizarTema = async (
-    idTemaActualizar,
-    tituloTema,
-    descripcionTema,
-    lecturaTema
-  ) => {
+  const actualizarTema = async (idTemaActualizar,tituloTema, descripcionTema, lecturaTema) => {
     try {
       const response = await axiosBase.put(
         `/actualizarTemas`,
@@ -163,9 +195,9 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
     e.preventDefault();
     await actualizarTema(
       idTemaActualizar,
-      tituloTema,
-      descripcionTema,
-      lecturaTema
+      nombreTema,
+      descripcion,
+      lecturaActualizar
     );
     mostrarTemas(idCurso);
     setTituloTema("");
@@ -177,7 +209,7 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
   const handleClickCurso = (idCurso, idTema) => {
     setIdTema(idTema);
     setIdCurso(idCurso);
-    window.location.href = `/home/Temas/info/${idTema}`;
+    navigate(`/home/Temas/info`);
   };
 
   const [valor1, setValor1] = useState("0");
@@ -196,6 +228,53 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
   const cambiarSeccion = (seccion) => {
     setSeccionActiva(seccion);
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const copiarTexto = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(link)
+        .then(() => {
+          alert('Texto copiado al portapapeles');
+        })
+        .catch(err => {
+          console.error('Error al copiar el texto: ', err);
+        });
+    } else {
+      console.error('El navegador no soporta el acceso al portapapeles');
+    }
+  };
+
+  const copiarNombreCurso = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(curso)
+        .then(() => {
+          alert('Texto copiado al portapapeles');
+        })
+        .catch(err => {
+          console.error('Error al copiar el texto: ', err);
+        });
+    } else {
+      console.error('El navegador no soporta el acceso al portapapeles');
+    }
+  };
+
+
   return (
     <>
            
@@ -347,7 +426,7 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
                               </Button>
                               <Button
                                 className="flex h-[53px] bg-green-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[50px] p-1 items-center justify-center"
-                                onClick={() => handlePe(item.id)}
+                                onClick={() => handlePe(item.id,item.descripcion)}
                               >
                                                                          
                                 <section className="text-lg text-white">
@@ -583,13 +662,14 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
                             <p
                               id="textCopy"
                               className="block w-full border-gray-400 rounded-md backdrop-blur-lg bg-transparent text-[20px] text text-black py-3 px-4 mb-3 leading-tight border-[1px] h-full focus:outline-none focus:border-b-[1px] focus:border-white"
-                              readonly
+                              readOnly
                             >
                               {curso}
                             </p>
                             <Button
                               id="copyBtn"
                               className="flex justify-center items-center text-gray-500 border-gray-400 border w-[50px] h-full"
+                              onClick={copiarNombreCurso}
                             >
                               <ContentCopyOutlinedIcon />
                             </Button>
@@ -601,10 +681,7 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
                                                
                           <div className="w-full px-3">
                                                    
-                            <label
-                              className="block uppercase tracking-wide text-black text-[17px] font-semibold mb-2"
-                              htmlFor="grid-password"
-                            >
+                            <label className="block uppercase tracking-wide text-black text-[17px] font-semibold mb-2" htmlFor="grid-password">
                                                         LINK DEL CURSO:        
                                              
                             </label>
@@ -614,13 +691,14 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
                             <p
                               id="textCopy"
                               className="truncate block w-full border-gray-400 rounded-md backdrop-blur-lg bg-transparent text-[20px] text-black py-3 px-4 mb-3 leading-tight border-[1px] h-full focus:outline-none focus:border-b-[1px] focus:border-white"
-                              readonly
+                              readOnly
                             >
                               {link}
                             </p>
                             <Button
                               id="copyBtn"
                               className="flex justify-center items-center text-gray-500 border-gray-400 border w-[50px] h-full"
+                              onClick={copiarTexto}
                             >
                               <ContentCopyOutlinedIcon />
                             </Button>
@@ -737,8 +815,8 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
                               type="text"
                               placeholder="Nombre del tema"
                               className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white"
-                              value={tituloTema}
-                              onChange={handleInputtituloTema}
+                              value={nombreTema}
+                              onChange={handlenombreTema}
                             />
                                                  
                           </div>
@@ -761,8 +839,8 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
                               type="text"
                               placeholder="Descripcion del tema"
                               className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-b-[1px] focus:outline-none focus:border-b-[1px] focus:border-white"
-                              value={descripcionTema}
-                              onChange={handleDescripcionTema}
+                              value={descripcion}
+                              onChange={handleDescripcion}
                             />
                                                  
                           </div>
@@ -785,9 +863,9 @@ export default ({ setIdTema, nombreCurso, setIdCurso }) => {
                               type="text"
                               placeholder="Descripcion"
                               className="block w-full backdrop-blur-lg bg-transparent text-[20px] text-gray-300 border-gray-200 py-3 px-4 mb-3 leading-tight border-[1px] focus:outline-none focus:border-b-[1px] focus:border-white max-h-96 "
-                              value={lecturaTema}
+                              value={lecturaActualizar}
                               onChange={(e) => {
-                                setLecturaTema(e.target.value);
+                                setLecturaActualizar(e.target.value);
                               }}
                             />
                                                  

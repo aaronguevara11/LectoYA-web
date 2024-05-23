@@ -3,7 +3,7 @@ import { Interactivas } from "../Components/Games/Interactivas";
 import { useEffect, useState } from "react";
 import { SideBar } from "../Components/SideBar";
 import axios from "axios";
-export default ({ruta}) => {
+export const HistoriasInteractivas =  ({ruta}) => {
 
 
     const token = localStorage.getItem('jwtdata')

@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import axios from "axios";
 import axiosBase from "../../api/axiosBase";
 
-export default ({ ruta }) => {
+export const FormCambialo= ({ ruta }) => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("jwtdata");
   const idTema = localStorage.getItem("idTema");

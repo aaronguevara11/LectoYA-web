@@ -1,7 +1,7 @@
 import { SideBar } from "../Components/SideBar";
 import { Modulos } from "../Components/views/Modulos";
 
-export default ({ setIdTema, setNombreCurso, ruta }) => {
+export const Views= ({ setIdTema, setNombreCurso, ruta }) => {
   const token = localStorage.getItem("jwtdata");
   return (
     <>

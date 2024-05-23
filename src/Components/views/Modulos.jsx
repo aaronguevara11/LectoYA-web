@@ -7,6 +7,7 @@ import axios from "axios";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import axiosBase from "../../api/axiosBase";
+import { useNavigate } from "react-router";
 
 const style = {
   position: "absolute",
@@ -25,6 +26,7 @@ export const Modulos = ({ setIdTema, setNombreCurso, ruta }) => {
   const [loading, setLoading] = useState(true); // Estado para controlar el estado de carga
   const [nombreCC, setnombreCC] = useState("");
   const [descripcionCC, setdescripcionCC] = useState("");
+  const navigate = useNavigate();
 
   const datos = localStorage.getItem("jwtdata");
   const token = datos;
@@ -87,7 +89,7 @@ export const Modulos = ({ setIdTema, setNombreCurso, ruta }) => {
     } else {
       obtenerCursos();
     }
-  }, []);
+  }, [datos]);
 
   useEffect(() => {
     // Acción que deseas realizar con datacurso
@@ -113,7 +115,7 @@ export const Modulos = ({ setIdTema, setNombreCurso, ruta }) => {
 
   const handleClickCurso = (idTema, nombreCurso) => {
     setNombreCurso(nombreCurso);
-    window.location.href = `/home/Temas/${idTema}`;
+    navigate(`Temas/${idTema}`);
   };
 
   const [idCursoBorar, setIdCursoBorar] = useState("");

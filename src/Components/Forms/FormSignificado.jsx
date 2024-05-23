@@ -4,7 +4,7 @@ import * as React from "react";
 import { SideBar } from "../SideBar";
 import axios from "axios";
 
-export default ({ ruta }) => {
+export const FormSignificado= ({ ruta }) => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("jwtdata");
   const idTema = localStorage.getItem("idTema");

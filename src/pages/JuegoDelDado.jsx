@@ -2,7 +2,7 @@ import { Dado } from "../Components/Games/Dado"
 import { useState } from "react";
 import { SideBar } from "../Components/SideBar";
 
-export default ({ruta}) => {
+export const JuegoDelDado=  ({ruta}) => {
     const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('jwtdata')
 
