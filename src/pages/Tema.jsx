@@ -111,94 +111,6 @@ export const Tema = ({
     }
   };
 
-  const agregarSignificado = async (lectura, idTema) => {
-    try {
-      const response = await axiosBase.post(`/significado/agregarSignificado`, {
-        lectura: lectura,
-        idTema: idTema,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error al obtener los temas:", error);
-      setLoading(false);
-    }
-  };
-
-  const agregarOrdenalo = async (
-    parrafo1,
-    parrafo2,
-    parrafo3,
-    parrafo4,
-    parrafo5,
-    idTema
-  ) => {
-    try {
-      const response = await axiosBase.post(`/ordenalo/agregarOrdenalo`, {
-        parrafo1: parrafo1,
-        parrafo2: parrafo2,
-        parrafo3: parrafo3,
-        parrafo4: parrafo4,
-        parrafo5: parrafo5,
-        idTema: idTema,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error al obtener los temas:", error);
-      setLoading(false);
-    }
-  };
-
-  const agregarQueHaremos = async (pregunta, idTema) => {
-    try {
-      const response = await axiosBase.post(`/haremos/agregarTrabajo`, {
-        pregunta: pregunta,
-        idTema: idTema,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error al obtener los temas:", error);
-      setLoading(false);
-    }
-  };
-
-  const agregarRuleta = async (
-    pregunta1,
-    pregunta2,
-    pregunta3,
-    pregunta4,
-    pregunta5,
-    idTema
-  ) => {
-    try {
-      const response = await axiosBase.post(`/ruleta/agregarRuleta`, {
-        pregunta1: pregunta1,
-        pregunta2: pregunta2,
-        pregunta3: pregunta3,
-        pregunta4: pregunta4,
-        pregunta5: pregunta5,
-        idTema: idTema,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error al obtener los temas:", error);
-      setLoading(false);
-    }
-  };
-
-  const agregarTrabajoCambialo = async (enunciado, emocion, idTema) => {
-    try {
-      const response = await axiosBase.post(`cambialo/agregarTrabajo`, {
-        enunciado: enunciado,
-        emocion: emocion,
-        idTema: idTema,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error al obtener los temas:", error);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     const cursoLSG = localStorage.getItem("idTema");
     const idTemalocal = parseInt(cursoLSG);
@@ -277,10 +189,14 @@ export const Tema = ({
   const [openR, setOpenR] = useState(false);
   const handleOpenR = () => setOpen(true);
   const handleCloseR = () => setOpenR(false);
-
+  
   const mostraRespuestas = async (idTema, nameGame) => {
     try {
-      const response = await axiosBase.get(`/juegos/verRespuesta/${idTema}`);
+      const response = await axios.get(`https://lectoya-back.onrender.com/app/juegos/verRespuesta/${idTema}`,{
+        headers: { 
+          Authorization: token,
+        }
+      });
       console.log(response.data);
       console.log(nameGame);
       let respuestaAxios = response.data;
@@ -566,19 +482,20 @@ export const Tema = ({
                 onClose={handleCloseR}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                className="w-full h-full flex justify-center items-center "
+                className="w-full h-full flex justify-center items-center"
               >
-                <Box className="w-[600px] h-auto flex flex-col justify-center px-12 bg-white rounded-[15px] p-4 ml-72">
+                <Box className="w-[600px] max-h-[600px] flex flex-col justify-center px-12 bg-white rounded-[15px] p-4 ml-72 overflow-y-scroll relative py-5 bottom-3">
+
+                <section className="h-auto max-h-[600px] py-10">
                   <h1 className="text-5xl text-blue-950 font-bold uppercase ">
                     {nameGame}
                   </h1>
-                  <>
                     <h1 className="text-red-800 font-bold text-2xl py-2">
                       RESPUESTAS ALUMNOS
                     </h1>
                     {loadingM && <div>Cargando...</div>}
                     {!loadingM && (
-                      <>
+                      <div className="h-auto max-h-[600px]">
                         {nameGame == "Cambialo YA" ? (
                           <>
                             {respuesta.map((item) => (
@@ -588,7 +505,7 @@ export const Tema = ({
                                 </h2>
                                 <h2>{enunciado}</h2>
                                 <div
-                                  className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                  className="max-h-[600px]  shadow-lg my-2 bg-slate-100 p-6 rounded-xl py-8 mb-6 "
                                   key={item.id}
                                 >
                                   <h1 className="font-bold uppercase">
@@ -614,7 +531,7 @@ export const Tema = ({
                           <>
                             {respuesta.map((item) => (
                               <div
-                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                className="max-h-[600px]  shadow-lg my-2 bg-slate-100 p-6 rounded-xl py-8 mb-6 "
                                 key={item.id}
                               >
                                 <h1 className="font-bold uppercase">Alumno:</h1>
@@ -638,7 +555,7 @@ export const Tema = ({
                             <h1 className="font-medium">{parrafo}</h1>
                             {respuesta.map((item) => (
                               <div
-                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                className="max-h-[600px]  shadow-lg my-2 bg-slate-100 p-6 rounded-xl py-8 mb-6    "
                                 key={item.id}
                               >
                                 <h1 className="font-bold uppercase">Alumno:</h1>
@@ -660,7 +577,7 @@ export const Tema = ({
                           <>
                             {respuesta.map((item) => (
                               <div
-                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                className="max-h-[600px]  shadow-lg my-2 bg-slate-100 p-6 rounded-xl py-8 mb-6 "
                                 key={item.id}
                               >
                                 <h1 className="font-bold uppercase">Alumno:</h1>
@@ -682,7 +599,7 @@ export const Tema = ({
                           <>
                             {respuesta.map((item) => (
                               <div
-                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                className="max-h-[600px]  shadow-lg my-2 bg-slate-100 p-6 rounded-xl py-8 mb-6 "
                                 key={item.id}
                               >
                                 <h1 className="font-bold uppercase">Alumno:</h1>
@@ -706,7 +623,7 @@ export const Tema = ({
                           <>
                             {respuesta.map((item) => (
                               <div
-                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                className="max-h-[600px]  shadow-lg my-2 bg-slate-100 p-6 rounded-xl py-8 mb-6 "
                                 key={item.id}
                               >
                                 <h1 className="font-bold uppercase">Alumno:</h1>
@@ -733,7 +650,7 @@ export const Tema = ({
                             </div>
                             {respuesta.map((item) => (
                               <div
-                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                className="max-h-[600px]  shadow-lg my-2 bg-slate-100 p-6 rounded-xl py-8 mb-6 "
                                 key={item.id}
                               >
                                 <h1 className="font-bold uppercase">Alumno:</h1>
@@ -774,9 +691,9 @@ export const Tema = ({
                         ) : (
                           <div>Juego no Existe</div>
                         )}
-                      </>
+                      </div>
                     )}
-                  </>
+                  </section>
                 </Box>
               </Modal>
             </div>

@@ -126,7 +126,6 @@ useEffect(()=>{
                 </div>
               </div>
             </div>
-
             
               <form className="alternativas h-3/5 w-full flex flex-col justify-center items-center" onSubmit={handleSubmit}>
                 <div className="alternativas h-full w-full flex justify-center items-center ">
