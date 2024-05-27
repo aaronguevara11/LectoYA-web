@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axiosBase from "../api/axiosBase";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { Validar } from "./Validar";
 import axios from "axios";
-export const Login=  ({ setJwtDataLocal }) => {
+export const Login = ({ setJwtDataLocal }) => {
   /* DATA */
   const [jwtdata, setJwtData] = useState("1");
   const [correo, setCorreo] = useState("");
@@ -12,72 +12,59 @@ export const Login=  ({ setJwtDataLocal }) => {
   const [userData, setUserData] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   localStorage.setItem("jwtdata", jwtdata);
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
   const location = useLocation();
-  const [tokenURL, setTokenURL] = useState('');
+  const [tokenURL, setTokenURL] = useState("");
 
+  /* LOGIN DOCENTES */
+  const loginAxiosDocente = async (correo, contraseña) => {
+    try {
+      const response = await axios.put(
+        "https://lectoya-back.onrender.com/app/loginDocentes",
+        {
+          correo: correo,
+          password: contraseña,
+        }
+      );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* LOGIN DOCENTES */
-const loginAxiosDocente = async (correo,contraseña) => {
-  try {
-    const response = await axios.put("https://lectoya-back.onrender.com/app/loginDocentes", {
-      correo: correo,
-      password: contraseña
-    });
-    
-    setJwtData(response.data.token)
-    let token = response.data.token
-    localStorage.setItem('jwtdata', token);
-    console.log("123")
-    localStorage.setItem('person', "Docente");
-    if (response.data.message === "Datos incorrectos") {
-      alert(response.data.message)
+      setJwtData(response.data.token);
+      let token = response.data.token;
+      localStorage.setItem("jwtdata", token);
+      console.log("123");
+      localStorage.setItem("person", "Docente");
+      if (response.data.message === "Datos incorrectos") {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error al obtener los temas:", error);
     }
-   
-  } catch (error) {
-    console.error("Error al obtener los temas:", error);
+  };
 
-  }
-};
-
-const loginAxiosAlumno = async (correo, contraseña) => {
-
-  //LOGIN
-  const response = await axios.put("https://lectoya-back.onrender.com/app/loginAlumnos", {
-    correo: correo,
-    password: contraseña
-  }).then(function (response) {
-    setJwtData(response.data.token)
-    localStorage.setItem('jwtdata', response.data.token);
-    localStorage.setItem('person', "alumno");
-    if (response.data.message === "Datos incorrectos") {
-      alert(response.data.message)
-    }
-  }).catch(function (error) {
-    console.log(error);
-  });
-}
+  const loginAxiosAlumno = async (correo, contraseña) => {
+    //LOGIN
+    const response = await axios
+      .put("https://lectoya-back.onrender.com/app/loginAlumnos", {
+        correo: correo,
+        password: contraseña,
+      })
+      .then(function (response) {
+        setJwtData(response.data.token);
+        localStorage.setItem("jwtdata", response.data.token);
+        localStorage.setItem("person", "alumno");
+        if (response.data.message === "Datos incorrectos") {
+          alert(response.data.message);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
+    if (jwtdata && jwtdata != "1") {
+      setJwtDataLocal(jwtdata);
 
-      if (jwtdata && jwtdata != "1") {
-        setJwtDataLocal(jwtdata)
-        
-        navigate("/home");
-
+      navigate("/home");
     }
   }, [jwtdata]);
 

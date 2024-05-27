@@ -1,7 +1,12 @@
 /* IMPORTS */
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
-
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 
 /* LOGIN Y REGISTRO */
 import { Login } from "./pages/Login";
@@ -12,7 +17,6 @@ import { Views } from "./pages/Views";
 import { Temas } from "./pages/Temas";
 import { ProtectedRoute } from "./pages/ProtectedRouter";
 import { Tema } from "./pages/Tema";
-
 
 /* IMPORTACION DE LAS PAGINAS JUEGOS */
 import { JuegoDelDado } from "./pages/JuegoDelDado";
@@ -43,7 +47,7 @@ function App() {
   const [idCurso, setIdCurso] = useState("");
   const [idJuego, setIdJuego] = useState("");
   const [nombreJuego, setNombreJuego] = useState("");
-  
+
   const ruta = "https://lectoya-back.onrender.com/app";
 
   useEffect(() => {}, [idTema]);
@@ -52,20 +56,23 @@ function App() {
     <main className="flex h-screen w-full">
       <Router>
         <Routes>
-        
           {/* LOGIN */}
+          <Route
+            path="/"
+            element={<Login setJwtDataLocal={setJwtDataLocal} />}
+          />
+
           <Route
             path="/Login"
             element={<Login setJwtDataLocal={setJwtDataLocal} />}
           />
           <Route path="/Registro/:user" element={<Registro ruta={ruta} />} />
           <Route path="/validar/:user" element={<Validar ruta={ruta} />} />
-            
+
           {/* RUTA PROTEGIDA */}
-          <Route element={<ProtectedRoute jwtdatalocal={jwtDataLocal}  />}>
+          <Route element={<ProtectedRoute jwtdatalocal={jwtDataLocal} />}>
             {/* NAVEGACION */}
 
-            
             <Route
               path="/home"
               element={
@@ -162,7 +169,10 @@ function App() {
             />
           </Route>
 
-          <Route path="/*" element={<Login />} />
+          <Route
+            path="/*"
+            element={<Login setJwtDataLocal={setJwtDataLocal} />}
+          />
         </Routes>
       </Router>
     </main>

@@ -8,10 +8,17 @@ import Box from "@mui/material/Box";
 import axios from "axios";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import { useNavigate } from "react-router-dom";
 import axiosBase from "../api/axiosBase";
 
-export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema }) => {
+export const Tema = ({
+  idCurso,
+  idTema,
+  setIdJuego,
+  setNombreJuego,
+  setIdTema,
+}) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -86,12 +93,15 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
   // VER TEMA PETICION
   const verTema = async (idTema) => {
     try {
-      const response = await axios.get(`https://lectoya-back.onrender.com/app/verTema/${idTema}`,{
-        headers: { 
-          Authorization: token,
+      const response = await axios.get(
+        `https://lectoya-back.onrender.com/app/verTema/${idTema}`,
+        {
+          headers: {
+            Authorization: token,
+          },
         }
-      });
-      console.log(response.data)
+      );
+      console.log(response.data);
       setJuegos(response.data.Temas.juegos);
       setDataResponse(response.data);
       setLoading(false);
@@ -192,11 +202,10 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
   useEffect(() => {
     const cursoLSG = localStorage.getItem("idTema");
     const idTemalocal = parseInt(cursoLSG);
-    let tokenjwt = localStorage.getItem("jwtdata")
-    console.log(tokenjwt)
+    let tokenjwt = localStorage.getItem("jwtdata");
+    console.log(tokenjwt);
     verTema(parseInt(cursoLSG));
-
-  }, [idTema, token,axiosBase]);
+  }, [idTema, token, axiosBase]);
 
   const handleRedirectGame = (idJuego, nombreJuego, setIdJuego) => {
     setIdJuego(idJuego);
@@ -374,81 +383,73 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
                         {/* Accedemos a la propiedad nombreJuego del objeto actual */}
                       </div>
                       <div className="w-1/6 h-full flex items-end justify-center px-4">
-                      <>
-                    {person=="Docente"?(
-                      <>
-                      <div className="w-5/5 h-full flex items-center justify-center">
-                          {/* VER NOTAS */}
+                        <>
+                          {person == "Docente" ? (
+                            <>
+                              <div className="w-5/5 h-full flex items-center justify-center space-x-1">
+                                {/* VER NOTAS */}
 
-                          <Button
-                            className="flex h-[53px] bg-lime-500 hover:shadow-lg border-2 border-black hover:shadow-gray-500 border-solid rounded-lg w-[150px] p-1 items-center justify-center"
-                            onClick={() =>
-                              clickViewResponse(item.id, item.nombreJuego)
-                            }
-                          >
-                            <section className="w-4/5 flex justify-center text-lg text-white">
-                              Ver Respuestas
-                            </section>
-                            <section className="flex justify-center items-center">
-                              <ArrowForwardIosOutlinedIcon />
-                            </section>
-                          </Button>
+                                <Button
+                                  onClick={() => {
+                                    handleRedirectGame(
+                                      item.id,
+                                      item.nombreJuego,
+                                      setIdJuego
+                                    );
+                                  }}
+                                  className="h-[50px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold rounded-lg py-2 text-[15px] leading-5 text-center"
+                                >
+                                  Ir al juego
+                                </Button>
 
-                          <Button
-                            onClick={() => {
-                              handleRedirectGame(
-                                item.id,
-                                item.nombreJuego,
-                                setIdJuego
-                              );
-                            }}
-                            className="h-[50px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold rounded-lg py-2 px-4 mr-4"
-                          >
-                            Ir al juego
-                          </Button>
-                        </div>
-                        <div className="w-1/5 h-full flex items-center">
-                          <Button
-                            className="flex bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg px-3 h-[50px] items-center justify-center"
-                            onClick={() => handleOp(item.id)}
-                          >
-                            <section className="text-lg text-white">
-                              <DeleteOutlineOutlinedIcon />
-                            </section>
-                          </Button>
-                        </div>
-                      </>
-                    ): person =="alumno" ? (
-                      <div className="w-5/5 h-full flex items-center justify-center">
-                          <Button
-                            onClick={() => {
-                              handleRedirectGame(
-                                item.id,
-                                item.nombreJuego,
-                                setIdJuego
-                              );
-                            }}
-                            className="h-[50px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold rounded-lg py-2 px-4 mr-4"
-                          >
-                            Ir al juego
-                          </Button>
-                        </div>
-                    ):(
-                      <h2>INICIA SESION CORRECTAMENTE</h2>
-                    )}
-                    </>
-
-
-
-
-
+                                <Button
+                                  className="flex bg-green-900 mr-2 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg px-3 h-[50px] items-center justify-center"
+                                  onClick={() =>
+                                    clickViewResponse(item.id, item.nombreJuego)
+                                  }
+                                >
+                                  <section className="w-4/5 flex justify-center text-lg text-white">
+                                    <RemoveRedEyeOutlinedIcon />
+                                  </section>
+                                </Button>
+                              </div>
+                              <div className="w-1/5 h-full ml-1 flex items-center">
+                                <Button
+                                  className="flex bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg px-3 h-[50px] items-center justify-center"
+                                  onClick={() => handleOp(item.id)}
+                                >
+                                  <section className="text-lg text-white">
+                                    <DeleteOutlineOutlinedIcon />
+                                  </section>
+                                </Button>
+                              </div>
+                            </>
+                          ) : person == "alumno" ? (
+                            <div className="w-5/5 h-full flex items-center justify-center">
+                              <Button
+                                onClick={() => {
+                                  handleRedirectGame(
+                                    item.id,
+                                    item.nombreJuego,
+                                    setIdJuego
+                                  );
+                                }}
+                                className="h-[50px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold rounded-lg py-2 px-4 mr-4"
+                              >
+                                Ir al juego
+                              </Button>
+                            </div>
+                          ) : (
+                            <h2>INICIA SESION CORRECTAMENTE</h2>
+                          )}
+                        </>
                       </div>
                     </div>
                   ))}
                 </div>
                 <div className="w-full h-[100px] rounded overflowx-hidden border-b-2 flex items-center">
-                    <>
-                    {person=="Docente"?(
+                  <>
+                    {person == "Docente" ? (
                       <div className="w-full h-full flex items-center justify-center">
                         <Button
                           onClick={handleOpen}
@@ -457,14 +458,12 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
                           ¿AGREGAR UN JUEGO?
                         </Button>
                       </div>
-                    ): person =="alumno" ? (
+                    ) : person == "alumno" ? (
                       <h1 class="text-center w-full ">Alumno</h1>
-                    ):(
+                    ) : (
                       <h2>INICIA SESION CORRECTAMENTE</h2>
                     )}
-                    </>
-
-
+                  </>
                 </div>
               </Collapse>
             </div>
@@ -570,16 +569,12 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
                 className="w-full h-full flex justify-center items-center "
               >
                 <Box className="w-[600px] h-auto flex flex-col justify-center px-12 bg-white rounded-[15px] p-4 ml-72">
-                  <h1 className="text-2xl text-red-600 font-bold">
-                    NOMBRE DEL JUEGO
-                  </h1>
-                  <h1 className="text-black font-semibold text-xl">
+                  <h1 className="text-5xl text-blue-950 font-bold uppercase ">
                     {nameGame}
                   </h1>
-
                   <>
-                    <h1 className="text-green-600 font-bold">
-                      RESPUETAS ALUMNOS
+                    <h1 className="text-red-800 font-bold text-2xl py-2">
+                      RESPUESTAS ALUMNOS
                     </h1>
                     {loadingM && <div>Cargando...</div>}
                     {!loadingM && (
@@ -587,39 +582,50 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
                         {nameGame == "Cambialo YA" ? (
                           <>
                             {respuesta.map((item) => (
-                              <div key={item.id}>
-                                <br></br>
-
-                                <h2 className="text-blue-600 font-bold">
+                              <>
+                                <h2 className="text-black font-bold">
                                   ENUNCIADO
                                 </h2>
                                 <h2>{enunciado}</h2>
-                                <p className="text-blue-600 font-bold">
-                                  PREGUNTA
-                                </p>
-                                <p>{pregunta}</p>
+                                <div
+                                  className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                  key={item.id}
+                                >
+                                  <h1 className="font-bold uppercase">
+                                    Alumno:
+                                  </h1>
+                                  <h1>
+                                    {item.nombre} {item.apaterno}
+                                  </h1>
 
-                                <h1>
-                                  {item.nombre} {item.apaterno}
-                                </h1>
-                                <h2>{item.respuesta}</h2>
-                              </div>
+                                  <p className="text-black font-bold uppercase">
+                                    PREGUNTA
+                                  </p>
+                                  <p>{pregunta}</p>
+                                  <p className="text-black font-bold uppercase">
+                                    respuesta
+                                  </p>
+                                  <h2>{item.respuesta}</h2>
+                                </div>
+                              </>
                             ))}
                           </>
                         ) : nameGame == "Ruleteando" ? (
                           <>
                             {respuesta.map((item) => (
-                              <div key={item.id}>
-                                <br></br>
+                              <div
+                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                key={item.id}
+                              >
+                                <h1 className="font-bold uppercase">Alumno:</h1>
+
                                 <h1>
                                   {item.nombre} {item.apaterno}
                                 </h1>
 
-                                <p className="text-blue-600 font-bold">
-                                  PREGUNTA
-                                </p>
+                                <p className="text-black font-bold">PREGUNTA</p>
                                 <h1>{item.pregunta}</h1>
-                                <p className="text-blue-600 font-bold">
+                                <p className="text-black font-bold">
                                   RESPUESTA
                                 </p>
                                 <h2>{item.respuesta}</h2>
@@ -628,19 +634,22 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
                           </>
                         ) : nameGame == "Historias interactivas" ? (
                           <>
-                            <h1>{parrafo}</h1>
+                            <h1 className="font-semibold text-2xl">Lectura:</h1>
+                            <h1 className="font-medium">{parrafo}</h1>
                             {respuesta.map((item) => (
-                              <div key={item.id}>
-                                <br></br>
+                              <div
+                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                key={item.id}
+                              >
+                                <h1 className="font-bold uppercase">Alumno:</h1>
+
                                 <h1>
                                   {item.nombre} {item.apaterno}
                                 </h1>
 
-                                <p className="text-blue-600 font-bold">
-                                  PREGUNTA
-                                </p>
+                                <p className="text-black font-bold">PREGUNTA</p>
                                 <h1>{item.pregunta}</h1>
-                                <p className="text-blue-600 font-bold">
+                                <p className="text-black font-bold">
                                   RESPUESTA
                                 </p>
                                 <h2>{item.respuesta}</h2>
@@ -650,17 +659,19 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
                         ) : nameGame == "¿Ahora que haremos?" ? (
                           <>
                             {respuesta.map((item) => (
-                              <div key={item.id}>
-                                <br></br>
+                              <div
+                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                key={item.id}
+                              >
+                                <h1 className="font-bold uppercase">Alumno:</h1>
+
                                 <h1>
                                   {item.nombre} {item.apaterno}
                                 </h1>
 
-                                <p className="text-blue-600 font-bold">
-                                  PREGUNTA
-                                </p>
+                                <p className="text-black font-bold">PREGUNTA</p>
                                 <h1>{item.pregunta}</h1>
-                                <p className="text-blue-600 font-bold">
+                                <p className="text-black font-bold">
                                   RESPUESTA
                                 </p>
                                 <h2>{item.respuesta}</h2>
@@ -670,13 +681,17 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
                         ) : nameGame == "Ordenalo YA" ? (
                           <>
                             {respuesta.map((item) => (
-                              <div key={item.id}>
-                                <br></br>
+                              <div
+                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                key={item.id}
+                              >
+                                <h1 className="font-bold uppercase">Alumno:</h1>
+
                                 <h1>
                                   {item.nombre} {item.apaterno}
                                 </h1>
 
-                                <p className="text-blue-600 font-bold">
+                                <p className="text-black font-bold">
                                   ORDENA ALUMNO
                                 </p>
                                 <h2>orden 1: {item.orden1}</h2>
@@ -690,53 +705,66 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
                         ) : nameGame == "El dado de las preguntas" ? (
                           <>
                             {respuesta.map((item) => (
-                              <div key={item.id}>
-                                <br></br>
+                              <div
+                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                key={item.id}
+                              >
+                                <h1 className="font-bold uppercase">Alumno:</h1>
+
                                 <h1>
                                   {item.nombre} {item.apaterno}
                                 </h1>
 
-                                <p className="text-blue-600 font-bold">
-                                  Pregunta
+                                <p className="text-black font-bold uppercase">
+                                  Pregunta:
                                 </p>
-                                <h2>Pregunta : {item.pregunta}</h2>
-                                <h2>Respuestas : {item.respuesta}</h2>
+                                <h2>{item.pregunta}</h2>
+                                <p className="text-black font-bold uppercase">
+                                  respuesta:
+                                </p>
+                                <h2>{item.respuesta}</h2>
                               </div>
                             ))}
                           </>
                         ) : nameGame == "Dale un significado" ? (
                           <>
-                            <h2>{lecturaR}</h2>
+                            <div className="overflow-hidden shadow-lg h-auto max-h-[130px]">
+                              <h2>{lecturaR}</h2>
+                            </div>
                             {respuesta.map((item) => (
-                              <div key={item.id}>
-                                <br></br>
+                              <div
+                                className="overflow-hidden shadow-lg my-2 bg-slate-100 p-2 rounded-xl"
+                                key={item.id}
+                              >
+                                <h1 className="font-bold uppercase">Alumno:</h1>
+
                                 <h1>
                                   {item.nombre} {item.apaterno}
                                 </h1>
 
-                                <p className="text-blue-600 font-bold">
+                                <p className="text-black font-bold">
                                   Palabra 1
                                 </p>
                                 <h1>{item.palabra1}</h1>
-                                <p className="text-blue-600 font-bold">
+                                <p className="text-black font-bold">
                                   Significado 1
                                 </p>
                                 <h2>{item.significado1}</h2>
 
-                                <p className="text-blue-600 font-bold">
+                                <p className="text-black font-bold">
                                   Palabra 2
                                 </p>
                                 <h1>{item.palabra2}</h1>
-                                <p className="text-blue-600 font-bold">
+                                <p className="text-black font-bold">
                                   Significado 2
                                 </p>
                                 <h2>{item.significado2}</h2>
 
-                                <p className="text-blue-600 font-bold">
+                                <p className="text-black font-bold">
                                   Palabra 3
                                 </p>
                                 <h1>{item.palabra3}</h1>
-                                <p className="text-blue-600 font-bold">
+                                <p className="text-black font-bold">
                                   Significado 3
                                 </p>
                                 <h2>{item.significado3}</h2>
