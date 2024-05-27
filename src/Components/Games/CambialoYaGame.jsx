@@ -3,6 +3,8 @@ import { AiOutlineSend } from "react-icons/ai";
 import { useState,useEffect } from "react";
 import axios from "axios";
 import axiosBase from "../../api/axiosBase";
+import { useNavigate } from "react-router-dom";
+
 export const CambialoYaGame = ({ruta}) => {
   const [respuesta,setRespuesta] = useState("");
   const [loading, setLoading] = useState(true);
@@ -10,8 +12,11 @@ export const CambialoYaGame = ({ruta}) => {
   const [emocion,setEmocion] = useState("")
   const [enunciado,setEnunciado] = useState("")
 
-  /* BUSCAR JUEGO */
-
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1); // Navega a la vista anterior
+  };
+  
   const buscarJuego = async (idjuegolocal) =>{
       
     try{
@@ -43,7 +48,10 @@ export const CambialoYaGame = ({ruta}) => {
                 Authorization : token
             }
         })
-  
+        alert(response.data.message)
+        setTimeout(() => {
+          handleGoBack();
+        }, 1000);
     }catch (error) {
       console.error("Error al obtener los temas:", error);
       setLoading(false); 
@@ -57,7 +65,6 @@ export const CambialoYaGame = ({ruta}) => {
     e.preventDefault();
     let idjuegolocal = localStorage.getItem('idJuego')
     await agregarRespuestaCambialo(respuesta,idjuegolocal)
-    alert('Respuesta enviada')
   }
 
   return (

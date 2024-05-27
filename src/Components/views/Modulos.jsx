@@ -8,7 +8,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import axiosBase from "../../api/axiosBase";
 import { useNavigate } from "react-router";
-
+import { jwtDecode } from "jwt-decode";
 const style = {
   position: "absolute",
   top: "50%",
@@ -22,34 +22,43 @@ const style = {
 };
 
 export const Modulos = ({ setIdTema, setNombreCurso, ruta }) => {
-  const [datacurso, setDatacurso] = useState();
+  const [datacurso, setDatacurso] = useState("");
   const [loading, setLoading] = useState(true); // Estado para controlar el estado de carga
   const [nombreCC, setnombreCC] = useState("");
   const [descripcionCC, setdescripcionCC] = useState("");
   const navigate = useNavigate();
 
   const datos = localStorage.getItem("jwtdata");
-  const token = datos;
+  const token= datos
   const person = localStorage.getItem("person");
 
-  //  OBTENER CURSOS DOCENTES
+  const decoded = jwtDecode(datos);
+  const correoAlumno = decoded.correo
+  const contraseñaAlumno = decoded.password
+
+
   const obtenerCursos = async () => {
     try {
-      const response = await axiosBase.get(`/cursosDocente`);
-      console.log(response.data.cursos[0].cursos);
+      const response = await axios.get(`${ruta}/cursosDocente`, {
+        headers: { 
+          Authorization: token,
+        }
+      });
       setDatacurso(response.data.cursos[0].cursos);
       setLoading(false); // Cambia el estado de carga a falso después de recibir la respuesta
     } catch (error) {
       console.log(error);
       setLoading(false); // Cambia el estado de carga a falso en caso de error
     }
-  };
-
+  }
   // OBTENER CURSOS ALUMNOS
   const obtenerCursosAlumno = async () => {
     try {
-      const response = await axiosBase.get("/cursosAlumno");
-      console.log(response.data.cursos[0].matriculas);
+      const response = await axios.get(`${ruta}/cursosAlumno`, {
+        headers: { 
+          Authorization: token,
+        }
+      });
       setDatacurso(response.data.cursos[0].matriculas);
       setLoading(false); // Cambia el estado de carga a falso después de recibir la respuesta
     } catch (error) {
@@ -64,7 +73,21 @@ export const Modulos = ({ setIdTema, setNombreCurso, ruta }) => {
         nombre: nombreCC,
         descripcion: descripcionCC,
       });
-      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const inscribirAlumno = async (correo, password, token) => {
+    try {
+      const response = await axiosBase.put("/validarLink", {
+        correo : correo, 
+        password : password,
+        token: token
+      });
+
+      alert(response.data.message)
+      obtenerCursosAlumno();
     } catch (error) {
       console.log(error);
     }
@@ -78,23 +101,26 @@ export const Modulos = ({ setIdTema, setNombreCurso, ruta }) => {
     setdescripcionCC(target.value);
   };
 
-  // const handleClickCurso = (IdTema) => {
-
-  //   navigate("/home/Temas/:idTema",{IdTema})
-  // }
-
   useEffect(() => {
+    let token123 = localStorage.getItem("jwtdata");
+
     if (person == "alumno") {
       obtenerCursosAlumno();
-    } else {
+    } else if(person == "Docente" && token123 != "1" && token123 != undefined ){
+      localStorage.setItem('tkvl',"123")
       obtenerCursos();
     }
+    let tkvl = localStorage.getItem("tkvl")
+    let tkMT = localStorage.getItem("tkMT")
+    if(tkvl!=undefined && tkvl=="validar" && person == "alumno"){
+      localStorage.setItem('tkvl',"123")
+      inscribirAlumno(correoAlumno, contraseñaAlumno, tkMT);
+
+    }
+
   }, [datos]);
 
-  useEffect(() => {
-    // Acción que deseas realizar con datacurso
-    //  console.log(datacurso)
-  }, [datacurso]);
+
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -127,7 +153,6 @@ export const Modulos = ({ setIdTema, setNombreCurso, ruta }) => {
           id: idCursoBorar,
         },
       });
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -156,13 +181,13 @@ export const Modulos = ({ setIdTema, setNombreCurso, ruta }) => {
           descripcion: descripcionCC,
         }
       );
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleActualizar = async (e) => {
+    e.preventDefault();
     await actualizarCurso(idCursoBorar, nombreCC, descripcionCC);
     setnombreCC("");
     setdescripcionCC("");
@@ -347,11 +372,10 @@ export const Modulos = ({ setIdTema, setNombreCurso, ruta }) => {
                               className="flex bg-green-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg px-3 h-[50px] items-center justify-center mx-1"
                               onClick={() => handlePe(item.id)}
                             >
-                                                       
                               <section className="text-lg text-white">
                                 <DriveFileRenameOutlineOutlinedIcon />
                               </section>
-                                                     
+                              
                             </Button>
                           </div>
                         </div>

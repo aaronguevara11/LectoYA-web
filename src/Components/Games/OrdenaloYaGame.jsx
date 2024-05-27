@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react"
 import axios from "axios";
 import axiosBase from "../../api/axiosBase";
+import { useNavigate } from "react-router-dom";
 export const OrdenaloYaGame = ({ruta}) => {
     const [loading, setLoading] = useState(true);
 
@@ -8,11 +9,15 @@ export const OrdenaloYaGame = ({ruta}) => {
     const token = localStorage.getItem('jwtdata')
     let idjuegolocal = localStorage.getItem('idJuego')
 
+    const navigate = useNavigate();
+    const handleGoBack = () => {
+      navigate(-1); // Navega a la vista anterior
+    };
+
   const buscarJuego = async (idjuegolocal) =>{
       
     try{
         const response = await axiosBase.get("/juegos/buscarJuego/" + idjuegolocal)
-        console.log(response.data)
    
 
         setSentence([
@@ -178,8 +183,10 @@ export const OrdenaloYaGame = ({ruta}) => {
                 Authorization : token
             }
         })
-        console.log(response.data)
-    }catch (error) {
+        alert(response.data.message)
+        setTimeout(() => {
+          handleGoBack();
+        }, 1000);    }catch (error) {
       console.error("Error al obtener los temas:", error);
       setLoading(false); 
     }

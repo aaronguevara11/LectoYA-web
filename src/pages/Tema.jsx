@@ -17,6 +17,8 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
   const handleClose = () => setOpen(false);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("jwtdata");
+  const person = localStorage.getItem("person");
+
   const [lectura, setLectura] = useState(
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur libero quis voluptatibus sapiente natus itaque nobis. Possimus eaque dolor, iste aut praesentium voluptatem. Doloribus cumque iure fugit culpa reiciendis."
   );
@@ -84,7 +86,11 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
   // VER TEMA PETICION
   const verTema = async (idTema) => {
     try {
-      const response = await axiosBase.get(`/verTema/${idTema}`);
+      const response = await axios.get(`https://lectoya-back.onrender.com/app/verTema/${idTema}`,{
+        headers: { 
+          Authorization: token,
+        }
+      });
       console.log(response.data)
       setJuegos(response.data.Temas.juegos);
       setDataResponse(response.data);
@@ -186,14 +192,11 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
   useEffect(() => {
     const cursoLSG = localStorage.getItem("idTema");
     const idTemalocal = parseInt(cursoLSG);
-
+    let tokenjwt = localStorage.getItem("jwtdata")
+    console.log(tokenjwt)
     verTema(parseInt(cursoLSG));
-    // agregarSignificado("lectura",idTemalocal)
-    // agregarOrdenalo("parrafo1", "parrafo2", "parrafo3", "parrafo4", "parrafo5", idTemalocal )
-    // agregarQueHaremos("pregunta",idTemalocal)
-    //agregarRuleta("pregunta1", "pregunta2", "pregunta3", "pregunta4", "pregunta5", idTemalocal)
-    // agregarTrabajoCambialo("enunciado", "emocion", idTemalocal)
-  }, [idTema, token]);
+
+  }, [idTema, token,axiosBase]);
 
   const handleRedirectGame = (idJuego, nombreJuego, setIdJuego) => {
     setIdJuego(idJuego);
@@ -371,7 +374,10 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
                         {/* Accedemos a la propiedad nombreJuego del objeto actual */}
                       </div>
                       <div className="w-1/6 h-full flex items-end justify-center px-4">
-                        <div className="w-5/5 h-full flex items-center justify-center">
+                      <>
+                    {person=="Docente"?(
+                      <>
+                      <div className="w-5/5 h-full flex items-center justify-center">
                           {/* VER NOTAS */}
 
                           <Button
@@ -411,19 +417,54 @@ export const Tema=  ({ idCurso, idTema, setIdJuego, setNombreJuego, setIdTema })
                             </section>
                           </Button>
                         </div>
+                      </>
+                    ): person =="alumno" ? (
+                      <div className="w-5/5 h-full flex items-center justify-center">
+                          <Button
+                            onClick={() => {
+                              handleRedirectGame(
+                                item.id,
+                                item.nombreJuego,
+                                setIdJuego
+                              );
+                            }}
+                            className="h-[50px] w-full bg-blue-900 hover:bg-blue-950 text-white font-bold rounded-lg py-2 px-4 mr-4"
+                          >
+                            Ir al juego
+                          </Button>
+                        </div>
+                    ):(
+                      <h2>INICIA SESION CORRECTAMENTE</h2>
+                    )}
+                    </>
+
+
+
+
+
                       </div>
                     </div>
                   ))}
                 </div>
                 <div className="w-full h-[100px] rounded overflowx-hidden border-b-2 flex items-center">
-                  <div className="w-full h-full flex items-center justify-center">
-                    <Button
-                      onClick={handleOpen}
-                      className="h-3/5 w-3/5 bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded"
-                    >
-                      ¿AGREGAR UN JUEGO?
-                    </Button>
-                  </div>
+                    <>
+                    {person=="Docente"?(
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Button
+                          onClick={handleOpen}
+                          className="h-3/5 w-3/5 bg-blue-900 hover:bg-blue-950 text-white font-bold py-2 px-4 rounded"
+                        >
+                          ¿AGREGAR UN JUEGO?
+                        </Button>
+                      </div>
+                    ): person =="alumno" ? (
+                      <h1 class="text-center w-full ">Alumno</h1>
+                    ):(
+                      <h2>INICIA SESION CORRECTAMENTE</h2>
+                    )}
+                    </>
+
+
                 </div>
               </Collapse>
             </div>

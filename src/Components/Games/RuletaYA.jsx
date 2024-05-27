@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ruleta from '../img/ruleta.png'
 import arrow from '../img/arrow.png'
+import { useNavigate } from "react-router-dom";
 export const Ruleteando = () => {
     const [rotate,setRotate] = useState(0)
     const [colorlog, setColorlog] = useState("buenasuete")
@@ -9,7 +10,10 @@ export const Ruleteando = () => {
 
     }
 
-
+    const navigate = useNavigate();
+    const handleGoBack = () => {
+      navigate(-1); // Navega a la vista anterior
+    };
     
     const final = () => {
       let color=""

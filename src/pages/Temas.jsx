@@ -12,6 +12,7 @@ import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRen
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import axiosBase from "../api/axiosBase";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 export const Temas= ({ setIdTema, nombreCurso, setIdCurso }) => {
   const token = localStorage.getItem("jwtdata");
@@ -21,6 +22,13 @@ export const Temas= ({ setIdTema, nombreCurso, setIdCurso }) => {
   const [curso, setCurso] = useState("");
   const [idTemaActualizar, setIdTemaActualizar] = useState("");
   const [link, setLink] = useState("");
+  const currentUrl = window.location.href; // Dividir la URL por las barras "/"
+  const urlParts = currentUrl.split("/"); // Obtener el último elemento de la matriz (que sería el número)
+  const lastPart = urlParts[urlParts.length - 1]; // Verificar si el último elemento es un número
+  let idCurso = /^\d+$/.test(lastPart) ? lastPart : null;
+  const person = localStorage.getItem("person");
+
+
 
   useEffect(() => {
     // Almacenar el nombre del curso en localStorage cada vez que cambie
@@ -39,14 +47,15 @@ export const Temas= ({ setIdTema, nombreCurso, setIdCurso }) => {
 
   const [descripcion,setDescripcion] = useState('');
 
-  const currentUrl = window.location.href; // Dividir la URL por las barras "/"
-  const urlParts = currentUrl.split("/"); // Obtener el último elemento de la matriz (que sería el número)
-  const lastPart = urlParts[urlParts.length - 1]; // Verificar si el último elemento es un número
-  let idCurso = /^\d+$/.test(lastPart) ? lastPart : null;
+
 
   const mostrarTemas = async (idCurso) => {
     try {
-      const response = await axiosBase.get(`/mostrarTemas/${idCurso}`);
+      const response = await axios.get(`https://lectoya-back.onrender.com/app/mostrarTemas/${idCurso}`,{
+        headers: { 
+          Authorization: token,
+        }
+      });
       console.log(response.data)
       setTemas(response.data.Tema.temas);
       setAlumnos(response.data.Tema.matriculas);
@@ -58,6 +67,9 @@ export const Temas= ({ setIdTema, nombreCurso, setIdCurso }) => {
   };
 
   useEffect(() => {
+
+    console.log(idCurso)
+
     mostrarTemas(idCurso);
   }, [idCurso, token]); // consultarTemas(idTema)
   const [open, setOpen] = useState(false);
@@ -300,7 +312,9 @@ export const Temas= ({ setIdTema, nombreCurso, setIdCurso }) => {
                     {curso}                   
                   </h1>
                                      
-                  <div className="w-1/5 space-x-2 flex">
+                  <>
+                    {person=="Docente"?(
+                      <div className="w-1/5 space-x-2 flex">
                     <Button
                       className="flex justify-center items-center h-[70px] border-solid bg-blue-950 rounded-xl border-black border-[1px] w-[170px] p-1 text-white "
                       onClick={handleOpen}
@@ -329,8 +343,14 @@ export const Temas= ({ setIdTema, nombreCurso, setIdCurso }) => {
                       </section>
                                          
                     </Button>
-                  </div>
-                                   
+                      </div>
+                                 
+                    ): person =="alumno" ? (
+                      <h1 className="text-center w-full "></h1>
+                    ):(
+                      <h2>INICIA SESION CORRECTAMENTE</h2>
+                    )}
+                    </>  
                 </div>
                                  
                 <div className="w-full flex px-[37px]">
@@ -397,7 +417,13 @@ export const Temas= ({ setIdTema, nombreCurso, setIdCurso }) => {
                                                
                             <div className="flex space-x-2">
                                                                    
-                              <Button
+
+                                 
+                              
+                              <>
+                    {person=="Docente"?(
+                      <>
+                      <Button
                                 className="flex h-[53px] bg-blue-950 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[150px] p-1 items-center justify-center"
                                 onClick={() =>
                                   handleClickCurso(idCurso, item.id)
@@ -413,8 +439,9 @@ export const Temas= ({ setIdTema, nombreCurso, setIdCurso }) => {
                                 </section>
                                                                      
                               </Button>
-                                                                   
-                              <Button
+
+
+                      <Button
                                 className="flex h-[53px] bg-red-900 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[50px] p-1 items-center justify-center"
                                 onClick={() => handleOp(item.id)}
                               >
@@ -434,6 +461,31 @@ export const Temas= ({ setIdTema, nombreCurso, setIdCurso }) => {
                                 </section>
                                                                      
                               </Button>
+                      </>
+                    ): person =="alumno" ? (
+                      <h1 className="text-center w-full ">
+                      <Button
+                                className="flex h-[53px] bg-blue-950 hover:shadow-lg hover:shadow-gray-500 border-solid rounded-lg w-[full] px-5 gap-4 p-1 items-center justify-center"
+                                onClick={() =>
+                                  handleClickCurso(idCurso, item.id)
+                                }
+                              >
+                                                                         
+                                <section className="w-3/5 flex justify-center text-lg text-white px-2">
+                                  Entrar
+                                </section>
+                                                                         
+                                <section className="flex justify-center items-center">
+                                  <ArrowForwardIosOutlinedIcon />
+                                </section>
+                                                                     
+                              </Button>
+                      </h1>
+                    ):(
+                      <h2>INICIA SESION CORRECTAMENTE</h2>
+                    )}
+                    </>                                  
+
                                                                  
                             </div>
                                                            

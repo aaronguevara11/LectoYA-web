@@ -1,6 +1,5 @@
 import { List, ListItem, Button } from "@material-tailwind/react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
@@ -8,15 +7,19 @@ import "./css/sidebar.css";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import MarkEmailUnreadOutlinedIcon from "@mui/icons-material/MarkEmailUnreadOutlined";
+import { useNavigate } from "react-router-dom";
 
 export const SideBar = ({ token }) => {
-  const navigate = useNavigate();
   const closeSession = () => {
     localStorage.removeItem("jwtdata");
     window.location.href = "/Login";
   };
   const decoded = jwtDecode(token);
 
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1); // Navega a la vista anterior
+  };
   return (
     <section className="w-full h-screen bg-[#2c2c2c] m-0">
       <div className="flex justify-center h-[25%] w-full" id="hdsb"></div>
@@ -51,7 +54,13 @@ export const SideBar = ({ token }) => {
         </List>
       </div>
 
-      <div className="btn h-[20%] flex justify-center items-end relative bottom-0">
+      <div className="btn h-[20%] flex flex-col gap-6 justify-center items-center relative bottom-0">
+      <button 
+      className=" hover:bg-[#676767] text-white font-semibold w-4/5 h-14 border-[1px] rounded-xl shadow mb-5 border-white"
+      variant="outlined"
+      onClick={handleGoBack}>
+      Regresar
+    </button>
         <Button
           className=" hover:bg-[#676767] text-white font-semibold w-4/5 h-14 border-[1] rounded-xl shadow mb-5"
           variant="outlined"

@@ -3,7 +3,7 @@ import { AiOutlineSend } from "react-icons/ai";
 import { useState,useEffect } from "react";
 import axios from "axios";
 import axiosBase from "../../api/axiosBase";
-
+import { useNavigate } from "react-router-dom";
 export const Queharemos = ({ruta}) => {
 
   const [infojuego, setInfoJuego] = useState('');
@@ -14,6 +14,10 @@ export const Queharemos = ({ruta}) => {
   const token = localStorage.getItem('jwtdata');
   const [respuesta,setRespuesta] = useState("");
 
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1); // Navega a la vista anterior
+  };
 
   const buscarJuego = async (idLocalJuego) =>{
         
@@ -53,8 +57,11 @@ const agregarRespuestaQueHaremos = async (pregunta, respuesta, id) => {
               Authorization : token
           }
       })
-      console.log(response.data)
-  }catch (error) {
+        alert(response.data.message)
+        setTimeout(() => {
+          handleGoBack();
+        }, 1000);
+      }catch (error) {
     console.error("Error al obtener los temas:", error);
     setLoading(false); 
   }

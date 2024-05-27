@@ -4,7 +4,7 @@ import axios from 'axios';
 import "../css/roulette.css"
 import { AiOutlineSend } from "react-icons/ai";
 import axiosBase from '../../api/axiosBase';
-
+import { useNavigate } from "react-router-dom";
 export const RuletaRusaYa = ({ruta}) => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(1);
@@ -20,7 +20,10 @@ export const RuletaRusaYa = ({ruta}) => {
   const [infojuego, setInfoJuego] = useState('');
   let idjuegolocal = localStorage.getItem('idJuego')
 
-
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1); // Navega a la vista anterior
+  };
 
   const buscarJuego = async (idjuegolocal) =>{
       
@@ -95,8 +98,10 @@ export const RuletaRusaYa = ({ruta}) => {
                 Authorization : token
             }
         })
-        console.log(response.data)
-    }catch (error) {
+        alert(response.data.message)
+        setTimeout(() => {
+          handleGoBack();
+        }, 1000);    }catch (error) {
       console.error("Error al obtener los temas:", error);
       setLoading(false); 
     }
@@ -115,7 +120,6 @@ export const RuletaRusaYa = ({ruta}) => {
     e.preventDefault();
     
     await respuestaRuleta(question,respuesta,idjuegolocal)
-    alert('Se envio la respuesta')
   }
   
   

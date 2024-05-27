@@ -3,7 +3,7 @@ import { HdSignificado } from "../Headers/HdSignificado";
 import { AiOutlineSend } from "react-icons/ai";
 import axios from "axios";
 import axiosBase from "../../api/axiosBase";
-
+import { useNavigate } from "react-router-dom";
 
 export const Significado = ({ruta}) => {
 
@@ -17,6 +17,13 @@ export const Significado = ({ruta}) => {
   const [significado2, setSignificado2] = useState('')
   const [significado3, setSignificado3] = useState('')
   let idjuegolocal = localStorage.getItem('idJuego')
+
+
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1); // Navega a la vista anterior
+  };
+
 
   const buscarJuego = async (idjuegolocal) =>{
     try{
@@ -54,8 +61,11 @@ export const Significado = ({ruta}) => {
                 Authorization : token
             }
         })
-        console.log(response.data)
-    }catch (error) {
+        alert(response.data.message)
+        setTimeout(() => {
+          handleGoBack();
+        }, 1000);
+       }catch (error) {
       console.error("Error al obtener los temas:", error);
       setLoading(false); 
     }

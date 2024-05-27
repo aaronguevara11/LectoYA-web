@@ -4,39 +4,52 @@ import { useNavigate } from "react-router";
 export const Validar = () => {
 
 
-    const [loading, setLoading] = useState(true); // Estado para controlar el estado de carga
-
     const navigate = useNavigate();
-  
+    const [loading, setLoading] = useState(true);  
     const datos = localStorage.getItem("jwtdata");
     const person = localStorage.getItem("person");
-  
+    const [datacurso,setDataCurso] = useState('');
+    let [cursoToken,setCursoToken] = useState('');
+
+    const getaway = () => {
+    
+      let partesRuta = location.pathname.split('/');
+
+      let tokenvalidar = partesRuta[partesRuta.length - 2]; 
+
+        if(tokenvalidar =="validar"){
+          localStorage.setItem('tkvl', tokenvalidar)
+        const tokenFromPath = partesRuta[partesRuta.length - 1]; 
+        localStorage.setItem('tkMT', tokenFromPath)
+        }else{
+          localStorage.setItem('tkvl', "invalid")
+        }
+      
+  };
 
 
-
-  
     useEffect(() => {
+      getaway();
       if (person == "alumno") {
-
+        navigate("/home")
     } else {
-        navigate("/home");  
+      navigate("/login")
+        // navigate("/Login");  
       }
+
+
     }, []);
-  
-    useEffect(() => {
-      // Acción que deseas realizar con datacurso
-      //  console.log(datacurso)
-    }, [datacurso]);
+
+
 
 
 
 
   return (
-    <section className="w-full h-4/5 justify-center">
-    <HdModulos />
+    <section className="w-full h-full justify-center">
 
     <div className="w-full flex justify-center">
-      <div className=" w-[95%] h-50 grid justify-center grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
+      <div className=" w-[95%] h-full grid justify-center grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
         {/* Muestra el mensaje de carga mientras esperas la respuesta */}
         {loading && <div>Cargando...</div>}
         {/* Muestra los datos después de recibir la respuesta */}
@@ -45,12 +58,11 @@ export const Validar = () => {
             {/* ALUMNO DISEÑO */}
             {person == "alumno" ? (
                 <>
-                    <h1>alumno</h1>
+                    <h1>REDIRIGIENDO</h1>
                 </>
             ) : person == "Docente" ? (
               <>
-                {navigate("/home")}
-                <div><h1>HOLA</h1></div>
+                <h1>REDIRIGIENDO</h1>
               </>
             ) : (
               <div className="flex justify-center items-center">

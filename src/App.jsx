@@ -32,6 +32,7 @@ import { FormOrdenalo } from "./Components/Forms/FormOrdenalo";
 import { FormSignificado } from "./Components/Forms/FormSignificado";
 import { FormCambialo } from "./Components/Forms/FormCambialo";
 import { Validar } from "./pages/Validar";
+import axiosBase from "./api/axiosBase";
 function App() {
   const [jwtDataLocal, setJwtDataLocal] = useState(
     localStorage.getItem("jwtdata")
@@ -42,7 +43,8 @@ function App() {
   const [idCurso, setIdCurso] = useState("");
   const [idJuego, setIdJuego] = useState("");
   const [nombreJuego, setNombreJuego] = useState("");
-  const ruta = "http://localhost:3000/app";
+  
+  const ruta = "https://lectoya-back.onrender.com/app";
 
   useEffect(() => {}, [idTema]);
 
@@ -50,24 +52,19 @@ function App() {
     <main className="flex h-screen w-full">
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/Login" />} />
+        
           {/* LOGIN */}
           <Route
             path="/Login"
             element={<Login setJwtDataLocal={setJwtDataLocal} />}
           />
           <Route path="/Registro/:user" element={<Registro ruta={ruta} />} />
-
+          <Route path="/validar/:user" element={<Validar ruta={ruta} />} />
+            
           {/* RUTA PROTEGIDA */}
           <Route element={<ProtectedRoute jwtdatalocal={jwtDataLocal}  />}>
             {/* NAVEGACION */}
-            <Route
-              path="/validar/:token"
-              element={
-                <Validar
-                />
-              }
-            />
+
             
             <Route
               path="/home"

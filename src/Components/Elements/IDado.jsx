@@ -9,6 +9,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { AiOutlineSend } from "react-icons/ai";
 import axiosBase from "../../api/axiosBase";
+import { useNavigate } from "react-router-dom";
+
 export const IDado = ({ ruta }) => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("jwtdata");
@@ -17,6 +19,11 @@ export const IDado = ({ ruta }) => {
   const [preguntaResponder, setPreguntaReponder] = useState("");
   const [respuesta, setRespuesta] = useState("");
   const [eventoOcurrido, setEventoOcurrido] = useState(false);
+
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1); // Navega a la vista anterior
+  };
 
   const buscarJuego = async (idjuegolocal) => {
     try {
@@ -84,7 +91,10 @@ export const IDado = ({ ruta }) => {
         respuesta: respuesta,
         id: id, // tabla juegos
       });
-      console.log(response.data);
+        alert(response.data.message)
+        setTimeout(() => {
+          handleGoBack();
+        }, 1000);
     } catch (error) {
       console.error("Error al obtener los temas:", error);
       setLoading(false);
