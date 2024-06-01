@@ -57,7 +57,10 @@ function App() {
       <Router>
         <Routes>
           {/* LOGIN */}
-          <Route path="/" element={<Login setJwtDataLocal={setJwtDataLocal} />} />
+          <Route
+            path="/"
+            element={<Login setJwtDataLocal={setJwtDataLocal} />}
+          />
 
           <Route
             path="/Login"
@@ -166,7 +169,10 @@ function App() {
             />
           </Route>
 
-          <Route path="/*" element={<Login setJwtDataLocal={setJwtDataLocal} />} />
+          <Route
+            path="/*"
+            element={<Login setJwtDataLocal={setJwtDataLocal} />}
+          />
         </Routes>
       </Router>
     </main>
